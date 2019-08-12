@@ -1,0 +1,10 @@
+.element {
+    text-align: center;
+    border: 1px solid gainsboro;
+    background-color: #fcfcfc;
+}
+
+.title {
+    padding-top: 20px;
+    text-align: center;
+}

@@ -1,0 +1,15 @@
+<div class="bg">
+  <div class="container pt-4">
+    <div class="jumbotron pb-5 pt-5">
+      <h1 class="display-4">Involvement at Illinois</h1>
+      <p class="lead">
+        Brothers of Rho are involved with over 50 different organizations on campus.
+      </p>
+      <ul class="list-group list-group-flush" *ngFor="let org of organizations">
+        <li class="list-group-item">
+          {{org}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

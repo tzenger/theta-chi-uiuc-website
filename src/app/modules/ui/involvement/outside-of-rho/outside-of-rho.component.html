@@ -1,0 +1,52 @@
+<div class="bg">
+  <div class="container pt-4">
+    <div class="jumbotron pb-5 pt-5">
+      <h1 class="display-4">Outside of Rho</h1>
+      <hr class="my-4">
+      <div>
+        <p class="text">
+          At Theta Chi, we take academics very seriously as our motto is “Alma Mater First”. We host weekly study
+          sessions all
+          across campus that serve as a quiet place for Brothers to study. We rent rooms out in the Illini Union,
+          Armory, and
+          Ikenberry Commons on a weekly basis. In addition, our work as students has resulted in brothers and alumni
+          within the
+          last 5 years interning, co-oping, and working for 12 Fortune 500 Companies, many well-acclaimed tech
+          companies and
+          firms, and various start-ups.
+        </p>
+        <p>
+          - Paul Jeon (Scholarship Chair) | <a href="mailto: mingwan2@illinois.edu">mingwan2@illinois.edu</a>
+        </p>
+
+        <!-- <div>
+          <p>Brothers: 82</p>
+          <p>Illinois Male GPA: 3.10</p>
+          <p>Theta Chi GPA: 3.10</p>
+          <p>IFC GPA: 3.11</p>
+          <p>Service Hours: 440+</p>
+        </div> -->
+
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="1500">
+        <div class="carousel-inner rounded" role="listbox">
+          <div *ngFor="let image of images; let i = index" class="carousel-item" [class.active]="i == 0">
+            <img class="d-block m-auto" src="{{assetLocation}}/{{image}}" alt="Event Image {{i}}">
+          </div>
+        </div>
+
+        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

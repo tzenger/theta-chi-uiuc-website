@@ -1,0 +1,37 @@
+<div class="bg">
+  <div class="container pt-4">
+    <div class="jumbotron pb-5 pt-5">
+      <h1 class="display-4">Philanthropy</h1>
+      <hr class="my-4">
+      <p>
+        At Theta Chi, our motto is to always lend a helping hand. Philanthropy is a big part of who we are and we take
+        pride
+        in this aspect of our Fraternity! Not only do we help out various organizations in the community, but we help
+        other
+        Greek organizations across campus by registering teams for their philanthropy events as well.
+      </p>
+      <p>
+        - Michael Tzeng (Philanthropy Chair) | <a href="mailto: mhtzeng2@illinois.edu">mhtzeng2@illinois.edu</a>
+      </p>
+
+      <div>
+        <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
+          <div class="carousel-inner rounded" role="listbox">
+            <div *ngFor="let image of images; let i = index" class="carousel-item" [class.active]="i == 0">
+              <img src="{{assetLocation}}/{{image}}" alt="Event Image {{i}}">
+            </div>
+          </div>
+
+          <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

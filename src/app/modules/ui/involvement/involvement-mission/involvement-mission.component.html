@@ -1,0 +1,32 @@
+<div class="bg">
+  <div class="container pt-4">
+    <div class="jumbotron pb-5 pt-5">
+      <h1 class="display-4">Rho Gets Involved</h1>
+      <hr class="my-4">
+      <p>
+        The resolute men of Theta Chi strive to immerse themselves within the Greek, campus, and international
+        communities by providing An Assisting Hand and following the ideals of Truth, Temperance, and Tolerance
+      </p>
+
+      <div>
+        <div id="carousel" class="carousel slide mx-auto" data-ride="carousel">
+          <div class="carousel-inner rounded" role="listbox">
+            <div *ngFor="let image of images; let i = index" class="carousel-item" [class.active]="i == 0">
+              <img src="{{assetLocation}}/{{image}}" alt="Event Image {{i}}">
+            </div>
+          </div>
+
+          <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

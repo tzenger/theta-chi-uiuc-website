@@ -1,0 +1,45 @@
+.bg {
+    background-image: url("../../assets/house.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+}
+
+.head {
+    height: 45%;
+    font-size: 400%;
+    font-weight: bold;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.foot {
+    height: 55%;
+    padding-bottom: 5%;
+}
+
+.btn {
+    font-size: 150%;
+    width: 95%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(204, 32, 46, 0.9);
+    color: white;
+}
+
+.btn:hover {
+    background-color: rgb(221, 221, 221);
+    color: rgba(204, 32, 46, 1);
+}
+
+.jumbotron {
+    background-color: white;
+}
+
+.container {
+    text-align: center;
+    color: black;
+}

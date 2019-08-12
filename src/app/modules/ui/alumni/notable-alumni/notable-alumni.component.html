@@ -1,0 +1,8 @@
+<div class="jumbotron">
+  <h1 class="display-4">Notable Alumni</h1>
+  <hr class="my-4">
+  <div *ngFor="let alum of alumni">
+    <h4>{{alum.name}}</h4>
+    <p>{{alum.year}} | {{alum.notability}}</p>
+  </div>
+</div>

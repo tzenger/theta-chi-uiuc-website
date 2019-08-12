@@ -1,0 +1,50 @@
+.navbar {
+  background-color: rgb(20, 20, 20);
+
+  .navbar-brand {
+    font-family: "Merriweather", serif;
+    padding: 0;
+
+    span {
+      padding-left: 10px;
+    }
+  }
+
+  .nav-item {
+    font-family: "Karla", sans-serif;
+    border-bottom: 2px solid rgb(20, 20, 20);
+
+    a {
+      // padding: 2px 0;
+      padding-bottom: 2px;
+      padding-top: 2px;
+      color: rgba(255, 255, 255, 0.61);
+    }
+
+    a:hover {
+      color: white;
+    }
+
+    .dropdown-item {
+      color: black;
+    }
+
+    .dropdown-item:hover {
+      color: black;
+    }
+  }
+
+  .link-active {
+    border-bottom: 2px solid #cc202e;
+
+    a {
+      color: white;
+    }
+  }
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+}

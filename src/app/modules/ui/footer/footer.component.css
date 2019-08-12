@@ -1,0 +1,13 @@
+.footer {
+    background-color: whitesmoke;
+    color: darkslategray;
+    text-align: center;
+}
+
+.footer a {
+    color: darkslategray;
+}
+
+.contact-info {
+    width: 500px;
+}
