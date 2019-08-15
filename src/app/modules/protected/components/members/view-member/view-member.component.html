@@ -1,0 +1,78 @@
+<div *ngIf="member" class="card m-2">
+
+  <a class="card-header" data-toggle="collapse" href="#collapseData_{{member.id}}" role="button"
+    attr.aria-expanded="false" attr.aria-controls="collapseData_{{member.id}}">
+
+    <div class="row">
+      <div class="col">
+        {{member.position}}
+      </div>
+      <div class="col">
+        {{member.firstName}}
+      </div>
+      <div class="col">
+        {{member.lastName}}
+      </div>
+    </div>
+  </a>
+
+  <div class="collapse" id="collapseData_{{member.id}}">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{member.birthday.toDate().toLocaleDateString()}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a href="mailto: {{member.email}}">{{member.email}}</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.phone}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.city}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.state}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.major}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.minor}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.gradYear}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.pledgeClass}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.netId}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{member.uid}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './modules/auth/auth.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import * as firebaseConfig from '../assets/config/local.json';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import * as firebaseConfig from '../assets/config/local.json';
     ParentsComponent,
     JoinComponent,
     InvolvementComponent,
-    NewsComponent
+    NewsComponent,
   ],
   imports: [
     AuthModule,
@@ -44,7 +43,7 @@ import * as firebaseConfig from '../assets/config/local.json';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(),
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
@@ -52,4 +51,5 @@ import * as firebaseConfig from '../assets/config/local.json';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

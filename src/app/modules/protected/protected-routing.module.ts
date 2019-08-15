@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountComponent } from './account/account.component';
-import { AnnouncementsComponent } from './announcements/announcements.component';
-import { AttendanceComponent } from './attendance/attendance.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { MessagesComponent } from './messages/messages.component';
-import { OrdersComponent } from './orders/orders.component';
-import { PollsComponent } from './polls/polls.component';
-import { SettingsComponent } from './settings/settings.component';
+import { AccountComponent } from './components/account/account.component';
+import { AnnouncementsComponent } from './components/announcements/announcements.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { PollsComponent } from './components/polls/polls.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { MembersComponent } from './components/members/members.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'polls', component: PollsComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'members', component: MembersComponent },
 ];
 
 @NgModule({

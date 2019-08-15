@@ -22,7 +22,6 @@ const routes: Routes = [
   { path: 'join', component: JoinComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  // { path: 'ui', loadChildren: () => import('./modules/ui/ui.module').then(mod => mod.UiModule) },
   { path: 'p', loadChildren: () => import('./modules/protected/protected.module').then(mod => mod.ProtectedModule), canActivate: [AuthGuard] }
 ];
 
