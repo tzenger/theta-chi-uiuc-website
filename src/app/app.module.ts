@@ -21,6 +21,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { BaseModule } from './modules/base/base.module';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { BaseModule } from './modules/base/base.module';
     JoinComponent,
     InvolvementComponent,
     NewsComponent,
+    HomepageComponent
   ],
   imports: [
     BaseModule,
@@ -45,7 +47,7 @@ import { BaseModule } from './modules/base/base.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(),
+    AngularFireModule,
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
