@@ -1,9 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UiRoutingModule } from './ui-routing.module';
-import { LayoutComponent } from './layout/layout.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { RecruitmentComponent } from './recruitment/recruitment.component';
 import { InvolvementComponent } from './involvement/involvement.component';
@@ -27,45 +23,35 @@ import { InvolvementMissionComponent } from './involvement/involvement-mission/i
 import { AlumniEventsComponent } from './alumni/alumni-events/alumni-events.component';
 import { PledgeClassesComponent } from './about/pledge-classes/pledge-classes.component';
 import { MembersComponent } from './about/members/members.component';
-import { AboutComponent } from './about/about.component';
 
+export const BaseRoutes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
 
-@NgModule({
-  declarations: [
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    RecruitmentComponent,
-    InvolvementComponent,
-    AlumniComponent,
-    ParentsComponent,
-    ContactsComponent,
-    RhoChapterHistoryComponent,
-    NationalHistoryComponent,
-    OutsideOfRhoComponent,
-    CampusComponent,
-    SocialComponent,
-    GiThetaChiComponent,
-    PhilanthropyComponent,
-    ServiceComponent,
-    NationalRelationsComponent,
-    NotableAlumniComponent,
-    FaqComponent,
-    OmegafiComponent,
-    HelpfulLinksComponent,
-    InvolvementMissionComponent,
-    AlumniEventsComponent,
-    PledgeClassesComponent,
-    AboutComponent,
-    MembersComponent
-  ],
-  imports: [
-    CommonModule,
-    UiRoutingModule
-  ],
-  exports: [
-    LayoutComponent
-  ]
-})
-export class UiModule { }
+  { path: 'about', component: AboutComponent },
+  { path: 'about/rho-chapter-history', component: RhoChapterHistoryComponent },
+  { path: 'about/national-history', component: NationalHistoryComponent },
+  { path: 'about/members', component: MembersComponent },
+  { path: 'about/pledge-classes', component: PledgeClassesComponent },
+
+  { path: 'rush', component: RecruitmentComponent },
+
+  { path: 'involvement/mission', component: InvolvementMissionComponent },
+  { path: 'involvement/outside-of-rho', component: OutsideOfRhoComponent },
+  { path: 'involvement/campus', component: CampusComponent },
+  { path: 'involvement/social', component: SocialComponent },
+  { path: 'involvement/gi-theta-chi', component: GiThetaChiComponent },
+  { path: 'involvement/philanthropy', component: PhilanthropyComponent },
+  { path: 'involvement/service', component: ServiceComponent },
+  { path: 'involvement/national-relations', component: NationalRelationsComponent },
+
+  { path: 'alumni/events', component: AlumniEventsComponent },
+  { path: 'alumni/notable-alumni', component: NotableAlumniComponent },
+
+  { path: 'parents', component: ParentsComponent },
+  { path: 'parents/faq', component: FaqComponent },
+  { path: 'parents/omegafi', component: OmegafiComponent },
+  { path: 'parents/helpful-links', component: HelpfulLinksComponent },
+
+  { path: 'contacts', component: ContactsComponent },
+]

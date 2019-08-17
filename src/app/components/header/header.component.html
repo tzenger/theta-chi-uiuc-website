@@ -14,28 +14,59 @@
       <li class="nav-item" routerLinkActive="link-active">
         <a class="nav-link" routerLink="home">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" routerLinkActive="link-active">
-        <a class="nav-link" routerLink="about">About</a>
+      <li class="nav-item dropdown" routerLinkActive="link-active">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          About
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/about">Letter From President</a>
+          <a class="dropdown-item" routerLink="/about/rho-chapter-history">Rho History</a>
+          <a class="dropdown-item" routerLink="/about/national-history">National History</a>
+          <a class="dropdown-item" routerLink="/about/members">Active Members</a>
+          <a class="dropdown-item" routerLink="/about/pledge-classes">Pledge Classes</a>
+        </div>
       </li>
-      <!-- <li class="nav-item dropdown" routerLinkActive="link-active">
+      <li class="nav-item dropdown" routerLinkActive="link-active">
         <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Involvement
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLink="involvement">Involvement</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" routerLink="/involvement/mission">Mission</a>
+          <a class="dropdown-item" routerLink="/involvement/outside-of-rho">Outside of Rho</a>
+          <a class="dropdown-item" routerLink="/involvement/campus">Campus</a>
+          <a class="dropdown-item" routerLink="/involvement/social">Social</a>
+          <a class="dropdown-item" routerLink="/involvement/gi-theta-chi">G.I. Theta Chi</a>
+          <a class="dropdown-item" routerLink="/involvement/philanthropy">Philanthropy</a>
+          <a class="dropdown-item" routerLink="/involvement/service">Service</a>
+          <a class="dropdown-item" routerLink="/involvement/national-relations">National Relations</a>
         </div>
-      </li> -->
-      <li class="nav-item" routerLinkActive="link-active">
-        <a class="nav-link" routerLink="parents">Parents</a>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive="link-active">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Parents
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/parents">Information</a>
+          <a class="dropdown-item" routerLink="/parents/faq">FAQ</a>
+          <a class="dropdown-item" routerLink="/parents/omegafi">How to Pay</a>
+          <a class="dropdown-item" routerLink="/parents/helpful-links">Helpful Links</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive="link-active">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Alumni
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/alumni/events">Events</a>
+          <a class="dropdown-item" routerLink="/alumni/notable-alumni">Notable Alumni</a>
+        </div>
       </li>
       <li class="nav-item" routerLinkActive="link-active">
-        <a class="nav-link" routerLink="alumni">Alumni</a>
-      </li>
-      <li class="nav-item" routerLinkActive="link-active">
-        <a class="nav-link" routerLink="join">Join Us!</a>
+        <a class="nav-link" routerLink="rush">Rush Us!</a>
       </li>
     </ul>
 

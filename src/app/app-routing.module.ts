@@ -10,18 +10,21 @@ import { JoinComponent } from './components/join/join.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { BaseRoutes } from './modules/base/base.routes';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'news', component: NewsComponent },
-  { path: 'involvement', component: InvolvementComponent },
-  { path: 'parents', component: ParentsComponent },
-  { path: 'alumni', component: AlumniComponent },
-  { path: 'join', component: JoinComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', children: BaseRoutes },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: 'home', component: HomeComponent },
+  // { path: 'about', component: AboutComponent },
+  // { path: 'news', component: NewsComponent },
+  // { path: 'involvement', component: InvolvementComponent },
+  // { path: 'parents', component: ParentsComponent },
+  // { path: 'alumni', component: AlumniComponent },
+  // { path: 'join', component: JoinComponent },
+  // { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+
   { path: 'p', loadChildren: () => import('./modules/protected/protected.module').then(mod => mod.ProtectedModule), canActivate: [AuthGuard] }
 ];
 

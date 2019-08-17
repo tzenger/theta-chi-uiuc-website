@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './modules/auth/auth.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { BaseModule } from './modules/base/base.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     NewsComponent,
   ],
   imports: [
+    BaseModule,
     AuthModule,
     ReactiveFormsModule,
     SharedModule,
