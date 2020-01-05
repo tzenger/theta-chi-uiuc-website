@@ -1,16 +1,20 @@
-<div class="container-fluid bg-white">
-  <div class="row">
+<div class="container">
+  <div class="members-filters">
 
-    <div class="col">
-        <app-add-member></app-add-member>
-    </div>
-    <div class="col-5">
+  </div>
+  <!-- <h3>Upload file of new members</h3>
+  <div class="members-file-upload">
+    <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+  </div>
+  <hr> -->
 
-      <div class="" style="overflow-y: scroll; height: 90vh">
-        <div *ngIf="members">
-          <app-view-member *ngFor="let member of members" [member]="member"></app-view-member>
-        </div>
-      </div>
+  <div>
+    <h2>{{members.length}} members</h2>
+  </div>
+  <hr>
+  <div class="members" *ngIf="members">
+    <div class="member" *ngFor="let member of members">
+      <app-view-member [member]="member"></app-view-member>
     </div>
   </div>
 </div>

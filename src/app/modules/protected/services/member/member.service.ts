@@ -15,7 +15,9 @@ export class MemberService {
     const id = this.afs.createId();
     const memberRef: AngularFirestoreDocument<any> = this.afs.doc(`members/${id}`);
     member.id = id;
-    return memberRef.set(member, { merge: false });
+
+    const obj = Object.assign({}, member);
+    return memberRef.set(obj, { merge: false });
   }
 
   public remove(id: string) {

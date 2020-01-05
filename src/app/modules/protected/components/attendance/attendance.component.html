@@ -1,1 +1,19 @@
-<p>attendance works!</p>
+<div class="container mt-3">
+  <form>
+    <div class="form-group">
+      <select class="form-control" id="event">
+        <option value="" selected disabled>Select Event</option>
+        <option *ngFor="let e of events">{{e.title}}</option>
+      </select>
+    </div>
+  </form>
+  <hr>
+  <div>
+    <div *ngFor="let ma of members" class="my-2">
+      <button class="custom-btn rounded w-100 py-2" [ngClass]="{'green-bg-active': ma.attended}"
+        (click)="toggleAttendance(ma)">
+        {{ma.member.preferredName}} {{ma.member.lastName}}
+      </button>
+    </div>
+  </div>
+</div>

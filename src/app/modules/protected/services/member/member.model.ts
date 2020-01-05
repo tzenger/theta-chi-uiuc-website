@@ -1,18 +1,43 @@
 export class Member {
   id?: string;
-  uid?: number;
-  netId?: string;
+
+  // Personal Information
   firstName: string;
   lastName: string;
   preferredName?: string;
-  position: string;
-  birthday: firebase.firestore.Timestamp;
-  gradYear: number;
-  pledgeClass: string;
-  phone: number;
-  email: string;
-  city?: string;
-  state?: string;
+  middleName?: string;
+  phone?: number;
+  email?: string;
+  birthday?: string;
+  hometown?: string;
+
+  // Chapter Information
+  chapterStatus?: string;
+  chapterPosition?: string;
+  pledgeTerm?: string;
+  pledgeClass?: string;
+  initiationDate?: string;
+
+  // School Information
+  uin?: number;
+  netId?: string;
+  schoolEmail?: string;
+  college?: string;
   major?: string;
-  minor?: string;
+  classStanding?: string;
+  gpa?: number;
+  class?: string;
+  schoolStartTerm?: string;
+  schoolEndTerm?: string;
+
+  // Emergency Contact Information
+  ecTitle?: string;
+  ecFirstName?: string;
+  ecLastName?: string;
+  ecRelation?: string;
+  ecPhone?: number;
+  ecEmail?: string;
+  ecNotes?: string;
+
+  notes?: string;
 }

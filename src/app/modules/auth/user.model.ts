@@ -1,15 +1,8 @@
-export interface Role {
-  title: string;
-}
+import { DocumentReference } from '@angular/fire/firestore';
 
 export interface User {
   id: string;
-  uid: number;
-  netId: string;
   email: string;
-  role: Role;
-  firstName: string;
-  lastName: string;
-  preferredName: string;
-  age: number;
+  roleRef: DocumentReference;
+  memberRef: DocumentReference;
 }

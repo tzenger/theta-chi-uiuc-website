@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Event } from '../../services/event/event.model';
+import { EventService } from '../../services/event/event.service';
 
 @Component({
   selector: 'app-calendar',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  events: Event[];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private eventService: EventService
+  ) {
   }
 
+  ngOnInit() {
+    this.events = this.eventService.getEvents();
+  }
 }

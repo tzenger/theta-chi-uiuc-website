@@ -1,77 +1,422 @@
 <div *ngIf="member" class="card m-2">
 
-  <a class="card-header" data-toggle="collapse" href="#collapseData_{{member.id}}" role="button"
+  <a class="card-header p-0" data-toggle="collapse" href="#collapseData_{{member.id}}" role="button"
     attr.aria-expanded="false" attr.aria-controls="collapseData_{{member.id}}">
 
-    <div class="row">
-      <div class="col">
-        {{member.position}}
+    <div class="ch-grid">
+      <div class="ch-avatar">
+        <img src="assets/protected/no_avatar.png" alt="Blank avatar image">
+        <!-- <img src="assets/protected/glow_hat_64_64.jpg" alt="Blank avatar image"> -->
       </div>
-      <div class="col">
-        {{member.firstName}}
+      <div class="ch-details">
+        <h5 class="card-title">{{member.preferredName}} {{member.lastName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{member.pledgeTerm}} - {{member.pledgeClass}}</h6>
+        <h6 class="card-subtitle mb-0 text-muted">{{member.chapterPosition ? member.chapterPosition : member.chapterStatus}}</h6>
       </div>
-      <div class="col">
-        {{member.lastName}}
+      <div class="ch-edit-btn" (click)="editBtnClick($event)">
+        <img class="" src="assets/protected/edit_btn.png" alt="Blank avatar image" width="16px !important">
       </div>
     </div>
   </a>
 
-  <div class="collapse" id="collapseData_{{member.id}}">
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          {{member.birthday.toDate().toLocaleDateString()}}
+  <div #collapseDiv class="collapse" id="collapseData_{{member.id}}">
+    <div class="cb card-body">
+      <h4>Personal Info</h4>
+      <div class="cb-personal">
+        <div class="cb-row">
+          <span class="cb-field">
+            First
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.firstName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.firstName}}" [(ngModel)]="editMember.firstName">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Preferred
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.preferredName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.preferredName}}" [(ngModel)]="editMember.preferredName">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Last
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.lastName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.lastName}}" [(ngModel)]="editMember.lastName">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Middle
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.middleName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.middleName}}" [(ngModel)]="editMember.middleName">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Phone
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.phone}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.phone}}" [(ngModel)]="editMember.phone">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Email
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.email}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.email}}" [(ngModel)]="editMember.email">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Birthday
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.birthday | date:'MMMM dd, yyyy'}} ({{calcAge(member.birthday)}})
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="date" class="form-control" value="{{editMember.birthday}}" [(ngModel)]="editMember.birthday">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Hometown
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.hometown}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.hometown}}" [(ngModel)]="editMember.hometown">
+          </span>
+
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <a href="mailto: {{member.email}}">{{member.email}}</a>
+      <hr *ngIf="!editing">
+      <h4>Chapter Info</h4>
+      <div class="cb-chapter">
+        <div class="cb-row">
+          <span class="cb-field">
+            Status
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.chapterStatus}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.chapterStatus}}" [(ngModel)]="editMember.chapterStatus">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Position
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.chapterPosition}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.chapterPosition}}" [(ngModel)]="editMember.chapterPosition">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            P.Term
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.pledgeTerm}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.pledgeTerm}}" [(ngModel)]="editMember.pledgeTerm">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            P.Class
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.pledgeClass}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.pledgeClass}}" [(ngModel)]="editMember.pledgeClass">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Initiation
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.initiationDate}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.initiationDate}}" [(ngModel)]="editMember.initiationDate">
+          </span>
+
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{member.phone}}
+      <hr *ngIf="!editing">
+      <h4>School Info</h4>
+      <div class="cb-school">
+        <div class="cb-row">
+          <span class="cb-field">
+            Email
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.schoolEmail}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.schoolEmail}}" [(ngModel)]="editMember.schoolEmail">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            NetID
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.netId}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.netId}}" [(ngModel)]="editMember.netId">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            UIN
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.uin}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.uin}}" [(ngModel)]="editMember.uin">
+          </span>
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            College
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.college}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.college}}" [(ngModel)]="editMember.college">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Major
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.major}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.major}}" [(ngModel)]="editMember.major">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Standing
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.classStanding}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.classStanding}}" [(ngModel)]="editMember.classStanding">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            GPA
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.gpa}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.gpa}}" [(ngModel)]="editMember.gpa">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Class
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.class}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.class}}" [(ngModel)]="editMember.class">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Start
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.schoolStartTerm}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.schoolStartTerm}}" [(ngModel)]="editMember.schoolStartTerm">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            End
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.schoolEndTerm}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.schoolEndTerm}}" [(ngModel)]="editMember.schoolEndTerm">
+          </span>
+
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{member.city}}
+      <hr *ngIf="!editing">
+      <h4>Emergency Contact Info</h4>
+      <div class="cb-emergency">
+        <div class="cb-row">
+          <span class="cb-field">
+            Title
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecTitle}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecTitle}}" [(ngModel)]="editMember.ecTitle">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            First
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecFirstName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecFirstName}}" [(ngModel)]="editMember.ecFirstName">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Last
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecLastName}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecLastName}}" [(ngModel)]="editMember.ecLastName">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Relation
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecRelation}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecRelation}}" [(ngModel)]="editMember.ecRelation">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Email
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecEmail}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecEmail}}" [(ngModel)]="editMember.ecEmail">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Phone
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecPhone}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecPhone}}" [(ngModel)]="editMember.ecPhone">
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
+            Notes
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.ecNotes}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.ecNotes}}" [(ngModel)]="editMember.ecNotes">
+          </span>
+
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{member.state}}
+      <hr *ngIf="!editing">
+      <h4>Other Info</h4>
+
+      <div *ngIf="!editing">
+        <div class="cb-row">
+          <span class="cb-field">
+            Member ID
+          </span>
+          <span class="cb-value">
+            {{member.id}}
+          </span>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{member.major}}
+      
+      <div class="cb-notes">
+        <div class="cb-row">
+          <span class="cb-field">
+            Notes
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.notes}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <input type="text" class="form-control" value="{{editMember.notes}}" [(ngModel)]="editMember.notes">
+          </span>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{member.minor}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{member.gradYear}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{member.pledgeClass}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{member.netId}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{member.uid}}
-        </div>
+
+      <div *ngIf="editing" class="mt-4">
+        <button type="button" class="btn btn-primary" (click)="saveChanges()">Save</button>
+        <button type="button" class="mx-2 btn btn-secondary" (click)="toggleEditing()">Cancel</button>
       </div>
     </div>
   </div>
