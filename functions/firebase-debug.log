@@ -3904,3 +3904,29 @@
 [debug] [2020-01-05T06:12:01.067Z] [runtime-status] [12092] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
 [debug] [2020-01-05T06:12:01.142Z] [runtime-status] [12092] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
 [debug] [2020-01-05T06:12:01.731Z] [worker-~diagnostic~-3498ca25-0d92-4196-b58c-e38d2be76c99]: IDLE
+[debug] [2020-01-05T06:22:46.283Z] File C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\lib\credentials.js.map changed, reloading triggers
+[debug] [2020-01-05T06:22:46.283Z] File C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\lib\credentials.js changed, reloading triggers
+[debug] [2020-01-05T06:22:46.295Z] File C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\lib\index.js.map changed, reloading triggers
+[debug] [2020-01-05T06:22:46.297Z] File C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\lib\index.js changed, reloading triggers
+[debug] [2020-01-05T06:22:47.297Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-01-05T06:22:47.297Z] [worker-~diagnostic~-3498ca25-0d92-4196-b58c-e38d2be76c99]: FINISHING
+[debug] [2020-01-05T06:22:47.297Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-01-05T06:22:47.421Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-05T06:22:47.421Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-01-05T06:22:47.421Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-05T06:22:47.421Z] [worker-~diagnostic~-672aa31b-e270-41be-933a-80c284dc0b28]: Assigning socketPath: \\?\pipe\C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\12816
+[debug] [2020-01-05T06:22:47.421Z] [worker-~diagnostic~-672aa31b-e270-41be-933a-80c284dc0b28]: BUSY
+[debug] [2020-01-05T06:22:47.421Z] [worker-~diagnostic~-3498ca25-0d92-4196-b58c-e38d2be76c99]: exited
+[debug] [2020-01-05T06:22:47.421Z] [worker-~diagnostic~-3498ca25-0d92-4196-b58c-e38d2be76c99]: FINISHED
+[debug] [2020-01-05T06:22:47.791Z] [runtime-status] [12816] Functions runtime initialized. {"cwd":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions","node_version":"12.14.0"}
+[debug] [2020-01-05T06:22:47.792Z] [runtime-status] [12816] Disabled runtime features: undefined
+[debug] [2020-01-05T06:22:47.796Z] [runtime-status] [12816] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-05T06:22:47.797Z] [runtime-status] [12816] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-05T06:22:48.098Z] [runtime-status] [12816] Found google-gax at C:\Users\jacks\Desktop\theta-chi-uiuc-website\functions\node_modules\google-gax\build\src\index.js
+[debug] [2020-01-05T06:22:48.098Z] [runtime-status] [12816] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"},{"name":"google-gax","status":"mocked"}]
+[debug] [2020-01-05T06:22:48.136Z] [runtime-status] [12816] Checked functions.config() {"config":{}}
+[debug] [2020-01-05T06:22:48.137Z] [runtime-status] [12816] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-05T06:22:48.138Z] [runtime-status] [12816] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-05T06:22:48.139Z] [runtime-status] [12816] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-05T06:22:48.189Z] [runtime-status] [12816] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2020-01-05T06:22:48.689Z] [worker-~diagnostic~-672aa31b-e270-41be-933a-80c284dc0b28]: IDLE
