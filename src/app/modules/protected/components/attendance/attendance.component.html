@@ -10,11 +10,40 @@
   <hr>
   <div>
     <div *ngFor="let ma of members" class="my-2">
-      <div class="btn-group-toggle" data-toggle="buttons">
-        <label class="btn custom-btn rounded w-100 py-2" [ngClass]="{'green-bg-active': ma.attended}">
-          <input type="checkbox" checked autocomplete="off" (click)="toggleAttendance(ma)"> {{ma.member.preferredName}}
-          {{ma.member.lastName}}
-        </label>
+      <div class="row">
+        <div class="col-auto">
+          <button class="btn custom-btn-excuse rounded py-2" type="button" data-toggle="collapse"
+            attr.data-target="#collapseExcuse_{{ma.member.id}}" attr.aria-expanded="false"
+            attr.aria-controls="collapseExcuse_{{ma.member.id}}">Excuse</button>
+        </div>
+        <div class="btn-group-toggle col" data-toggle="buttons">
+          <label class="btn custom-btn rounded w-100 py-2"
+            [ngClass]="{'green-bg-active': ma.attended, 'gray-bg-active': !ma.attended && (ma.excused || ma.excuse !== '')}">
+            <input type="checkbox" checked autocomplete="off" (click)="toggleAttendance(ma)">
+            {{ma.member.lastName}}, {{ma.member.preferredName}}
+          </label>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseExcuse_{{ma.member.id}}">
+        <div class="card card-body mt-2">
+          <div class="row">
+            <div class="form-group col-auto">
+              <select class="form-control" id="excused_{{ma.member.id}}">
+                <option>
+                  Not Excused
+                </option>
+                <option>
+                  Excused
+                </option>
+              </select>
+            </div>
+            <div class="col">
+              <textarea class="form-control" style="min-width: 280px;" id="excuse_{{ma.member.id}}" rows="1"
+                placeholder="Enter excuse..."></textarea>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

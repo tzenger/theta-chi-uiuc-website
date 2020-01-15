@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import * as EventM from '../../services/event/event.model';
 import { Member } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
+import { TcEvent } from '../../services/event/event.model';
 
 export interface MemberAttendance {
   member: Member;
   attended: boolean;
+  excused: boolean;
+  excuse: string;
 }
 
 @Component({
@@ -14,7 +16,7 @@ export interface MemberAttendance {
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
-  events: EventM.Event[] = [];
+  events: TcEvent[] = [];
   members: MemberAttendance[] = [];
 
   constructor(
@@ -22,20 +24,22 @@ export class AttendanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const event: EventM.Event = {
+    const event: TcEvent = {
       title: 'Example event',
       description: '',
-      startTime: '',
-      endTime: ''
+      startDateTime: new Date('1/14/2020'),
+      endDateTime: new Date('1/14/2020')
     };
     this.events.push(event);
 
     this.memberService.getAll().then(members => {
-      members.sort((a, b) => a.preferredName.localeCompare(b.preferredName));
+      members.sort((a, b) => a.lastName.localeCompare(b.lastName));
       this.members = members.map(m => {
         return {
           member: m,
-          attended: false
+          attended: false,
+          excused: false,
+          excuse: ''
         };
       });
     });

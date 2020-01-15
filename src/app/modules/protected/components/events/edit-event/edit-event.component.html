@@ -1,0 +1,100 @@
+<form autocomplete="autocomplete_off_hack_xfr4!k">
+    <div class="form-group">
+        <label for="eventTitle">Event Title</label>
+        <input type="text" class="form-control" id="eventTitle" placeholder="title" [(ngModel)]="event.title"
+            name="eventTitle">
+    </div>
+    <div class="form-group">
+        <label for="eventDescription">Event Description</label>
+        <textarea class="form-control" id="eventDescription" rows="3" placeholder="description" name="eventDescription"
+            [(ngModel)]="event.description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="location">Event Location</label>
+        <input type="text" class="form-control" id="eventLocation" placeholder="location"
+            [(ngModel)]="event.location" name="eventLocation">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="eventDurationAD">Event All Day</label>
+            <select class="form-control" id="eventDurationAD" (change)="allDayEventValueChanged()"
+                [(ngModel)]="event.allDayEvent" name="eventAllDayEvent">
+                <option [ngValue]="true">
+                    Yes
+                </option>
+                <option [ngValue]="false">
+                    No
+                </option>
+            </select>
+        </div>
+        <div class="form-group col-md-10">
+            <label for="eventDuration">Event Duration</label>
+            <input type="text" class="form-control" id="eventDuration" name="eventDuration" [(ngModel)]="duration"
+                (change)="allDayEventValueChanged()" readonly>
+        </div>
+    </div>
+    <div class="form-row" *ngIf="event.allDayEvent">
+        <div class="form-group col-md-6">
+            <label for="eventStartDateTime">Event Start Day: {{event.startDate | date:'MM/dd/yy (EEE)'}}</label>
+            <div class="bg-white rounded mx-2 p-2">
+                <dl-date-time-picker name="start" id="eventStartDate" startView="day" maxView="year" minView="day"
+                    minuteStep="5" (change)="startDateChanged($event)" [(ngModel)]="event.startDate">
+                </dl-date-time-picker>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="eventEndDateTime">Event End Day: {{event.endDate | date:'MM/dd/yy (EEE)'}}</label>
+            <div class="bg-white rounded mx-2 p-2">
+                <dl-date-time-picker name="end" id="eventEndDate" startView="day" maxView="year" minView="day"
+                    minuteStep="5" (change)="endDateChanged($event)" [(ngModel)]="event.endDate">
+                </dl-date-time-picker>
+            </div>
+        </div>
+    </div>
+    <div class="form-row" *ngIf="!event.allDayEvent">
+        <div class="form-group col-md-6">
+            <label for="eventStartDateTime">Event Start Time: {{event.startDateTime | date:'MM/dd/yy (EEE) h:mm a'}}</label>
+            <div class="bg-white rounded mx-2 p-2">
+                <dl-date-time-picker name="start" id="eventStartDateTime" startView="day" maxView="year"
+                    minView="minute" minuteStep="5" (change)="startDateTimeChanged($event)"
+                    [(ngModel)]="event.startDateTime">
+                </dl-date-time-picker>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="eventEndDateTime">Event End Time: {{event.endDateTime | date:'MM/dd/yy (EEE) h:mm a'}}</label>
+            <div class="bg-white rounded mx-2 p-2">
+                <dl-date-time-picker name="end" id="eventEndDateTime" startView="day" maxView="year" minView="minute"
+                    minuteStep="5" (change)="endDateTimeChanged($event)" [(ngModel)]="event.endDateTime">
+                </dl-date-time-picker>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="eventCategory">Event Category</label>
+            <select class="form-control" id="eventCategory" name="eventCategory" [(ngModel)]="event.category">
+                <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="eventAttendance">Event Attendance</label>
+            <select class="form-control" id="eventAttendance" name="eventAttendance"
+                [(ngModel)]="event.attendanceLevel">
+                <option *ngFor="let aLevel of attendanceLevels" [value]="aLevel">{{aLevel}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="eventFineAmount">Event Fine Amount</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="eventFineAmount"
+                    aria-label="Amount (to the nearest dollar)" [(ngModel)]="event.fineAmount" name="eventFineAmount">
+            </div>
+        </div>
+    </div>
+    <button *ngIf="this.eventToEdit" type="submit" class="btn btn-primary" (click)="updateEvent()" [disabled]="eventIsInvalid()">Update Event</button>
+    <button *ngIf="!this.eventToEdit" type="submit" class="btn btn-primary" (click)="addEvent()" [disabled]="eventIsInvalid()">Add Event</button>
+</form>

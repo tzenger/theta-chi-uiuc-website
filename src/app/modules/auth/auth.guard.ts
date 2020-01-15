@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
     return this.auth.user$.pipe(
       take(1),
-      map(user => !!user),
+      map(user => user.roleRef ? user.roleRef.path.endsWith('admin') : false),
       tap(isAdmin => {
         if (!isAdmin) {
           console.log('access denied')

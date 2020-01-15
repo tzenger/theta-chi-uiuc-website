@@ -1,0 +1,29 @@
+<div *ngIf="event" class="card mb-2">
+
+  <a class="card-header" data-toggle="collapse" href="#collapseData_{{event.id}}" role="button"
+    attr.aria-expanded="false" attr.aria-controls="collapseData_{{event.id}}">
+
+    <div class="ch-grid">
+      <div class="ch-details">
+        <h5 class="card-title">{{event.title}}</h5>
+        <h6 *ngIf="event.allDayEvent" class="card-subtitle mb-0 text-muted">{{event.startDate | date:'MM/dd/yy (EEE)'}}
+          - {{event.endDate | date:'MM/dd/yy (EEE)'}}</h6>
+        <h6 *ngIf="!event.allDayEvent" class="card-subtitle mb-0 text-muted">
+          {{event.startDateTime | date:'MM/dd/yy (EEE) h:mm a'}} - {{event.endDateTime | date:'MM/dd/yy (EEE) h:mm a'}}
+        </h6>
+      </div>
+    </div>
+  </a>
+
+  <div #collapseDiv class="collapse" id="collapseData_{{event.id}}">
+    <div class="cb card-body">
+      <div class="cb-description">
+        <div class="cb-row">
+          <span>
+            Description: {{event.description}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

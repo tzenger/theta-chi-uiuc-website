@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-body">
+        <app-edit-event [eventToEdit]="selectedEvent"></app-edit-event>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <div *ngFor="let event of events">
+          <button (click)="setSelectedEvent(event)">Edit</button> <app-view-event [event]="event"></app-view-event>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
