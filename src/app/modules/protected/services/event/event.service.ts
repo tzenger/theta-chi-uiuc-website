@@ -19,7 +19,7 @@ export class EventService {
     private functions: AngularFireFunctions,
     private afs: AngularFirestore
   ) {
-    this.functions.functions.useFunctionsEmulator('http://localhost:5000');
+    // this.functions.functions.useFunctionsEmulator('http://localhost:5000');
     this.getAll();
   }
 
