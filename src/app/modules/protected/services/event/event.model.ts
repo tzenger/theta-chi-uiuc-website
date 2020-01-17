@@ -24,6 +24,7 @@ export enum TcEventType {
 export enum TcEventAttendanceLevel {
   EVERYONE = 'Everyone',
   ALL_INITIATED = 'All Initiated',
+  ALL_INITIATED_NON_SENIORS = 'Non-seniors (initiated)',
   LIVE_INS_ONLY = 'Live-Ins Only',
   PLEDGES_ONLY = 'Pledges Only',
   LAST_TWO_PLEDGE_CLASSES = 'Last 2 Pledge Classes',
@@ -40,8 +41,8 @@ export class TcEvent {
   endDateTime: Date;
   allDayEvent?: boolean;
   location?: string;
-  fineAmount?: number;
-  attendanceLevel?: string;
+  fineAmount: number;
+  attendanceLevel: string;
   type?: string;
   attendanceId?: string;
 }

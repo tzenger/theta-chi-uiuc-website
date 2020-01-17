@@ -3,9 +3,9 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { AngularFireFunctions } from '@angular/fire/functions';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { TcEvent } from './event.model';
 import * as moment from 'moment';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { TcEvent } from './event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,14 +56,14 @@ export class EventService {
     return new Promise((resolve, reject) => {
       addCalendarEvent(googleCalendarData).toPromise().then(res => {
         console.log("Added calendar event: ", res);
-  
+
         event.googleEventId = res.data.id;
         event.googleCalendarId = googleCalendarId;
-  
+
         const id = this.afs.createId();
         const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${id}`);
         event.id = id;
-  
+
         const obj = Object.assign({}, event);
         eventRef.set(obj, { merge: false }).then(() => {
           console.log('Added event to db.');
@@ -72,7 +72,7 @@ export class EventService {
           console.log('Failed to add event to db: ', err);
           resolve(false);
         });
-  
+
       }).catch(err => {
         console.error("Failed to add event to calendar: ", err);
         resolve(false);
@@ -135,6 +135,7 @@ export class EventService {
 
     deleteCalendarEvent(data).toPromise().then(res => {
       console.log("Deleted calendar event: ", data);
+      const attendanceId = event.attendanceId;
 
       const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${data.id}`);
 
@@ -149,51 +150,33 @@ export class EventService {
     });
   }
 
-  public async getCurrent(): Promise<TcEvent[]> {
-    let events: Array<TcEvent> = [];
-
+  public async getEvents(startDateTime: Date, endDateTime: Date, inclusive = true): Promise<TcEvent[]> {
     var eventsRef = this.afs.collection('events').ref;
 
-    const nowTime = Date.now.toString();
+    const data = await eventsRef.orderBy('startDateTime')
+      .where('startDateTime', '>=', firebase.firestore.Timestamp.fromDate(startDateTime))
+      .where('startDateTime', inclusive ? '<=' : '<', firebase.firestore.Timestamp.fromDate(endDateTime))
+      .get();
 
-    const data = await eventsRef.where('startTime', '<=', nowTime).where('endTime', '>=', nowTime).get();
-
-    data.forEach(doc => {
-      events.push(<TcEvent>doc.data());
-    });
-
-    return events;
-  }
-
-  public async getUpcoming(): Promise<TcEvent[]> {
     let events: Array<TcEvent> = [];
-
-    var eventsRef = this.afs.collection('events').ref;
-
-    const data = await eventsRef.where('startTime', '>', Date.now.toString()).get();
-
-    data.forEach(doc => {
-      events.push(<TcEvent>doc.data());
-    });
-
-    return events;
-  }
-
-  public async getPast(): Promise<TcEvent[]> {
-    let events: Array<TcEvent> = [];
-
-    var eventsRef = this.afs.collection('events').ref;
-
-    const data = await eventsRef.where('endTime', '<', Date.now.toString()).get();
-
-    data.forEach(doc => {
-      events.push(<TcEvent>doc.data());
+    data.forEach((result) => {
+      events.push(this.convertDocToEvent(result.data()));
     });
 
     return events;
   }
 
   public readonly events = new BehaviorSubject<Array<TcEvent>>(undefined);
+
+
+  private convertDocToEvent(doc: any): TcEvent {
+    let event = <TcEvent>doc;
+    let startDateTime = <firebase.firestore.Timestamp><unknown>event.startDateTime
+    event.startDateTime = startDateTime.toDate();
+    let endDateTime = <firebase.firestore.Timestamp><unknown>event.endDateTime
+    event.endDateTime = endDateTime.toDate();
+    return event;
+  }
 
   private getAll(): void {
     var eventsRef = this.afs.collection('events').ref;
@@ -204,13 +187,7 @@ export class EventService {
 
         let newEvents = new Array<TcEvent>();
         onNext.docs.forEach(doc => {
-          let event = <TcEvent>doc.data();
-          let startDateTime = <firebase.firestore.Timestamp><unknown>event.startDateTime
-          event.startDateTime = startDateTime.toDate();
-          let endDateTime = <firebase.firestore.Timestamp><unknown>event.endDateTime
-          event.endDateTime = endDateTime.toDate();
-
-          newEvents.push(event);
+          newEvents.push(this.convertDocToEvent(doc.data()));
         });
 
         this.events.next(newEvents);

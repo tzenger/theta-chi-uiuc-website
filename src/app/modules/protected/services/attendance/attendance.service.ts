@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { TcEventAttendance } from './attendance.model';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TcEvent } from '../event/event.model';
 import { EventService } from '../event/event.service';
-import { map } from 'rxjs/operators';
+import { TcEventAttendance } from './attendance.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class AttendanceService {
 
   public addAttendance(eventAttendance: TcEventAttendance, event: TcEvent): void {
     const id = this.afs.createId();
-    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`attendance/${id}`);
+    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
     eventAttendance.id = id;
     event.attendanceId = id;
     this.eventsService.updateEvent(event);
@@ -37,7 +39,7 @@ export class AttendanceService {
       return;
     }
 
-    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendance/${eventAttendance.id}`);
+    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${eventAttendance.id}`);
 
     const obj = Object.assign({}, eventAttendance);
     attendanceRef.set(obj, { merge: true }).then(() => {
@@ -52,7 +54,7 @@ export class AttendanceService {
       return;
     }
 
-    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${id}`);
+    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
 
     attendanceRef.delete().then(res => {
       console.log('Deleted event attendance db entry: ', res);
@@ -62,18 +64,38 @@ export class AttendanceService {
   }
 
   public getAttendanceById(attendanceId: string): Observable<TcEventAttendance> {
-    return this.afs.collection('attendance').doc<any>(attendanceId).valueChanges().pipe(map((doc, index) => this.convertDocToAttendance(doc)));
+    return this.afs.collection('attendances').doc<any>(attendanceId).valueChanges().pipe(map((doc, index) => this.convertDocToAttendance(doc)));
   }
 
   public async getAll(): Promise<TcEventAttendance[]> {
     let events: Array<TcEventAttendance> = [];
 
-    var eventsRef = this.afs.collection('attendance').ref;
+    var eventsRef = this.afs.collection('attendances').ref;
 
     const data = await eventsRef.get();
 
     data.forEach(doc => {
       events.push(this.convertDocToAttendance(doc));
+    });
+
+    return events;
+  }
+
+  public async getAttendances(startDateTime: Date, endDateTime: Date, inclusive = true): Promise<TcEventAttendance[]> {
+    var eventsRef = this.afs.collection('attendances').ref;
+
+    console.log('Getting: ', startDateTime, endDateTime);
+
+    const data = await eventsRef.orderBy('eventStartDateTime')
+      .where('eventStartDateTime', '>=', firebase.firestore.Timestamp.fromDate(startDateTime))
+      .where('eventStartDateTime', inclusive ? '<=' : '<', firebase.firestore.Timestamp.fromDate(endDateTime))
+      .get();
+
+    console.log('Got: ', data);
+
+    let events: Array<TcEventAttendance> = [];
+    data.forEach((result) => {
+      events.push(this.convertDocToAttendance(result.data()));
     });
 
     return events;
