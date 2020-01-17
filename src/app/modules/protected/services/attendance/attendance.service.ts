@@ -20,7 +20,7 @@ export class AttendanceService {
 
   public addAttendance(eventAttendance: TcEventAttendance, event: TcEvent): void {
     const id = this.afs.createId();
-    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`attendance/${id}`);
+    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
     eventAttendance.id = id;
     event.attendanceId = id;
     this.eventsService.updateEvent(event);
@@ -39,7 +39,7 @@ export class AttendanceService {
       return;
     }
 
-    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendance/${eventAttendance.id}`);
+    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${eventAttendance.id}`);
 
     const obj = Object.assign({}, eventAttendance);
     attendanceRef.set(obj, { merge: true }).then(() => {
@@ -54,7 +54,7 @@ export class AttendanceService {
       return;
     }
 
-    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${id}`);
+    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
 
     attendanceRef.delete().then(res => {
       console.log('Deleted event attendance db entry: ', res);
@@ -64,13 +64,13 @@ export class AttendanceService {
   }
 
   public getAttendanceById(attendanceId: string): Observable<TcEventAttendance> {
-    return this.afs.collection('attendance').doc<any>(attendanceId).valueChanges().pipe(map((doc, index) => this.convertDocToAttendance(doc)));
+    return this.afs.collection('attendances').doc<any>(attendanceId).valueChanges().pipe(map((doc, index) => this.convertDocToAttendance(doc)));
   }
 
   public async getAll(): Promise<TcEventAttendance[]> {
     let events: Array<TcEventAttendance> = [];
 
-    var eventsRef = this.afs.collection('attendance').ref;
+    var eventsRef = this.afs.collection('attendances').ref;
 
     const data = await eventsRef.get();
 
@@ -82,7 +82,7 @@ export class AttendanceService {
   }
 
   public async getAttendances(startDateTime: Date, endDateTime: Date, inclusive = true): Promise<TcEventAttendance[]> {
-    var eventsRef = this.afs.collection('attendance').ref;
+    var eventsRef = this.afs.collection('attendances').ref;
 
     console.log('Getting: ', startDateTime, endDateTime);
 
