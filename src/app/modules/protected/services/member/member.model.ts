@@ -1,3 +1,29 @@
+export enum MemberChapterStatus {
+  ACTIVE = 'Active',
+  PLEDGE = 'Pledge',
+  SUSPENDED = 'Suspended',
+  ALUMNI = 'Alumni'
+}
+
+export enum MemberSchoolClass {
+  FRESHMAN = 'Freshman',
+  SOPHOMORE = 'Sophomore',
+  JUNIOR = 'Junior',
+  SENIOR = 'Senior'
+}
+
+export enum MemberPledgeClass {
+  BETA_LAMBDA = 'Beta Lambda',
+  BETA_KAPPA = 'Beta Kappa',
+  BETA_IOTA = 'Beta Iota',
+  BETA_THETA = 'Beta Theta',
+  BETA_ETA = 'Beta Eta',
+  BETA_ZETA = 'Beta Zeta',
+  BETA_EPSILON = 'Beta Epsilon',
+  BETA_DELTA = 'Beta Delta',
+  BETA_GAMMA = 'Beta Gamma'
+}
+
 export class Member {
   id?: string;
 
@@ -17,6 +43,7 @@ export class Member {
   pledgeTerm?: string;
   pledgeClass?: string;
   initiationDate?: string;
+  livingIn?: boolean;
 
   // School Information
   uin?: number;

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { TcEventAttendance } from './attendance.model';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TcEvent } from '../event/event.model';
 import { EventService } from '../event/event.service';
-import { map } from 'rxjs/operators';
+import { TcEventAttendance } from './attendance.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +76,26 @@ export class AttendanceService {
 
     data.forEach(doc => {
       events.push(this.convertDocToAttendance(doc));
+    });
+
+    return events;
+  }
+
+  public async getAttendances(startDateTime: Date, endDateTime: Date, inclusive = true): Promise<TcEventAttendance[]> {
+    var eventsRef = this.afs.collection('attendance').ref;
+
+    console.log('Getting: ', startDateTime, endDateTime);
+
+    const data = await eventsRef.orderBy('eventStartDateTime')
+      .where('eventStartDateTime', '>=', firebase.firestore.Timestamp.fromDate(startDateTime))
+      .where('eventStartDateTime', inclusive ? '<=' : '<', firebase.firestore.Timestamp.fromDate(endDateTime))
+      .get();
+
+    console.log('Got: ', data);
+
+    let events: Array<TcEventAttendance> = [];
+    data.forEach((result) => {
+      events.push(this.convertDocToAttendance(result.data()));
     });
 
     return events;

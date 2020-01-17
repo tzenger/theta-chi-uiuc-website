@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MemberAttendance, TcEventAttendance } from '../../services/attendance/attendance.model';
 import { AttendanceService } from '../../services/attendance/attendance.service';
-import { TcEvent } from '../../services/event/event.model';
+import { TcEvent, TcEventAttendanceLevel } from '../../services/event/event.model';
 import { EventService } from '../../services/event/event.service';
+import { Member, MemberChapterStatus, MemberPledgeClass, MemberSchoolClass } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
 
 @Component({
@@ -61,6 +62,26 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     }
   }
 
+  private isRequired(member: Member, attendanceLevel: string): boolean {
+    if (attendanceLevel === TcEventAttendanceLevel.EVERYONE) {
+      return true;
+    } else if (attendanceLevel === TcEventAttendanceLevel.ALL_INITIATED) {
+      return member.chapterStatus === MemberChapterStatus.ACTIVE;
+    } else if (attendanceLevel === TcEventAttendanceLevel.ALL_INITIATED_NON_SENIORS) {
+      return member.chapterStatus === MemberChapterStatus.ACTIVE && member.class !== MemberSchoolClass.SENIOR;
+    } else if (attendanceLevel === TcEventAttendanceLevel.LIVE_INS_ONLY) {
+      return member.livingIn;
+    } else if (attendanceLevel === TcEventAttendanceLevel.LAST_TWO_PLEDGE_CLASSES) {
+      return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA || member.pledgeClass === MemberPledgeClass.BETA_KAPPA;
+    } else if (attendanceLevel === TcEventAttendanceLevel.PLEDGES_ONLY) {
+      return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA;
+    } else if (attendanceLevel === TcEventAttendanceLevel.OPTIONAL) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+
   createAttendance() {
     if (!this.selectedEvent) {
       return;
@@ -75,7 +96,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
           firstName: m.firstName,
           lastName: m.lastName,
           preferredName: m.preferredName,
-          required: false,
+          required: this.isRequired(m, this.selectedEvent.attendanceLevel),
           attended: false,
           excused: false,
           excuse: ''
