@@ -1,28 +1,38 @@
-<div *ngIf="event" class="card mb-2">
+<div *ngIf="event">
 
-  <a class="card-header" data-toggle="collapse" href="#collapseData_{{event.id}}" role="button"
-    attr.aria-expanded="false" attr.aria-controls="collapseData_{{event.id}}">
+  <div class="row">
+    <div class="col">
+      <div class="card mb-2">
 
-    <div class="ch-grid">
-      <div class="ch-details">
-        <h5 class="card-title">{{event.title}}</h5>
-        <h6 *ngIf="event.allDayEvent" class="card-subtitle mb-0 text-muted">{{event.startDate | date:'MM/dd/yy (EEE)'}}
-          - {{event.endDate | date:'MM/dd/yy (EEE)'}}</h6>
-        <h6 *ngIf="!event.allDayEvent" class="card-subtitle mb-0 text-muted">
-          {{event.startDateTime | date:'MM/dd/yy (EEE) h:mm a'}} - {{event.endDateTime | date:'MM/dd/yy (EEE) h:mm a'}}
-        </h6>
+        <a class="card-header" data-toggle="collapse" href="#collapseData_{{event.id}}" role="button"
+          attr.aria-expanded="false" attr.aria-controls="collapseData_{{event.id}}">
+
+          <div *ngIf="event.id" class="">
+            <div class="">
+              <h5 class="card-title">{{event.title}}</h5>
+              <h6 class="card-subtitle mb-0 text-muted">
+                {{event.startDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}
+                - {{event.endDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}</h6>
+            </div>
+          </div>
+          <div *ngIf="!event.id" class="">
+            <div class="">
+              <h5 class="card-title font-italic">Add New Event</h5>
+              <h6 class="card-subtitle mb-0 text-muted">Click to expand</h6>
+            </div>
+          </div>
+        </a>
+
+        <div #collapseDiv class="collapse" id="collapseData_{{event.id}}">
+          <div class="card-body">
+            <app-edit-event [eventToEdit]="event"></app-edit-event>
+          </div>
+        </div>
       </div>
     </div>
-  </a>
-
-  <div #collapseDiv class="collapse" id="collapseData_{{event.id}}">
-    <div class="cb card-body">
-      <div class="cb-description">
-        <div class="cb-row">
-          <span>
-            Description: {{event.description}}
-          </span>
-        </div>
+    <div *ngIf="event.id" class="col-1 p-0">
+      <div class="trashBtn pt-3">
+        <fa-icon [icon]="faTrashAlt" size="lg" (click)="deleteEvent()" style="cursor: pointer;"></fa-icon>
       </div>
     </div>
   </div>

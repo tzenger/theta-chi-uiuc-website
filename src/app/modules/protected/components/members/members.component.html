@@ -1,20 +1,22 @@
-<div class="container">
-  <div class="members-filters">
+<div class="bg-white py-2">
+  <div *ngIf="members" class="container">
+    <div class="members-filters">
 
-  </div>
-  <!-- <h3>Upload file of new members</h3>
-  <div class="members-file-upload">
-    <input type="file" id="file" (change)="handleFileInput($event.target.files)">
-  </div>
-  <hr> -->
+    </div>
+    <!-- <h3>Upload file of new members</h3>
+    <div class="members-file-upload">
+      <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+    </div>
+    <hr> -->
 
-  <div>
-    <h2>{{members?.length}} members</h2>
-  </div>
-  <hr>
-  <div class="members" *ngIf="members">
-    <div class="member" *ngFor="let member of members">
-      <app-view-member [member]="member"></app-view-member>
+    <div>
+      <h2>{{members?.length}} members</h2>
+    </div>
+    <hr>
+    <div class="members">
+      <div class="member" *ngFor="let member of members">
+        <app-view-member [member]="member"></app-view-member>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,5 @@
 import * as functions from 'firebase-functions';
 import { googleCreds } from './credentials';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
 
 const { google } = require('googleapis');
 const calendar = google.calendar('v3');
@@ -13,8 +11,9 @@ interface CalendarEventData {
     eventId?: string;
     title: string;
     description: string;
-    startTime: firebase.firestore.Timestamp;
-    endTime: firebase.firestore.Timestamp;
+    startDateTime: string;
+    endDateTime: string;
+    allDayEvent?: boolean;
     location?: string;
 }
 
@@ -26,21 +25,44 @@ export const addCalendarEvent = functions.https.onCall((data: CalendarEventData,
     });
 
     return new Promise((resolve, reject) => {
+
+        const resource = {
+            'summary': data.title,
+            'description': data.description,
+            'location': data.location,
+            'reminders': {
+                'useDefault': true
+            },
+            'start': {},
+            'end': {}
+        };
+
+        if (data.allDayEvent) {
+            resource['start'] = {
+                'date': data.startDateTime,
+                'timeZone': TIME_ZONE
+            };
+            resource['end'] = {
+                'date': data.endDateTime,
+                'timeZone': TIME_ZONE
+            };
+        } else {
+            resource['start'] = {
+                'dateTime': data.startDateTime,
+                'timeZone': TIME_ZONE
+            };
+            resource['end'] = {
+                'dateTime': data.endDateTime,
+                'timeZone': TIME_ZONE
+            };
+        }
+
+        console.log("Resource: ", resource);
+
         calendar.events.insert({
             auth: oAuth2Client,
             calendarId: data.calendarId,
-            resource: {
-                'summary': data.title,
-                'description': data.description,
-                'start': {
-                    'dateTime': data.startTime,
-                    'timeZone': TIME_ZONE
-                },
-                'end': {
-                    'dateTime': data.endTime,
-                    'timeZone': TIME_ZONE
-                },
-            }
+            resource: resource
         }, (err: any, res: any) => {
             if (err) {
                 console.log('Rejecting because of error.', err);
@@ -60,28 +82,54 @@ export const updateCalendarEvent = functions.https.onCall((data: CalendarEventDa
         refresh_token: googleCreds.refresh_token
     });
 
-    calendar.events.update({
-        auth: oAuth2Client,
-        calendarId: data.calendarId,
-        eventId: data.eventId,
-        resource: {
+    return new Promise((resolve, reject) => {
+
+        const resource = {
             'summary': data.title,
             'description': data.description,
-            'start': {
-                'dateTime': data.startTime,
-                'timeZone': TIME_ZONE
+            'location': data.location,
+            'reminders': {
+                'useDefault': true
             },
-            'end': {
-                'dateTime': data.endTime,
+            'start': {},
+            'end': {}
+        };
+
+        if (data.allDayEvent) {
+            resource['start'] = {
+                'date': data.startDateTime,
                 'timeZone': TIME_ZONE
-            },
+            };
+            resource['end'] = {
+                'date': data.endDateTime,
+                'timeZone': TIME_ZONE
+            };
+        } else {
+            resource['start'] = {
+                'dateTime': data.startDateTime,
+                'timeZone': TIME_ZONE
+            };
+            resource['end'] = {
+                'dateTime': data.endDateTime,
+                'timeZone': TIME_ZONE
+            };
         }
-    }, (err: any, res: any) => {
-        if (err) {
-            console.log('Rejecting because of error.', err);
-        }
-        console.log('Request successful!', res);
-        return res;
+
+        console.log("Resource: ", resource);
+
+        calendar.events.update({
+            auth: oAuth2Client,
+            calendarId: data.calendarId,
+            eventId: data.eventId,
+            resource: resource
+        }, (err: any, res: any) => {
+            if (err) {
+                console.log('Rejecting because of error.', err);
+                reject(err);
+            }
+            console.log('Request successful!', res);
+            resolve(res);
+        });
     });
 });
 
@@ -92,15 +140,19 @@ export const deleteCalendarEvent = functions.https.onCall((data: { calendarId: s
         refresh_token: googleCreds.refresh_token
     });
 
-    calendar.events.delete({
-        auth: oAuth2Client,
-        calendarId: data.calendarId,
-        eventId: data.eventId
-    }, (err: any, res: any) => {
-        if (err) {
-            console.log('Rejecting because of error.', err);
-        }
-        console.log('Request successful!', res);
+    return new Promise((resolve, reject) => {
+        calendar.events.delete({
+            auth: oAuth2Client,
+            calendarId: data.calendarId,
+            eventId: data.eventId
+        }, (err: any, res: any) => {
+            if (err) {
+                console.log('Rejecting because of error.', err);
+                reject(err);
+            }
+            console.log('Request successful!', res);
+            resolve(res);
+        });
     });
 });
 

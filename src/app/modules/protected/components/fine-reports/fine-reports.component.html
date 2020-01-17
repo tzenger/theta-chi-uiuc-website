@@ -1,0 +1,24 @@
+<div class="container pt-2">
+  <div class="row">
+
+    <div class="form-group col">
+      <select class="form-control" id="weeklyFineReports" name="weeklyFineReports" [(ngModel)]="selectedReport">
+        <option [value]="undefined" selected disabled>Select week...</option>
+        <option *ngFor="let report of weeklyFineReports; let i = index" [value]="report">
+          Week {{(i + 1) | number:'2.0-0'}}
+          ({{report.startDate | date:'MM/dd/yyyy'}}-{{report.endDate | date:'MM/dd/yyyy'}}) [{{report.status}}]
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="selectedReport">
+    <div class="row">
+      <div class="col">
+        <div>
+          hi
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

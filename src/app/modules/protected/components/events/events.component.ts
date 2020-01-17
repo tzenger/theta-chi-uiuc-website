@@ -1,35 +1,36 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { TcEvent } from '../../services/event/event.model';
 import { EventService } from '../../services/event/event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit, OnChanges {
+export class EventsComponent implements OnInit, OnDestroy {
+  addEvent: TcEvent;
   events: TcEvent[];
-  selectedEvent: TcEvent;
+  private eventsSubscription: Subscription;
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.getEvents();
+    this.addEvent = new TcEvent();
+    this.eventsSubscription = this.eventService.events.subscribe(
+      {
+        next: (nextEvents) => {
+          this.events = nextEvents;
+          this.cdRef.detectChanges();
+        }
+      }
+    );
   }
 
-  ngOnChanges() {
-    console.log('Changes', this.selectedEvent);
-  }
-
-  getEvents() {
-    this.eventService.getAll().then(data => {
-      this.events = data;
-    });
-  }
-
-  setSelectedEvent(event: TcEvent) {
-    this.selectedEvent = event;
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
 }

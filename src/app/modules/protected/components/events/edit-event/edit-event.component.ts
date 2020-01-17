@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
-import { EventAttendanceLevel, EventCategory, TcEvent } from '../../../services/event/event.model';
+import { TcEvent, TcEventAttendanceLevel, TcEventType } from '../../../services/event/event.model';
 import { EventService } from '../../../services/event/event.service';
 
 @Component({
@@ -9,74 +9,89 @@ import { EventService } from '../../../services/event/event.service';
   styleUrls: ['./edit-event.component.scss']
 })
 export class EditEventComponent implements OnInit, OnChanges {
-
   @Input() eventToEdit: TcEvent;
-
-  event = new TcEvent();
-
+  event: TcEvent;
   selectedDate: any;
-  duration: string = 'N/A';
-  categories = Object.values(EventCategory);
-  attendanceLevels = Object.values(EventAttendanceLevel);
+  duration: string;
+  eventTypes = Object.values(TcEventType);
+  attendanceLevels = Object.values(TcEventAttendanceLevel);
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
   ) { }
 
   ngOnInit() {
+    this.resetEvent();
     if (this.eventToEdit) {
       Object.assign(this.event, this.eventToEdit);
     }
   }
 
   ngOnChanges() {
+    this.resetEvent();
     if (this.eventToEdit) {
       Object.assign(this.event, this.eventToEdit);
     }
   }
 
   addEvent(): void {
-    console.log('Submit: ', this.event);
+    console.log('Add event: ', this.event);
     if (this.eventIsInvalid()) {
       console.log('Failed to add event: invalid event');
       return;
     }
-    this.eventService.addEvent(this.event);
-    Object.assign(this.eventToEdit, this.event);
+
+    this.eventService.addEvent(this.event).then(successful => {
+      if (successful) {
+        this.resetEvent();
+      }
+    });
+  }
+
+  updateEvent(): void {
+    console.log('Update event: ', this.event);
+    if (this.eventIsInvalid()) {
+      console.log('Failed to update event: invalid event');
+      return;
+    }
+    this.eventService.updateEvent(this.event);
   }
 
   eventIsInvalid(): boolean {
-    const valid = this.event.title && (this.event.allDayEvent && !!this.event.startDate && !!this.event.endDate) || (!this.event.allDayEvent && !!this.event.startDateTime && !!this.event.endDateTime);
+    const valid = this.event.title && this.event.attendanceLevel && this.event.fineAmount >= 0 && this.event.startDateTime && this.event.endDateTime && this.event.startDateTime <= this.event.endDateTime;
     return !valid;
   }
 
-  allDayEventValueChanged(): void {
+  clearDateTimeValues(): void {
     this.event.startDateTime = undefined;
     this.event.endDateTime = undefined;
-    this.event.startDate = undefined;
-    this.event.endDate = undefined;
+    if (!this.event.allDayEvent) {
+      this.event.allDayEvent = false;
+    }
     this.duration = 'N/A';
-    console.log(this.event.allDayEvent);
+  }
+
+  private resetEvent(): void {
+    this.event = new TcEvent();
+    this.clearDateTimeValues();
   }
 
   startDateTimeChanged(event: DlDateTimePickerChange<Date>) {
     this.event.startDateTime = event.value;
-    this.setDurationDateTime();
+    if (this.event.allDayEvent) {
+      this.setDurationDate();
+    } else {
+      this.setDurationDateTime();
+    }
   }
 
   endDateTimeChanged(event: DlDateTimePickerChange<Date>) {
     this.event.endDateTime = event.value;
-    this.setDurationDateTime();
-  }
-
-  startDateChanged(event: DlDateTimePickerChange<Date>) {
-    this.event.startDate = event.value;
-    this.setDurationDate();
-  }
-
-  endDateChanged(event: DlDateTimePickerChange<Date>) {
-    this.event.endDate = event.value;
-    this.setDurationDate();
+    if (this.event.allDayEvent) {
+      this.setDurationDate();
+    } else {
+      this.setDurationDateTime();
+    }
   }
 
   private setDurationDateTime() {
@@ -98,11 +113,11 @@ export class EditEventComponent implements OnInit, OnChanges {
   }
 
   private setDurationDate() {
-    if (!this.event.startDate || !this.event.endDate) {
+    if (!this.event.startDateTime || !this.event.endDateTime) {
       return;
     }
 
-    const durationMilliseconds: number = this.event.endDate.valueOf() - this.event.startDate.valueOf();
+    const durationMilliseconds: number = this.event.endDateTime.valueOf() - this.event.startDateTime.valueOf();
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
     const totalDurationDays = durationMilliseconds / millisecondsPerDay;
 

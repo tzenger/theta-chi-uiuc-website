@@ -5,12 +5,14 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsComponent } from './components/events/events.component';
 import { MembersComponent } from './components/members/members.component';
+import { FineReportsComponent } from './components/fine-reports/fine-reports.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'events', component: EventsComponent },
+  { path: 'fine-reports', component: FineReportsComponent },
   { path: 'members', component: MembersComponent },
 ];
 
