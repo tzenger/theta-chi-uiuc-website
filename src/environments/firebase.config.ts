@@ -1,0 +1,9 @@
+export const firebaseConfig = {
+  apiKey: "AIzaSyCB5O7dEPUJfp-_I8MkUT8dMBv_zNUJ5Nk",
+  authDomain: "theta-chi-uiuc.firebaseapp.com",
+  databaseURL: "https://theta-chi-uiuc.firebaseio.com",
+  projectId: "theta-chi-uiuc",
+  storageBucket: "theta-chi-uiuc.appspot.com",
+  messagingSenderId: "226524484040",
+  appId: "1:226524484040:web:52e6b3e75f4cc759"
+};
