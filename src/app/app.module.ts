@@ -12,8 +12,6 @@ import { AboutComponent } from './components/about/about.component';
 import { AlumniComponent } from './components/alumni/alumni.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './components/home/home.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
 import { InvolvementComponent } from './components/involvement/involvement.component';
 import { JoinComponent } from './components/join/join.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,7 +26,6 @@ import { BaseModule } from './modules/base/base.module';
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent,
     HeaderComponent,
     FooterComponent,
     AboutComponent,
@@ -37,7 +34,6 @@ import { BaseModule } from './modules/base/base.module';
     JoinComponent,
     InvolvementComponent,
     NewsComponent,
-    HomepageComponent
   ],
   imports: [
     BaseModule,

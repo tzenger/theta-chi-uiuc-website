@@ -72,12 +72,12 @@ export class AuthService {
       const data = {
         id: user.uid,
         email: user.email,
-        memberRef: qs.docs[0].ref
+        memberRef: qs.docs[0].ref,
+        roleRef: 'roles/admin'
       };
   
       userRef.set(data, { merge: true });
     });
-
   }
 
   public isAdmin(user: User): boolean {
