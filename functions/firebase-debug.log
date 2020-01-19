@@ -775,3 +775,72 @@
 [info] i  functions: Finished "updateCalendarEvent" in ~1s
 [debug] [2020-01-17T08:35:25.748Z] [worker-updateCalendarEvent-c67897cf-e18b-413e-9c78-b81086500b97]: IDLE
 [debug] [2020-01-17T08:35:25.748Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-01-19T19:36:58.872Z] ----------------------------------------------------------------------
+[debug] [2020-01-19T19:36:58.874Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jacks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2020-01-19T19:36:58.874Z] CLI Version:   7.12.1
+[debug] [2020-01-19T19:36:58.874Z] Platform:      win32
+[debug] [2020-01-19T19:36:58.874Z] Node Version:  v12.14.1
+[debug] [2020-01-19T19:36:58.875Z] Time:          Sun Jan 19 2020 13:36:58 GMT-0600 (Central Standard Time)
+[debug] [2020-01-19T19:36:58.875Z] ----------------------------------------------------------------------
+[debug] [2020-01-19T19:36:58.875Z] 
+[debug] [2020-01-19T19:36:58.887Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-19T19:36:58.888Z] > authorizing via signed-in user
+[debug] [2020-01-19T19:36:58.888Z] [iam] checking project theta-chi-uiuc for permissions ["firebase.projects.get"]
+[debug] [2020-01-19T19:36:58.889Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-01-19T19:36:58.889Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-01-19T19:36:59.143Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-19T19:36:59.153Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/theta-chi-uiuc:testIamPermissions  
+
+[debug] [2020-01-19T19:36:59.509Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[info] +  functions: Emulator started at http://localhost:5000
+[debug] [2020-01-19T19:37:02.033Z] [functions] Watching "C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions" for Cloud Functions...
+[debug] [2020-01-19T19:37:02.047Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-19T19:37:02.047Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-01-19T19:37:02.047Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-19T19:37:02.048Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: Assigning socketPath: \\?\pipe\C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\11940
+[debug] [2020-01-19T19:37:02.048Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: BUSY
+[debug] [2020-01-19T19:37:02.350Z] DEBUG: [runtime-status] [11940] Functions runtime initialized. {"cwd":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions","node_version":"12.14.1"}
+[debug] [2020-01-19T19:37:02.350Z] DEBUG: [runtime-status] [11940] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-19T19:37:02.353Z] DEBUG: [runtime-status] [11940] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-19T19:37:02.354Z] DEBUG: [runtime-status] [11940] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:02.354Z] DEBUG: [runtime-status] [11940] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:02.906Z] [functions[addCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/addCalendarEvent).
+[debug] [2020-01-19T19:37:02.907Z] [functions[updateCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/updateCalendarEvent).
+[debug] [2020-01-19T19:37:02.907Z] [functions[deleteCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/deleteCalendarEvent).
+[info] i  functions: Loaded functions: addCalendarEvent, updateCalendarEvent, deleteCalendarEvent
+[debug] [2020-01-19T19:37:02.915Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: IDLE
+[debug] [2020-01-19T19:37:13.914Z] DEBUG: File C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\src\index.ts changed, reloading triggers
+[debug] [2020-01-19T19:37:14.915Z] DEBUG: [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-01-19T19:37:14.915Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: FINISHING
+[debug] [2020-01-19T19:37:14.925Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-19T19:37:14.926Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-01-19T19:37:14.926Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-19T19:37:14.926Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: Assigning socketPath: \\?\pipe\C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\3156
+[debug] [2020-01-19T19:37:14.926Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: BUSY
+[debug] [2020-01-19T19:37:14.927Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: exited
+[debug] [2020-01-19T19:37:14.927Z] DEBUG: [worker-~diagnostic~-e95b366f-70b3-4a6e-8fa5-099308e6d1f3]: FINISHED
+[debug] [2020-01-19T19:37:15.236Z] DEBUG: [runtime-status] [3156] Functions runtime initialized. {"cwd":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions","node_version":"12.14.1"}
+[debug] [2020-01-19T19:37:15.236Z] DEBUG: [runtime-status] [3156] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-19T19:37:15.239Z] DEBUG: [runtime-status] [3156] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-19T19:37:15.240Z] DEBUG: [runtime-status] [3156] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:15.240Z] DEBUG: [runtime-status] [3156] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:15.857Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: IDLE
+[debug] [2020-01-19T19:37:19.347Z] DEBUG: File C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\src\index.ts changed, reloading triggers
+[debug] [2020-01-19T19:37:20.347Z] DEBUG: [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-01-19T19:37:20.347Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: FINISHING
+[debug] [2020-01-19T19:37:20.348Z] DEBUG: [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-01-19T19:37:20.358Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-19T19:37:20.358Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-01-19T19:37:20.359Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-19T19:37:20.359Z] DEBUG: [worker-~diagnostic~-cc751dd5-a27b-40fc-9cdd-3235271e94cf]: Assigning socketPath: \\?\pipe\C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\14188
+[debug] [2020-01-19T19:37:20.359Z] DEBUG: [worker-~diagnostic~-cc751dd5-a27b-40fc-9cdd-3235271e94cf]: BUSY
+[debug] [2020-01-19T19:37:20.359Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: exited
+[debug] [2020-01-19T19:37:20.360Z] DEBUG: [worker-~diagnostic~-e0e0478d-7e43-4bd4-8b96-321d72da2896]: FINISHED
+[debug] [2020-01-19T19:37:20.689Z] DEBUG: [runtime-status] [14188] Functions runtime initialized. {"cwd":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions","node_version":"12.14.1"}
+[debug] [2020-01-19T19:37:20.690Z] DEBUG: [runtime-status] [14188] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-19T19:37:20.692Z] DEBUG: [runtime-status] [14188] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-19T19:37:20.693Z] DEBUG: [runtime-status] [14188] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:20.694Z] DEBUG: [runtime-status] [14188] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-19T19:37:21.319Z] DEBUG: [worker-~diagnostic~-cc751dd5-a27b-40fc-9cdd-3235271e94cf]: IDLE
