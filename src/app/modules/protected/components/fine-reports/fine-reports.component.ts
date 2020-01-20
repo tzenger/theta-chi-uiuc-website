@@ -27,7 +27,8 @@ export class FineReport {
 
 // Monday to Sunday (inclusive); 17 total weeks
 export const weeklyFineReports: FineReport[] = [
-  { status: FineReportStatus.FUTURE, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.PENDING, startDate: new Date('1/13/2020'), endDate: new Date('1/19/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.CURRENT, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/10/2020'), endDate: new Date('2/16/2020'), events: undefined, attendances: undefined },

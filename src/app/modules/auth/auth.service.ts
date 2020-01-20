@@ -61,7 +61,7 @@ export class AuthService {
   private updateUserData(user: firebase.User) {
 
     this.afs.collection('members').ref.where('email', '==', user.email).get().then(qs => {
-      
+
       if (qs.size !== 1) {
         return;
       }
@@ -73,14 +73,14 @@ export class AuthService {
         id: user.uid,
         email: user.email,
         memberRef: qs.docs[0].ref,
-        roleRef: 'roles/admin'
+        role: Role.ADMIN
       };
-  
+
       userRef.set(data, { merge: true });
     });
   }
 
   public isAdmin(user: User): boolean {
-    return user.roleRef.path.endsWith('admin');
+    return user && user.role === Role.ADMIN;
   }
 }
