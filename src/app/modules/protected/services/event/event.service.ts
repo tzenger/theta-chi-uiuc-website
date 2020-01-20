@@ -150,6 +150,24 @@ export class EventService {
     });
   }
 
+  public removeEventAttendance(event: TcEvent) {
+    if (!event || !event.id) {
+      return;
+    }
+
+    event.attendanceId = null;
+    
+    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${event.id}`);
+
+    const obj = Object.assign({}, event);
+    eventRef.set(obj, { merge: true }).then(() => {
+      console.log('Updated event in db.');
+    }).catch(err => {
+      console.log('Failed to update event in db: ', err);
+    });
+
+  }
+
   public async getEvents(startDateTime: Date, endDateTime: Date, inclusive = true): Promise<TcEvent[]> {
     var eventsRef = this.afs.collection('events').ref;
 

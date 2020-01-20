@@ -6,6 +6,7 @@ import { TcEvent, TcEventAttendanceLevel } from '../../services/event/event.mode
 import { EventService } from '../../services/event/event.service';
 import { Member, MemberChapterStatus, MemberPledgeClass, MemberSchoolClass } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-attendance',
@@ -54,7 +55,6 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     if (this.selectedEvent.attendanceId) {
       this.selectedAttendanceSubscription = this.attendanceService.getAttendanceById(this.selectedEvent.attendanceId).subscribe({
         next: (nextAttendnace) => {
-          console.log('hi2', nextAttendnace);
           this.selectedAttendance = nextAttendnace;
           this.cdRef.detectChanges();
         }
@@ -80,6 +80,21 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     } else {
       return false;
     }
+  }
+
+  eventIsToday(event: TcEvent) {
+    return moment(event.startDateTime).isSame(moment.now(), 'date');
+  }
+
+  deleteAttendance() {
+    if (!this.selectedAttendance) {
+      return;
+    }
+
+    this.eventService.removeEventAttendance(this.selectedEvent);
+    const id = this.selectedAttendance.id;
+    this.selectedAttendance = undefined;
+    this.attendanceService.removeAttendance(id);
   }
 
   createAttendance() {

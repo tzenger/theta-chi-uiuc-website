@@ -6,7 +6,7 @@
         (change)="selectedReportChanged()">
         <option [ngValue]="undefined" selected disabled>Select week...</option>
         <option *ngFor="let report of weeklyFineReports; let i = index" [ngValue]="report">
-          Week {{(i + 1) | number:'2.0-0'}}
+          Week {{(i) | number:'2.0-0'}}
           ({{report.startDate | date:'MM/dd/yyyy'}}-{{report.endDate | date:'MM/dd/yyyy'}}) [{{report.status}}]
         </option>
       </select>
