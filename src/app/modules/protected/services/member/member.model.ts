@@ -44,6 +44,8 @@ export class Member {
   pledgeClass?: string;
   initiationDate?: string;
   livingIn?: boolean;
+  tuesdayHouseJob?: boolean;
+  thursdayHouseJob?: boolean;
 
   // School Information
   uin?: number;

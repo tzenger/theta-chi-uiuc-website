@@ -3,8 +3,8 @@
     <div class="form-group">
       <select class="form-control" id="event" [(ngModel)]="selectedEvent" name="selectedEvent"
         (change)="selectedEventChanged()">
-        <option [ngValue]="undefined" selected disabled>Select Event</option>
-        <option *ngFor="let e of events" [ngValue]="e">{{e.title}} ({{eventIsToday(e) ? 'Today' : e.startDateTime | date:'MM/dd/yyyy'}})</option>
+        <option [ngValue]="undefined" disabled>Select Event</option>
+        <option *ngFor="let e of events" [ngValue]="e">[{{eventIsToday(e) ? 'Today' : e.startDateTime | date:'MM/dd/yyyy'}}] {{e.title}}</option>
       </select>
     </div>
   </form>
@@ -29,7 +29,8 @@
             <label class="btn custom-btn rounded w-100 py-2"
               [ngClass]="{'green-bg-active': ma.attended, 'gray-bg-active': !ma.attended && (ma.excused || ma.excuse !== '')}">
               <input type="checkbox" checked autocomplete="off" (click)="toggleAttendance(ma)">
-              {{ma.lastName}}, {{ma.preferredName}}
+              <span [ngClass]="{'font-weight-bold': ma.required}">{{ma.lastName}}, {{ma.preferredName}}</span>
+              
             </label>
           </div>
         </div>
