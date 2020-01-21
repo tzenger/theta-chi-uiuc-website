@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TcEvent } from '../event/event.model';
 import { EventService } from '../event/event.service';
 import { TcEventAttendance } from './attendance.model';
@@ -20,14 +20,14 @@ export class AttendanceService {
 
   public addAttendance(eventAttendance: TcEventAttendance, event: TcEvent): void {
     const id = this.afs.createId();
-    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
+    const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
     eventAttendance.id = id;
-    event.attendanceId = id;
-    this.eventsService.updateEvent(event);
 
     const obj = Object.assign({}, eventAttendance);
-    eventRef.set(obj, { merge: false }).then(() => {
+    attendanceRef.set(obj, { merge: false }).then(() => {
+      event.attendanceId = id;
       console.log('Added event attendance to db.');
+      this.eventsService.updateEvent(event);
     }).catch(err => {
       console.log('Failed to add event attendance to db: ', err);
     });
@@ -56,8 +56,8 @@ export class AttendanceService {
 
     const attendanceRef: AngularFirestoreDocument<any> = this.afs.doc(`attendances/${id}`);
 
-    attendanceRef.delete().then(res => {
-      console.log('Deleted event attendance db entry: ', res);
+    attendanceRef.delete().then(() => {
+      console.log('Deleted event attendance db entry.');
     }).catch(err => {
       console.log('Failed to delete event attendance db entry: ', err);
     });
@@ -102,6 +102,9 @@ export class AttendanceService {
   }
 
   private convertDocToAttendance(doc: any): TcEventAttendance {
+    if (!doc) {
+      return doc;
+    }
     let eventAttendance = <TcEventAttendance>doc;
     const startDateTime = <firebase.firestore.Timestamp><unknown>eventAttendance.startDateTime
     eventAttendance.startDateTime = startDateTime.toDate();

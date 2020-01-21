@@ -6,7 +6,7 @@
         (change)="selectedReportChanged()">
         <option [ngValue]="undefined" selected disabled>Select week...</option>
         <option *ngFor="let report of weeklyFineReports; let i = index" [ngValue]="report">
-          Week {{(i) | number:'2.0-0'}}
+          Week {{(i + 1) | number:'2.0-0'}}
           ({{report.startDate | date:'MM/dd/yyyy'}}-{{report.endDate | date:'MM/dd/yyyy'}}) [{{report.status}}]
         </option>
       </select>
@@ -16,11 +16,40 @@
   <div *ngIf="selectedReport">
     <h6>Planned Events</h6>
     <div>
-      <ol>
-        <li *ngFor="let event of selectedReport.events">
-          {{event.title}} - {{event.attendanceLevel}} (${{event.fineAmount | number:'0.2-2'}})
-        </li>
-      </ol>
+      <table class="table table-sm table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Title</th>
+            <th>Who</th>
+            <th>Fine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of selectedReport.events; let i = index;">
+            <td>
+              {{i + 1}}
+            </td>
+            <td>
+              {{event.startDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}
+            </td>
+            <td>
+              {{event.endDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}
+            </td>
+            <td>
+              {{event.title}}
+            </td>
+            <td>
+              {{event.attendanceLevel}}
+            </td>
+            <td>
+              ${{event.fineAmount | number:'0.2-2'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <h6>Actual Events</h6>
@@ -28,7 +57,8 @@
     <div>
       <ol>
         <li *ngFor="let attendance of selectedReport.attendances">
-          {{attendance.eventTitle}} - {{attendance.eventAttendanceLevel}} (${{attendance.eventFineAmount | number:'0.2-2'}})
+          {{attendance.eventTitle}} - {{attendance.eventAttendanceLevel}}
+          (${{attendance.eventFineAmount | number:'0.2-2'}})
         </li>
       </ol>
     </div>

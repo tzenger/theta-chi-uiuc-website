@@ -130,6 +130,66 @@
         </div>
         <div class="cb-row">
           <span class="cb-field">
+            Living In
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.livingIn ? 'Yes' : 'No'}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <select class="form-control"
+                [(ngModel)]="editMember.livingIn">
+                <option [ngValue]="true">
+                    Yes
+                </option>
+                <option [ngValue]="false">
+                    No
+                </option>
+            </select>
+          </span>
+
+        </div>
+        <div class="cb-row" *ngIf="editMember.livingIn">
+          <span class="cb-field">
+            Tues. H-Job
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.tuesdayHouseJob ? 'Yes' : 'No'}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <select class="form-control"
+                [(ngModel)]="editMember.tuesdayHouseJob">
+                <option [ngValue]="true">
+                    Yes
+                </option>
+                <option [ngValue]="false">
+                    No
+                </option>
+            </select>
+          </span>
+
+        </div>
+        <div class="cb-row" *ngIf="editMember.livingIn">
+          <span class="cb-field">
+            Thur. H-Job
+          </span>
+          <span *ngIf="!editing" class="cb-value">
+            {{member.thursdayHouseJob ? 'Yes' : 'No'}}
+          </span>
+          <span *ngIf="editing" class="cb-value-edit">
+            <select class="form-control"
+                [(ngModel)]="editMember.thursdayHouseJob">
+                <option [ngValue]="true">
+                    Yes
+                </option>
+                <option [ngValue]="false">
+                    No
+                </option>
+            </select>
+          </span>
+
+        </div>
+        <div class="cb-row">
+          <span class="cb-field">
             Position
           </span>
           <span *ngIf="!editing" class="cb-value">

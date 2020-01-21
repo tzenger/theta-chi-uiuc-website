@@ -55,6 +55,9 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     if (this.selectedEvent.attendanceId) {
       this.selectedAttendanceSubscription = this.attendanceService.getAttendanceById(this.selectedEvent.attendanceId).subscribe({
         next: (nextAttendnace) => {
+          // nextAttendnace.members.sort((a, b) => {
+          //   return (a.required === b.required) ? 0 : (a.required ? 1 : -1);
+          // });
           this.selectedAttendance = nextAttendnace;
           this.cdRef.detectChanges();
         }
@@ -63,22 +66,27 @@ export class AttendanceComponent implements OnInit, OnDestroy {
   }
 
   private isRequired(member: Member, attendanceLevel: string): boolean {
-    if (attendanceLevel === TcEventAttendanceLevel.EVERYONE) {
-      return true;
-    } else if (attendanceLevel === TcEventAttendanceLevel.ALL_INITIATED) {
-      return member.chapterStatus === MemberChapterStatus.ACTIVE;
-    } else if (attendanceLevel === TcEventAttendanceLevel.ALL_INITIATED_NON_SENIORS) {
-      return member.chapterStatus === MemberChapterStatus.ACTIVE && member.class !== MemberSchoolClass.SENIOR;
-    } else if (attendanceLevel === TcEventAttendanceLevel.LIVE_INS_ONLY) {
-      return member.livingIn;
-    } else if (attendanceLevel === TcEventAttendanceLevel.LAST_TWO_PLEDGE_CLASSES) {
-      return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA || member.pledgeClass === MemberPledgeClass.BETA_KAPPA;
-    } else if (attendanceLevel === TcEventAttendanceLevel.PLEDGES_ONLY) {
-      return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA;
-    } else if (attendanceLevel === TcEventAttendanceLevel.OPTIONAL) {
-      return false;
-    } else {
-      return false;
+    switch (attendanceLevel) {
+      case TcEventAttendanceLevel.EVERYONE:
+        return true;
+      case TcEventAttendanceLevel.ALL_INITIATED:
+        return member.chapterStatus === MemberChapterStatus.ACTIVE;
+      case TcEventAttendanceLevel.ALL_INITIATED_NON_SENIORS:
+        return member.chapterStatus === MemberChapterStatus.ACTIVE && member.class !== MemberSchoolClass.SENIOR;
+      case TcEventAttendanceLevel.LIVE_INS_ONLY:
+        return member.livingIn;
+      case TcEventAttendanceLevel.LAST_TWO_PLEDGE_CLASSES:
+        return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA || member.pledgeClass === MemberPledgeClass.BETA_KAPPA;
+      case TcEventAttendanceLevel.PLEDGES_ONLY:
+        return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA;
+      case TcEventAttendanceLevel.LIVE_INS_TUESDAY_HOUSE_JOB:
+        return !!member.tuesdayHouseJob;
+      case TcEventAttendanceLevel.LIVE_INS_THURSDAY_HOUSE_JOB:
+        return !!member.thursdayHouseJob;
+      case TcEventAttendanceLevel.COMMITTEE_MEMBERS:
+        return !!member.chapterPosition;
+      case TcEventAttendanceLevel.OPTIONAL:
+        return false;
     }
   }
 
@@ -118,6 +126,10 @@ export class AttendanceComponent implements OnInit, OnDestroy {
         };
 
         return ma;
+      });
+
+      membersList.sort((a, b) => {
+        return (a.required === b.required) ? 0 : (a.required ? -1 : 1);
       });
 
       this.selectedAttendance = {
