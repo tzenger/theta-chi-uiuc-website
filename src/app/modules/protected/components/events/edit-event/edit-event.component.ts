@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
 import { TcEvent, TcEventAttendanceLevel, TcEventType } from '../../../services/event/event.model';
 import { EventService } from '../../../services/event/event.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-event',
@@ -13,6 +14,8 @@ export class EditEventComponent implements OnInit, OnChanges {
   event: TcEvent;
   selectedDate: any;
   duration: string;
+  includePledgeSetup: boolean = false;
+  pledgeSetupDuration: number;
   eventTypes = Object.values(TcEventType);
   attendanceLevels = Object.values(TcEventAttendanceLevel);
 
@@ -43,6 +46,17 @@ export class EditEventComponent implements OnInit, OnChanges {
 
     this.eventService.addEvent(this.event).then(successful => {
       if (successful) {
+        if (this.includePledgeSetup) {
+          const setupEvent: TcEvent = {
+            title: 'Setup (' + this.event.title + ')',
+            attendanceLevel: TcEventAttendanceLevel.PLEDGES_ONLY,
+            type: TcEventType.SETUP,
+            fineAmount: 2,
+            startDateTime: moment(this.event.startDateTime).subtract(this.pledgeSetupDuration, 'minutes').toDate(),
+            endDateTime: this.event.startDateTime
+          }
+          this.eventService.addEvent(setupEvent)
+        }
         this.resetEvent();
       }
     });

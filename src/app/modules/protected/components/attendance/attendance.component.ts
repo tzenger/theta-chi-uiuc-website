@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MemberAttendance, TcEventAttendance } from '../../services/attendance/attendance.model';
 import { AttendanceService } from '../../services/attendance/attendance.service';
-import { TcEvent, TcEventAttendanceLevel } from '../../services/event/event.model';
+import { TcEvent, TcEventAttendanceLevel, TcWeek, tcWeeks } from '../../services/event/event.model';
 import { EventService } from '../../services/event/event.service';
 import { Member, MemberChapterStatus, MemberPledgeClass, MemberSchoolClass } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
@@ -15,10 +15,12 @@ import * as moment from 'moment';
 })
 export class AttendanceComponent implements OnInit, OnDestroy {
   events: TcEvent[];
-  private eventsSubscription: Subscription;
+  weeks: TcWeek[] = tcWeeks;
+  // private eventsSubscription: Subscription;
 
   selectedAttendance: TcEventAttendance;
   selectedAttendanceSubscription: Subscription;
+  selectedWeek: TcWeek;
   selectedEvent: TcEvent;
 
   constructor(
@@ -29,20 +31,31 @@ export class AttendanceComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.eventsSubscription = this.eventService.events.subscribe(
-      {
-        next: (nextEvents) => {
-          this.events = nextEvents;
-          this.cdRef.detectChanges();
-        }
-      }
-    );
+    // this.eventsSubscription = this.eventService.events.subscribe(
+    //   {
+    //     next: (nextEvents) => {
+    //       this.events = nextEvents;
+    //       this.cdRef.detectChanges();
+    //     }
+    //   }
+    // );
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
+    // this.eventsSubscription.unsubscribe();
     if (this.selectedAttendanceSubscription) {
       this.selectedAttendanceSubscription.unsubscribe();
+    }
+  }
+
+  selectedWeekChanged() {
+    this.selectedEvent = undefined;
+    this.selectedEventChanged();
+    this.events = undefined;
+    if (this.selectedWeek) {
+      this.eventService.getEvents(this.selectedWeek.startDateTime, this.selectedWeek.endDateTime, true).then(events => {
+        this.events = events;
+      });
     }
   }
 
@@ -52,7 +65,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     }
 
     this.selectedAttendance = undefined;
-    if (this.selectedEvent.attendanceId) {
+    if (this.selectedEvent && this.selectedEvent.attendanceId) {
       this.selectedAttendanceSubscription = this.attendanceService.getAttendanceById(this.selectedEvent.attendanceId).subscribe({
         next: (nextAttendnace) => {
           // nextAttendnace.members.sort((a, b) => {
@@ -72,7 +85,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       case TcEventAttendanceLevel.ALL_INITIATED:
         return member.chapterStatus === MemberChapterStatus.ACTIVE;
       case TcEventAttendanceLevel.ALL_INITIATED_NON_SENIORS:
-        return member.chapterStatus === MemberChapterStatus.ACTIVE && member.class !== MemberSchoolClass.SENIOR;
+        return member.chapterStatus === MemberChapterStatus.ACTIVE && member.schoolEndTerm !== "Spring 2020";
       case TcEventAttendanceLevel.LIVE_INS_ONLY:
         return member.livingIn;
       case TcEventAttendanceLevel.LAST_TWO_PLEDGE_CLASSES:
@@ -84,14 +97,22 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       case TcEventAttendanceLevel.LIVE_INS_THURSDAY_HOUSE_JOB:
         return !!member.thursdayHouseJob;
       case TcEventAttendanceLevel.COMMITTEE_MEMBERS:
-        return !!member.chapterPosition;
+        return this.isOnCommittee(member.chapterPosition);
       case TcEventAttendanceLevel.OPTIONAL:
         return false;
     }
   }
 
+  private isOnCommittee(position: string): boolean {
+    return position !== 'Social Chair' && position.endsWith(' Chair');
+  }
+
   eventIsToday(event: TcEvent) {
     return moment(event.startDateTime).isSame(moment.now(), 'date');
+  }
+
+  isCurrentWeek(week: TcWeek) {
+    return moment(week.startDateTime).isSameOrBefore(moment.now(), 'date') && moment(week.endDateTime).isSameOrAfter(moment.now(), 'date');
   }
 
   deleteAttendance() {

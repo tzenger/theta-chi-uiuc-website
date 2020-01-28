@@ -27,8 +27,8 @@ export class FineReport {
 
 // Monday to Sunday (inclusive); 17 total weeks
 export const weeklyFineReports: FineReport[] = [
-  { status: FineReportStatus.CURRENT, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.PENDING, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.CURRENT, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/10/2020'), endDate: new Date('2/16/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/17/2020'), endDate: new Date('2/23/2020'), events: undefined, attendances: undefined },
@@ -90,7 +90,7 @@ export class FineReportsComponent implements OnInit {
         if (!mIds.has(ma.memberId)) {
 
           mIds.add(ma.memberId);
-          mFirst.set(ma.memberId, ma.firstName);
+          mFirst.set(ma.memberId, ma.preferredName);
           mLast.set(ma.memberId, ma.lastName);
           mFineTotal.set(ma.memberId, 0);
         }
@@ -107,21 +107,28 @@ export class FineReportsComponent implements OnInit {
       });
 
       a.members.forEach(ma => {
-        if (ma.required && !ma.attended) {
-          if (ma.excused) {
-            mAV.get(ma.memberId).pop();
-            mAV.get(ma.memberId).push('E');
+        if (ma.required) {
+          if (!ma.attended) {
+            if (ma.excused) {
+              mAV.get(ma.memberId).pop();
+              mAV.get(ma.memberId).push('E');
+            } else {
+              mAV.get(ma.memberId).pop();
+              mAV.get(ma.memberId).push('F');
+              mFineTotal.set(ma.memberId, mFineTotal.get(ma.memberId) + a.eventFineAmount);
+            }
           } else {
             mAV.get(ma.memberId).pop();
-            mAV.get(ma.memberId).push('F');
-            mFineTotal.set(ma.memberId, mFineTotal.get(ma.memberId) + a.eventFineAmount);
+            mAV.get(ma.memberId).push(' ');
           }
-        } else if (!ma.attended) {
-          mAV.get(ma.memberId).pop();
-          mAV.get(ma.memberId).push('A');
         } else {
-          mAV.get(ma.memberId).pop();
-          mAV.get(ma.memberId).push(' ');
+          if (ma.attended) {
+            mAV.get(ma.memberId).pop();
+            mAV.get(ma.memberId).push('P');
+          } else {
+            mAV.get(ma.memberId).pop();
+            mAV.get(ma.memberId).push(' ');
+          }
         }
       });
     });
