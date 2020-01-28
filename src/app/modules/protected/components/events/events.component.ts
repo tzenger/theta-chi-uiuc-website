@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, OnDestroy, ChangeDetectorRef } from '@ang
 import { TcEvent } from '../../services/event/event.model';
 import { EventService } from '../../services/event/event.service';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-events',
@@ -23,8 +24,10 @@ export class EventsComponent implements OnInit, OnDestroy {
     this.eventsSubscription = this.eventService.events.subscribe(
       {
         next: (nextEvents) => {
-          this.events = nextEvents;
-          this.cdRef.detectChanges();
+          if (nextEvents) {
+            this.events = nextEvents;
+            this.cdRef.detectChanges();
+          }
         }
       }
     );

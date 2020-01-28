@@ -37,3 +37,8 @@
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+select {
+  font-family: monospace;
+  font-size: 14px;
+}

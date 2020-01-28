@@ -1,10 +1,15 @@
 <div class="container mt-3">
   <form>
     <div class="form-group">
-      <select class="form-control" id="event" [(ngModel)]="selectedEvent" name="selectedEvent"
+      <select class="form-control mb-1" id="week" [(ngModel)]="selectedWeek" name="selectedWeek"
+        (change)="selectedWeekChanged()">
+        <option [ngValue]="undefined" disabled>Select Week</option>
+        <option *ngFor="let w of weeks" [ngValue]="w">[{{isCurrentWeek(w) ? ' Current! ' : w.startDateTime | date:'MM/dd/yyyy'}}] {{w.name}}</option>
+      </select>
+      <select *ngIf="selectedWeek && events" class="form-control" id="event" [(ngModel)]="selectedEvent" name="selectedEvent"
         (change)="selectedEventChanged()">
         <option [ngValue]="undefined" disabled>Select Event</option>
-        <option *ngFor="let e of events" [ngValue]="e">[{{eventIsToday(e) ? 'Today' : e.startDateTime | date:'MM/dd/yyyy'}}] {{e.title}}</option>
+        <option *ngFor="let e of events" [ngValue]="e">[{{eventIsToday(e) ? 'Today' : e.startDateTime | date:'EEE' | uppercase}}] {{e.title}}</option>
       </select>
     </div>
   </form>

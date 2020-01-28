@@ -199,7 +199,7 @@ export class EventService {
   private getAll(): void {
     var eventsRef = this.afs.collection('events').ref;
 
-    eventsRef.orderBy('startDateTime').onSnapshot(
+    eventsRef.orderBy('startDateTime', 'desc').onSnapshot(
       (onNext) => {
         console.log('eventsRef snapshot changed: ', onNext);
 
