@@ -132,6 +132,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     }
 
     this.memberService.getAll().then(members => {
+      members = members.filter((m) => m.chapterStatus === 'Active');
       members.sort((a, b) => a.lastName.localeCompare(b.lastName));
 
       let membersList = members.map(m => {
