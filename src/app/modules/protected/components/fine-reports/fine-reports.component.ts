@@ -27,9 +27,9 @@ export class FineReport {
 
 // Monday to Sunday (inclusive); 17 total weeks
 export const weeklyFineReports: FineReport[] = [
-  { status: FineReportStatus.PENDING, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.CURRENT, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.FINALIZED, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.PENDING, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
+  { status: FineReportStatus.CURRENT, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/10/2020'), endDate: new Date('2/16/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/17/2020'), endDate: new Date('2/23/2020'), events: undefined, attendances: undefined },
   { status: FineReportStatus.FUTURE, startDate: new Date('2/24/2020'), endDate: new Date('3/1/2020'), events: undefined, attendances: undefined },
@@ -80,7 +80,6 @@ export class FineReportsComponent implements OnInit {
     let mIds = new Set<string>();
 
     let mAV = new Map<string, string[]>();
-    let mRequired = new Map<string, boolean>();
     let mFirst = new Map<string, string>();
     let mLast = new Map<string, string>();
     let mFineTotal = new Map<string, number>();
@@ -114,8 +113,12 @@ export class FineReportsComponent implements OnInit {
               mAV.get(ma.memberId).push('E');
             } else {
               mAV.get(ma.memberId).pop();
-              mAV.get(ma.memberId).push('F');
-              mFineTotal.set(ma.memberId, mFineTotal.get(ma.memberId) + a.eventFineAmount);
+              if (a.eventFineAmount > 0) {
+                mAV.get(ma.memberId).push('F');
+                mFineTotal.set(ma.memberId, mFineTotal.get(ma.memberId) + a.eventFineAmount);
+              } else {
+                mAV.get(ma.memberId).push('A');
+              }
             }
           } else {
             mAV.get(ma.memberId).pop();

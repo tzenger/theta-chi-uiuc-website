@@ -1,5 +1,5 @@
 <div class="bg-white py-2">
-  <div *ngIf="members" class="container">
+  <div class="container">
     <div class="members-filters">
 
     </div>
@@ -9,14 +9,41 @@
     </div>
     <hr> -->
 
-    <div>
-      <h2>{{members?.length}} members</h2>
-    </div>
-    <hr>
-    <div class="members">
-      <div class="member" *ngFor="let member of members">
-        <app-view-member [member]="member"></app-view-member>
+    <div *ngIf="activeMembers">
+      <div>
+        <h2>{{activeMembers.length}} Active Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of activeMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
       </div>
     </div>
+
+    <div *ngIf="otherMembers">
+      <div>
+        <h2>{{otherMembers.length}} Non-alumni/non-active Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of otherMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="alumniMembers">
+      <div>
+        <h2>{{alumniMembers.length}} Alumni</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of alumniMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

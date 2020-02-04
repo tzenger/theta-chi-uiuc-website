@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Papa, ParseResult } from 'ngx-papaparse';
 import { Member } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
-import { Papa, ParseResult } from 'ngx-papaparse';
 
 @Component({
   selector: 'app-members',
@@ -9,7 +9,9 @@ import { Papa, ParseResult } from 'ngx-papaparse';
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
-  members: Array<Member>;
+  activeMembers: Array<Member>;
+  alumniMembers: Array<Member>;
+  otherMembers: Array<Member>;
 
   constructor(
     private memberService: MemberService,
@@ -27,7 +29,24 @@ export class MembersComponent implements OnInit {
   getMembers() {
     this.memberService.getAll().then(members => {
       members.sort((a, b) => a.preferredName.localeCompare(b.preferredName));
-      this.members = members;
+
+      let activeMembers = new Array<Member>();
+      let alumniMembers = new Array<Member>();
+      let otherMembers = new Array<Member>();
+
+      members.forEach((m) => {
+        if (m.chapterStatus === 'Active') {
+          activeMembers.push(m);
+        } else if (m.chapterStatus === 'Alumni') {
+          alumniMembers.push(m);
+        } else {
+          otherMembers.push(m);
+        }
+      });
+
+      this.activeMembers = activeMembers;
+      this.alumniMembers = alumniMembers;
+      this.otherMembers = otherMembers;
     });
   }
 
