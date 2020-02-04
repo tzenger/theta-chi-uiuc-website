@@ -171,6 +171,60 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     });
   }
 
+  private getOldMemberAttendance(om: Member, mas: MemberAttendance[]): MemberAttendance {
+    for (let ma of mas) {
+      if (ma.memberId === om.id) {
+        return ma;
+      }
+    }
+    return undefined;
+  }
+
+  updateAttendanceInfo() {
+    if (!this.selectedAttendance) {
+      return;
+    }
+
+
+    this.memberService.getAll().then(members => {
+      members = members.filter((m) => m.chapterStatus === 'Active');
+      members.sort((a, b) => a.lastName.localeCompare(b.lastName));
+
+      let membersList = members.map(m => {
+        const oldMA = this.getOldMemberAttendance(m, this.selectedAttendance.members);
+        console.log(oldMA)
+        const ma: MemberAttendance = {
+          memberId: m.id,
+          firstName: m.firstName,
+          lastName: m.lastName,
+          preferredName: m.preferredName,
+          required: this.isRequired(m, this.selectedEvent.attendanceLevel),
+          attended: oldMA ? oldMA.attended : false,
+          excused: oldMA ? oldMA.excused : false,
+          excuse: oldMA ? oldMA.excuse : ''
+        };
+
+        return ma;
+      });
+
+      membersList.sort((a, b) => {
+        return (a.required === b.required) ? 0 : (a.required ? -1 : 1);
+      });
+
+      this.selectedAttendance.eventTitle = this.selectedEvent.title;
+      this.selectedAttendance.eventStartDateTime = this.selectedEvent.startDateTime;
+      this.selectedAttendance.eventEndDateTime = this.selectedEvent.endDateTime;
+      this.selectedAttendance.eventAttendanceLevel = this.selectedEvent.attendanceLevel;
+      this.selectedAttendance.eventFineAmount = this.selectedEvent.fineAmount;
+      this.selectedAttendance.members = membersList;
+
+      console.log(this.selectedAttendance);
+
+      this.attendanceService.updateAttendance(this.selectedAttendance);
+      console.log('Successfully updated attendance.');
+    });
+  }
+
   updateAttendance() {
     if (!this.selectedAttendance) {
       return;
