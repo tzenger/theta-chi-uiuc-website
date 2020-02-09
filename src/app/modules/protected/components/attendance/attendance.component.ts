@@ -16,6 +16,7 @@ import * as moment from 'moment';
 export class AttendanceComponent implements OnInit, OnDestroy {
   events: TcEvent[];
   weeks: TcWeek[] = tcWeeks;
+  showAdvancedView: boolean = true;
   // private eventsSubscription: Subscription;
 
   selectedAttendance: TcEventAttendance;
@@ -48,6 +49,10 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleAdvancedView() {
+    this.showAdvancedView = !this.showAdvancedView;
+  }
+
   selectedWeekChanged() {
     this.selectedEvent = undefined;
     this.selectedEventChanged();
@@ -64,6 +69,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       this.selectedAttendanceSubscription.unsubscribe();
     }
 
+    this.showAdvancedView = true;
     this.selectedAttendance = undefined;
     if (this.selectedEvent && this.selectedEvent.attendanceId) {
       this.selectedAttendanceSubscription = this.attendanceService.getAttendanceById(this.selectedEvent.attendanceId).subscribe({
