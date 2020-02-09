@@ -65,4 +65,13 @@ export class MemberService {
 
     return members;
   }
+
+  public async getByUin(uin: number): Promise<Member> {
+    const data = await this.afs.collection('members').ref.where('uin', '==', uin).get();
+    if (data.empty || data.size > 1) {
+      return undefined;
+    }
+    const member = <Member>data.docs[0].data();
+    return member;
+  }
 }

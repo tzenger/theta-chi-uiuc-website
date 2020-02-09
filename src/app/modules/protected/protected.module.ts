@@ -15,6 +15,7 @@ import { EditMemberComponent } from './components/members/edit-member/edit-membe
 import { MembersComponent } from './components/members/members.component';
 import { ViewMemberComponent } from './components/members/view-member/view-member.component';
 import { ProtectedRoutingModule } from './protected-routing.module';
+import { SelfCheckinComponent } from './components/attendance/self-checkin/self-checkin.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProtectedRoutingModule } from './protected-routing.module';
     ViewEventComponent,
     EventsComponent,
     FineReportsComponent,
+    SelfCheckinComponent,
   ],
   imports: [
     CommonModule,

@@ -4,8 +4,8 @@ import { AccountComponent } from './components/account/account.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventsComponent } from './components/events/events.component';
-import { MembersComponent } from './components/members/members.component';
 import { FineReportsComponent } from './components/fine-reports/fine-reports.component';
+import { MembersComponent } from './components/members/members.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
