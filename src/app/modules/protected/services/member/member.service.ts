@@ -66,7 +66,7 @@ export class MemberService {
     return members;
   }
 
-  public async getByUin(uin: number): Promise<Member> {
+  public async getByUin(uin: string): Promise<Member> {
     const data = await this.afs.collection('members').ref.where('uin', '==', uin).get();
     if (data.empty || data.size > 1) {
       return undefined;

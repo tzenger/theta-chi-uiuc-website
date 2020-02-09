@@ -74,7 +74,7 @@ export class MembersComponent implements OnInit {
       m.initiationDate = r[13];
 
       // School Information
-      m.uin = Number.parseInt(r[14]);
+      m.uin = r[14];
       m.netId = r[15];
       m.schoolEmail = r[16];
       m.college = r[17];
