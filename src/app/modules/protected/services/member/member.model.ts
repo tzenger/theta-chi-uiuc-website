@@ -48,7 +48,7 @@ export class Member {
   thursdayHouseJob?: boolean;
 
   // School Information
-  uin?: number;
+  uin?: string;
   netId?: string;
   schoolEmail?: string;
   college?: string;

@@ -49,7 +49,7 @@ export class SelfCheckinComponent implements OnInit {
       return;
     }
 
-    this.memberService.getByUin(Number.parseInt(uin)).then(m => {
+    this.memberService.getByUin(uin).then(m => {
       if (m) {
         // this.people.set(uin, m.preferredName);
 
