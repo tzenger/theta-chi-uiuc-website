@@ -23,6 +23,10 @@ export class ViewEventComponent implements OnInit {
   }
 
   deleteEvent() {
-    this.eventService.removeEvent(this.event);
+    if (this.event && this.event.attendanceId) {
+      console.log('Cannot delete event until attendance is deleted.')
+    } else {
+      this.eventService.removeEvent(this.event);
+    }
   }
 }
