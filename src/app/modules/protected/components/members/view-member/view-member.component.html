@@ -11,7 +11,8 @@
       <div class="ch-details">
         <h5 class="card-title">{{member.preferredName}} {{member.lastName}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{member.pledgeTerm}} - {{member.pledgeClass}}</h6>
-        <h6 class="card-subtitle mb-0 text-muted">{{member.chapterStatus}} - {{member.chapterPosition}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{member.chapterStatus}} - {{member.chapterPosition}}</h6>
+        <h6 class="card-subtitle mb-0 text-muted">{{member.schoolStartTerm}} - {{member.schoolEndTerm}}</h6>
       </div>
       <div class="ch-edit-btn" (click)="editBtnClick($event)">
         <img class="" src="assets/protected/edit_btn.png" alt="Blank avatar image" width="16px !important">
