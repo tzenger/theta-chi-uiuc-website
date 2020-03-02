@@ -16,11 +16,11 @@ export class EditMemberComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(qpm => {
-      if (!qpm.has('m')) {
-        return;
-      }
-    })
+    // this.route.queryParamMap.subscribe(qpm => {
+    //   if (!qpm.has('m')) {
+    //     return;
+    //   }
+    // })
   }
 
 }

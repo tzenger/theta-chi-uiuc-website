@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Papa, ParseResult } from 'ngx-papaparse';
-import { Member } from '../../services/member/member.model';
+import { Member, MemberPledgeClass } from '../../services/member/member.model';
 import { MemberService } from '../../services/member/member.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { MemberService } from '../../services/member/member.service';
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit {
+  pledgeMembers: Array<Member>;
   activeMembers: Array<Member>;
   alumniMembers: Array<Member>;
   otherMembers: Array<Member>;
@@ -22,21 +23,26 @@ export class MembersComponent implements OnInit {
     this.getMembers();
   }
 
-  addBlankMember() {
-    this.memberService.add(new Member()).then(r => this.getMembers());
-  }
+  // addBlankMember() {
+  //   this.memberService.add(new Member()).then(r => this.getMembers());
+  // }
 
   getMembers() {
     this.memberService.getAll().then(members => {
       members.sort((a, b) => a.preferredName.localeCompare(b.preferredName));
 
+      let pledgeMembers = new Array<Member>();
       let activeMembers = new Array<Member>();
       let alumniMembers = new Array<Member>();
       let otherMembers = new Array<Member>();
 
       members.forEach((m) => {
         if (m.chapterStatus === 'Active') {
-          activeMembers.push(m);
+          if (m.chapterPosition === 'Pledge') {
+            pledgeMembers.push(m);
+          } else {
+            activeMembers.push(m);
+          }
         } else if (m.chapterStatus === 'Alumni') {
           alumniMembers.push(m);
         } else {
@@ -44,6 +50,7 @@ export class MembersComponent implements OnInit {
         }
       });
 
+      this.pledgeMembers = pledgeMembers;
       this.activeMembers = activeMembers;
       this.alumniMembers = alumniMembers;
       this.otherMembers = otherMembers;
@@ -113,5 +120,58 @@ export class MembersComponent implements OnInit {
 
   delete(id: string) {
     this.memberService.remove(id).then(r => this.getMembers());
+  }
+
+  addMember(member: Member) {
+    this.memberService.add(member);
+  }
+
+  addBlankMember() {
+    const member: Member = {
+      // Personal Information
+      firstName: '',
+      lastName: '',
+      preferredName: '',
+      middleName: '',
+      phone: 0,
+      email: '',
+      birthday: '',
+      hometown: '',
+
+      // Chapter Information
+      chapterStatus: 'Active',
+      chapterPosition: 'Pledge',
+      pledgeTerm: 'Spring 2020',
+      pledgeClass: MemberPledgeClass.BETA_MU,
+      initiationDate: '',
+      livingIn: false,
+      tuesdayHouseJob: false,
+      thursdayHouseJob: false,
+
+      // School Information
+      uin: '',
+      netId: '',
+      schoolEmail: '',
+      college: '',
+      major: '',
+      classStanding: '',
+      gpa: 0,
+      class: '',
+      schoolStartTerm: '',
+      schoolEndTerm: '',
+
+      // Emergency Contact Information
+      ecTitle: '',
+      ecFirstName: '',
+      ecLastName: '',
+      ecRelation: '',
+      ecPhone: 0,
+      ecEmail: '',
+      ecNotes: '',
+
+      notes: '',
+    };
+
+    this.memberService.add(member);
   }
 }

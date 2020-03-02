@@ -13,6 +13,7 @@ export enum MemberSchoolClass {
 }
 
 export enum MemberPledgeClass {
+  BETA_MU = 'Beta Mu',
   BETA_LAMBDA = 'Beta Lambda',
   BETA_KAPPA = 'Beta Kappa',
   BETA_IOTA = 'Beta Iota',

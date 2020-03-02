@@ -89,15 +89,15 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       case TcEventAttendanceLevel.EVERYONE:
         return true;
       case TcEventAttendanceLevel.ALL_INITIATED:
-        return member.chapterStatus === MemberChapterStatus.ACTIVE;
+        return member.chapterStatus === MemberChapterStatus.ACTIVE && member.chapterPosition !== "Pledge";
       case TcEventAttendanceLevel.ALL_INITIATED_NON_SENIORS:
         return member.chapterStatus === MemberChapterStatus.ACTIVE && member.schoolEndTerm !== "Spring 2020";
       case TcEventAttendanceLevel.LIVE_INS_ONLY:
         return member.livingIn;
       case TcEventAttendanceLevel.LAST_TWO_PLEDGE_CLASSES:
-        return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA || member.pledgeClass === MemberPledgeClass.BETA_KAPPA;
+        return member.pledgeClass === MemberPledgeClass.BETA_MU || member.pledgeClass === MemberPledgeClass.BETA_LAMBDA;
       case TcEventAttendanceLevel.PLEDGES_ONLY:
-        return member.pledgeClass === MemberPledgeClass.BETA_LAMBDA;
+        return member.pledgeClass === MemberPledgeClass.BETA_MU;
       case TcEventAttendanceLevel.LIVE_INS_TUESDAY_HOUSE_JOB:
         return !!member.tuesdayHouseJob;
       case TcEventAttendanceLevel.LIVE_INS_THURSDAY_HOUSE_JOB:
