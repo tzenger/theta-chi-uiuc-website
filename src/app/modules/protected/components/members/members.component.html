@@ -25,18 +25,6 @@
     </div>
     <hr> -->
 
-    <div *ngIf="pledgeMembers">
-      <div>
-        <h2>{{pledgeMembers.length}} Pledge Members</h2>
-      </div>
-      <hr>
-      <div class="members">
-        <div class="member" *ngFor="let member of pledgeMembers">
-          <app-view-member [member]="member"></app-view-member>
-        </div>
-      </div>
-    </div>
-
     <div *ngIf="activeMembers">
       <div>
         <h2>{{activeMembers.length}} Active Members</h2>
@@ -44,6 +32,18 @@
       <hr>
       <div class="members">
         <div class="member" *ngFor="let member of activeMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="pledgeMembers">
+      <div>
+        <h2>{{pledgeMembers.length}} Pledge Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of pledgeMembers">
           <app-view-member [member]="member"></app-view-member>
         </div>
       </div>

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { TcEventAttendance, MemberAttendance } from '../../services/attendance/attendance.model';
 import { AttendanceService } from '../../services/attendance/attendance.service';
 import { EventService } from '../../services/event/event.service';
 import { TcEvent } from '../../services/event/event.model';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import html2canvas from "../../../../../../lib/html2canvas";
+import { DOCUMENT } from '@angular/common';
 
 export enum FineReportStatus {
   FUTURE = "Future",
@@ -12,6 +15,7 @@ export enum FineReportStatus {
 }
 
 export class FineReport {
+  semesterWeek: string;
   status: string;
   startDate: Date;
   endDate: Date;
@@ -27,23 +31,23 @@ export class FineReport {
 
 // Monday to Sunday (inclusive); 17 total weeks
 export const weeklyFineReports: FineReport[] = [
-  { status: FineReportStatus.FINALIZED, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FINALIZED, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FINALIZED, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FINALIZED, startDate: new Date('2/10/2020'), endDate: new Date('2/16/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FINALIZED, startDate: new Date('2/17/2020'), endDate: new Date('2/23/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.PENDING, startDate: new Date('2/24/2020'), endDate: new Date('3/1/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.CURRENT, startDate: new Date('3/2/2020'), endDate: new Date('3/8/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('3/9/2020'), endDate: new Date('3/15/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('3/16/2020'), endDate: new Date('3/22/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('3/23/2020'), endDate: new Date('3/29/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('3/30/2020'), endDate: new Date('4/5/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('4/6/2020'), endDate: new Date('4/12/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('4/13/2020'), endDate: new Date('4/19/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('4/20/2020'), endDate: new Date('4/26/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('4/27/2020'), endDate: new Date('5/3/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('5/4/2020'), endDate: new Date('5/10/2020'), events: undefined, attendances: undefined },
-  { status: FineReportStatus.FUTURE, startDate: new Date('5/11/2020'), endDate: new Date('5/17/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '01', status: FineReportStatus.FINALIZED, startDate: new Date('1/20/2020'), endDate: new Date('1/26/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '02', status: FineReportStatus.FINALIZED, startDate: new Date('1/27/2020'), endDate: new Date('2/2/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '03', status: FineReportStatus.FINALIZED, startDate: new Date('2/3/2020'), endDate: new Date('2/9/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '04', status: FineReportStatus.FINALIZED, startDate: new Date('2/10/2020'), endDate: new Date('2/16/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '05', status: FineReportStatus.FINALIZED, startDate: new Date('2/17/2020'), endDate: new Date('2/23/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '06', status: FineReportStatus.PENDING, startDate: new Date('2/24/2020'), endDate: new Date('3/1/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '07', status: FineReportStatus.CURRENT, startDate: new Date('3/2/2020'), endDate: new Date('3/8/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '08', status: FineReportStatus.FUTURE, startDate: new Date('3/9/2020'), endDate: new Date('3/15/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '09', status: FineReportStatus.FUTURE, startDate: new Date('3/16/2020'), endDate: new Date('3/22/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '10', status: FineReportStatus.FUTURE, startDate: new Date('3/23/2020'), endDate: new Date('3/29/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '11', status: FineReportStatus.FUTURE, startDate: new Date('3/30/2020'), endDate: new Date('4/5/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '12', status: FineReportStatus.FUTURE, startDate: new Date('4/6/2020'), endDate: new Date('4/12/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '13', status: FineReportStatus.FUTURE, startDate: new Date('4/13/2020'), endDate: new Date('4/19/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '14', status: FineReportStatus.FUTURE, startDate: new Date('4/20/2020'), endDate: new Date('4/26/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '15', status: FineReportStatus.FUTURE, startDate: new Date('4/27/2020'), endDate: new Date('5/3/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '16', status: FineReportStatus.FUTURE, startDate: new Date('5/4/2020'), endDate: new Date('5/10/2020'), events: undefined, attendances: undefined },
+  { semesterWeek: '17', status: FineReportStatus.FUTURE, startDate: new Date('5/11/2020'), endDate: new Date('5/17/2020'), events: undefined, attendances: undefined },
 ]
 
 @Component({
@@ -52,13 +56,14 @@ export const weeklyFineReports: FineReport[] = [
   styleUrls: ['./fine-reports.component.scss']
 })
 export class FineReportsComponent implements OnInit {
-
+  faDownload = faDownload;
   weeklyFineReports: FineReport[];
   selectedReport: FineReport;
 
   constructor(
     private attendanceService: AttendanceService,
-    private eventService: EventService
+    private eventService: EventService,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit() {
@@ -166,4 +171,14 @@ export class FineReportsComponent implements OnInit {
     });
   }
 
+  downloadReportBtn() {
+    html2canvas(this.document.getElementById('report')).then((canvas: HTMLCanvasElement) => {
+      canvas.toBlob((blob) => {
+        const link = this.document.createElement('a');
+        link.download = `week_${this.selectedReport.semesterWeek}_fine_report_${this.selectedReport.status.toLocaleLowerCase()}`;
+        link.href = URL.createObjectURL(blob);
+        link.click();
+      }, 'image.png');
+    });
+  }
 }
