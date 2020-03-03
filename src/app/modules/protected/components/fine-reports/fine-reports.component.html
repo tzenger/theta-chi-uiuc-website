@@ -1,4 +1,4 @@
-<div class="container pt-2">
+<div id="report" class="container pt-2" #report>
   <div class="row">
 
     <div class="form-group col">
@@ -10,6 +10,12 @@
           ({{report.startDate | date:'MM/dd/yyyy'}}-{{report.endDate | date:'MM/dd/yyyy'}}) [{{report.status}}]
         </option>
       </select>
+    </div>
+
+    <div class="col-1" *ngIf="selectedReport">
+      <div class="trashBtn pt-1">
+        <fa-icon [icon]="faDownload" (click)="downloadReportBtn()" style="cursor: pointer;"></fa-icon>
+      </div>
     </div>
   </div>
 
