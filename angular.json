@@ -23,6 +23,7 @@
               "@firebase/app",
               "@firebase/firestore",
               "@firebase/component",
+              "@firebase/auth",
               "@firebase/util"
             ],
             "index": "src/index.html",

@@ -27,6 +27,8 @@ import { HelpfulLinksComponent } from './pages/parents/helpful-links/helpful-lin
 import { OmegafiComponent } from './pages/parents/omegafi/omegafi.component';
 import { ParentsComponent } from './pages/parents/parents.component';
 import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -56,11 +58,13 @@ import { RecruitmentComponent } from './pages/recruitment/recruitment.component'
     AlumniEventsComponent,
     PledgeClassesComponent,
     MembersComponent,
-    HomepageComponent
+    HomepageComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent

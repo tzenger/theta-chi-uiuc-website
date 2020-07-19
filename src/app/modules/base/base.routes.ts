@@ -21,10 +21,12 @@ import { HelpfulLinksComponent } from './pages/parents/helpful-links/helpful-lin
 import { OmegafiComponent } from './pages/parents/omegafi/omegafi.component';
 import { ParentsComponent } from './pages/parents/parents.component';
 import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const BaseRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: 'about', component: AboutComponent },
   { path: 'about/rho-chapter-history', component: RhoChapterHistoryComponent },
