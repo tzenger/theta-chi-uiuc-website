@@ -1,32 +1,30 @@
 import { Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { HomeComponent } from './home/home.component';
-import { RecruitmentComponent } from './recruitment/recruitment.component';
-import { InvolvementComponent } from './involvement/involvement.component';
-import { AlumniComponent } from './alumni/alumni.component';
-import { ParentsComponent } from './parents/parents.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { RhoChapterHistoryComponent } from './about/rho-chapter-history/rho-chapter-history.component';
-import { NationalHistoryComponent } from './about/national-history/national-history.component';
-import { OutsideOfRhoComponent } from './involvement/outside-of-rho/outside-of-rho.component';
-import { CampusComponent } from './involvement/campus/campus.component';
-import { SocialComponent } from './involvement/social/social.component';
-import { GiThetaChiComponent } from './involvement/gi-theta-chi/gi-theta-chi.component';
-import { PhilanthropyComponent } from './involvement/philanthropy/philanthropy.component';
-import { ServiceComponent } from './involvement/service/service.component';
-import { NationalRelationsComponent } from './involvement/national-relations/national-relations.component';
-import { NotableAlumniComponent } from './alumni/notable-alumni/notable-alumni.component';
-import { FaqComponent } from './parents/faq/faq.component';
-import { OmegafiComponent } from './parents/omegafi/omegafi.component';
-import { HelpfulLinksComponent } from './parents/helpful-links/helpful-links.component';
-import { InvolvementMissionComponent } from './involvement/involvement-mission/involvement-mission.component';
-import { AlumniEventsComponent } from './alumni/alumni-events/alumni-events.component';
-import { PledgeClassesComponent } from './about/pledge-classes/pledge-classes.component';
-import { MembersComponent } from './about/members/members.component';
+import { AboutComponent } from './pages/about/about.component';
+import { MembersComponent } from './pages/about/members/members.component';
+import { NationalHistoryComponent } from './pages/about/national-history/national-history.component';
+import { PledgeClassesComponent } from './pages/about/pledge-classes/pledge-classes.component';
+import { RhoChapterHistoryComponent } from './pages/about/rho-chapter-history/rho-chapter-history.component';
+import { AlumniEventsComponent } from './pages/alumni/alumni-events/alumni-events.component';
+import { NotableAlumniComponent } from './pages/alumni/notable-alumni/notable-alumni.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { CampusComponent } from './pages/involvement/campus/campus.component';
+import { GiThetaChiComponent } from './pages/involvement/gi-theta-chi/gi-theta-chi.component';
+import { InvolvementMissionComponent } from './pages/involvement/involvement-mission/involvement-mission.component';
+import { NationalRelationsComponent } from './pages/involvement/national-relations/national-relations.component';
+import { OutsideOfRhoComponent } from './pages/involvement/outside-of-rho/outside-of-rho.component';
+import { PhilanthropyComponent } from './pages/involvement/philanthropy/philanthropy.component';
+import { ServiceComponent } from './pages/involvement/service/service.component';
+import { SocialComponent } from './pages/involvement/social/social.component';
+import { FaqComponent } from './pages/parents/faq/faq.component';
+import { HelpfulLinksComponent } from './pages/parents/helpful-links/helpful-links.component';
+import { OmegafiComponent } from './pages/parents/omegafi/omegafi.component';
+import { ParentsComponent } from './pages/parents/parents.component';
+import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
 
 export const BaseRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomepageComponent },
 
   { path: 'about', component: AboutComponent },
   { path: 'about/rho-chapter-history', component: RhoChapterHistoryComponent },

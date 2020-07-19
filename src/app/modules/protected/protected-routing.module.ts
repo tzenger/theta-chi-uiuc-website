@@ -1,19 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './components/account/account.component';
-import { AttendanceComponent } from './components/attendance/attendance.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { EventsComponent } from './components/events/events.component';
-import { FineReportsComponent } from './components/fine-reports/fine-reports.component';
-import { MembersComponent } from './components/members/members.component';
+import { AccountComponent } from './pages/account/account.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
-  { path: 'attendance', component: AttendanceComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'events', component: EventsComponent },
-  { path: 'fine-reports', component: FineReportsComponent },
-  { path: 'members', component: MembersComponent },
 ];
 
 @NgModule({
