@@ -5,7 +5,7 @@ import { BaseRoutes } from './modules/base/base.routes';
 
 const routes: Routes = [
   { path: '', children: BaseRoutes },
-  { path: 'p', loadChildren: () => import('./modules/protected/protected.module').then(mod => mod.ProtectedModule), canActivate: [AuthGuard] }
+//   { path: 'p', loadChildren: () => import('./modules/protected/protected.module').then(mod => mod.ProtectedModule), canActivate: [AuthGuard] }
 ];
 
 @NgModule({
