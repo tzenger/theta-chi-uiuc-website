@@ -1,16 +1,77 @@
-<div class="container-fluid bg-white">
-  <div class="row">
+<div class="bg-white py-2">
+  <div class="container">
+    <!-- <div class="card mb-2">
+      <div class="card-header" style="cursor: pointer;" data-toggle="collapse" href="#collapseForm" role="button" attr.aria-expanded="false"
+        attr.aria-controls="collapseForm">
+        <h5 class="card-title font-italic">Add New Member</h5>
+        <h6 class="card-subtitle mb-0 text-muted">Click to expand</h6>
+      </div>
 
-    <div class="col">
-        <app-add-member></app-add-member>
+      <div #collapseForm class="collapse" id="collapseForm">
+        <div class="card-body">
+          <app-add-member (submit)="addMember($event)"></app-add-member>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <button (click)="addBlankMember()">Add Blank Member</button> -->
+
+    <!-- <div class="members-filters">
+
+    </div> -->
+    <!-- <h3>Upload file of new members</h3>
+    <div class="members-file-upload">
+      <input type="file" id="file" (change)="handleFileInput($event.target.files)">
     </div>
-    <div class="col-5">
+    <hr> -->
 
-      <div class="" style="overflow-y: scroll; height: 90vh">
-        <div *ngIf="members">
-          <app-view-member *ngFor="let member of members" [member]="member"></app-view-member>
+    <div *ngIf="activeMembers">
+      <div>
+        <h2>{{activeMembers.length}} Active Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of activeMembers">
+          <app-view-member [member]="member"></app-view-member>
         </div>
       </div>
     </div>
+
+    <div *ngIf="pledgeMembers">
+      <div>
+        <h2>{{pledgeMembers.length}} Pledge Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of pledgeMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="otherMembers">
+      <div>
+        <h2>{{otherMembers.length}} Non-alumni/non-active Members</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of otherMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="alumniMembers">
+      <div>
+        <h2>{{alumniMembers.length}} Alumni</h2>
+      </div>
+      <hr>
+      <div class="members">
+        <div class="member" *ngFor="let member of alumniMembers">
+          <app-view-member [member]="member"></app-view-member>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -15,7 +15,9 @@ export class MemberService {
     const id = this.afs.createId();
     const memberRef: AngularFirestoreDocument<any> = this.afs.doc(`members/${id}`);
     member.id = id;
-    return memberRef.set(member, { merge: false });
+
+    const obj = Object.assign({}, member);
+    return memberRef.set(obj, { merge: false });
   }
 
   public remove(id: string) {
@@ -62,5 +64,14 @@ export class MemberService {
     });
 
     return members;
+  }
+
+  public async getByUin(uin: string): Promise<Member> {
+    const data = await this.afs.collection('members').ref.where('uin', '==', uin).get();
+    if (data.empty || data.size > 1) {
+      return undefined;
+    }
+    const member = <Member>data.docs[0].data();
+    return member;
   }
 }

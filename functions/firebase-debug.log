@@ -1,0 +1,36 @@
+[debug] [2020-01-27T23:04:17.018Z] ----------------------------------------------------------------------
+[debug] [2020-01-27T23:04:17.020Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jacks\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2020-01-27T23:04:17.020Z] CLI Version:   7.12.1
+[debug] [2020-01-27T23:04:17.020Z] Platform:      win32
+[debug] [2020-01-27T23:04:17.020Z] Node Version:  v12.14.1
+[debug] [2020-01-27T23:04:17.024Z] Time:          Mon Jan 27 2020 17:04:17 GMT-0600 (Central Standard Time)
+[debug] [2020-01-27T23:04:17.024Z] ----------------------------------------------------------------------
+[debug] [2020-01-27T23:04:17.024Z] 
+[debug] [2020-01-27T23:04:17.041Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-27T23:04:17.042Z] > authorizing via signed-in user
+[debug] [2020-01-27T23:04:17.042Z] [iam] checking project theta-chi-uiuc for permissions ["firebase.projects.get"]
+[debug] [2020-01-27T23:04:17.044Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-01-27T23:04:17.044Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-01-27T23:04:17.221Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-27T23:04:17.225Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/theta-chi-uiuc:testIamPermissions  
+
+[debug] [2020-01-27T23:04:17.906Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[info] +  functions: Emulator started at http://localhost:5000
+[debug] [2020-01-27T23:04:20.434Z] [functions] Watching "C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions" for Cloud Functions...
+[debug] [2020-01-27T23:04:20.450Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-27T23:04:20.450Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-01-27T23:04:20.450Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-27T23:04:20.450Z] DEBUG: [worker-~diagnostic~-eb203fa6-cbac-4b58-a9e6-183b7b5415a9]: Assigning socketPath: \\?\pipe\C:\Users\jacks\Desktop\GitHub\theta-chi-uiuc-website\functions\12740
+[debug] [2020-01-27T23:04:20.451Z] DEBUG: [worker-~diagnostic~-eb203fa6-cbac-4b58-a9e6-183b7b5415a9]: BUSY
+[debug] [2020-01-27T23:04:20.810Z] DEBUG: [runtime-status] [12740] Functions runtime initialized. {"cwd":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions","node_version":"12.14.1"}
+[debug] [2020-01-27T23:04:20.810Z] DEBUG: [runtime-status] [12740] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-27T23:04:20.815Z] DEBUG: [runtime-status] [12740] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-27T23:04:20.817Z] DEBUG: [runtime-status] [12740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-27T23:04:20.818Z] DEBUG: [runtime-status] [12740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\jacks\\Desktop\\GitHub\\theta-chi-uiuc-website\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-27T23:04:21.866Z] [functions[addCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/addCalendarEvent).
+[debug] [2020-01-27T23:04:21.866Z] [functions[updateCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/updateCalendarEvent).
+[debug] [2020-01-27T23:04:21.866Z] [functions[deleteCalendarEvent]] http function initialized (http://localhost:5000/theta-chi-uiuc/us-central1/deleteCalendarEvent).
+[info] i  functions: Loaded functions: addCalendarEvent, updateCalendarEvent, deleteCalendarEvent
+[debug] [2020-01-27T23:04:21.880Z] DEBUG: [worker-~diagnostic~-eb203fa6-cbac-4b58-a9e6-183b7b5415a9]: IDLE

@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from './user.model';
-import { firestore } from 'firebase';
+import { Role } from './role.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -59,23 +59,28 @@ export class AuthService {
   }
 
   private updateUserData(user: firebase.User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
-    const data = {
-      id: user.uid,
-      uid: -1,
-      netId: '',
-      email: user.email,
-      firstName: '',
-      lastName: '',
-      preferredName: '',
-      age: -1
-    };
+    this.afs.collection('members').ref.where('email', '==', user.email).get().then(qs => {
 
-    return userRef.set(data, { merge: true });
+      if (qs.size !== 1) {
+        return;
+      }
+
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
+
+      const data = {
+        id: user.uid,
+        email: user.email,
+        memberRef: qs.docs[0].ref,
+        role: Role.ADMIN
+      };
+
+      userRef.set(data, { merge: true });
+    });
   }
 
   public isAdmin(user: User): boolean {
-    return user.role.title === 'Admin';
+    return user && user.role === Role.ADMIN;
   }
 }

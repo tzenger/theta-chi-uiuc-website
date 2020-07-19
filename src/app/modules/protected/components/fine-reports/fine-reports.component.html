@@ -1,0 +1,97 @@
+<div id="report" class="container pt-2" #report>
+  <div class="row">
+
+    <div class="form-group col">
+      <select class="form-control" id="weeklyFineReports" name="weeklyFineReports" [(ngModel)]="selectedReport"
+        (change)="selectedReportChanged()">
+        <option [ngValue]="undefined" selected disabled>Select week...</option>
+        <option *ngFor="let report of weeklyFineReports; let i = index" [ngValue]="report">
+          Week {{(i + 1) | number:'2.0-0'}}
+          ({{report.startDate | date:'MM/dd/yyyy'}}-{{report.endDate | date:'MM/dd/yyyy'}}) [{{report.status}}]
+        </option>
+      </select>
+    </div>
+
+    <div class="col-1" *ngIf="selectedReport">
+      <div class="trashBtn pt-1">
+        <fa-icon [icon]="faDownload" (click)="downloadReportBtn()" style="cursor: pointer;"></fa-icon>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedReport">
+    <h6>Planned Events</h6>
+    <div>
+      <table class="table table-sm table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Title</th>
+            <th>Who</th>
+            <th>Fine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of selectedReport.events; let i = index;">
+            <td>
+              {{i + 1}}
+            </td>
+            <td>
+              {{event.startDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}
+            </td>
+            <td>
+              {{event.endDateTime | date:(event.allDayEvent ? 'MM/dd/yy (EEE)' : 'MM/dd/yy (EEE) h:mm a')}}
+            </td>
+            <td>
+              {{event.title}}
+            </td>
+            <td>
+              {{event.attendanceLevel}}
+            </td>
+            <td>
+              ${{event.fineAmount | number:'0.2-2'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h6>Actual Events</h6>
+    <p *ngIf="!selectedReport.attendances?.length" class="ml-5">None yet.</p>
+    <div>
+      <ol>
+        <li *ngFor="let attendance of selectedReport.attendances">
+          {{attendance.eventTitle}} - {{attendance.eventAttendanceLevel}}
+          (${{attendance.eventFineAmount | number:'0.2-2'}})
+        </li>
+      </ol>
+    </div>
+
+    <h6>Attendance</h6>
+    <p *ngIf="!selectedReport.table?.length" class="ml-5">None yet.</p>
+    <table *ngIf="selectedReport.table?.length" class="table table-sm table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Last</th>
+          <th>First</th>
+          <th class="text-center" *ngFor="let attendance of selectedReport.attendances; let i = index;">
+            <div class="">
+              {{i + 1}}
+            </div>
+          </th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ma of selectedReport.table; let i = index">
+          <td>{{ma.last}}</td>
+          <td>{{ma.first}}</td>
+          <td *ngFor="let av of ma.attendanceValue" class="text-center">{{av}}</td>
+          <td>${{ma.fineTotal | number:'0.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

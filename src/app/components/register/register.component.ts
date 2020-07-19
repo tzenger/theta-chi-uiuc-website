@@ -33,9 +33,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(values: LoginFormValues) {
     if (values.password === values.passwordRepeated) {
-      // this.authService.registerUser(values.email, values.password);
+      this.authService.registerUser(values.email, values.password);
       this.registerForm.reset();
+    } else {
+      console.log('Passwords do not match.');
     }
-    console.log('Passwords do not match.');
   }
 }

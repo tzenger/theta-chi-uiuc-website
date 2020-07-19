@@ -2,3 +2,65 @@ a {
   text-decoration: none !important;
   color: black;
 }
+
+hr {
+  width: 100%;
+  color: rgba(0, 0, 0, 0.1);
+  height: 0.2px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.ch-grid {
+  margin: 1rem;
+
+  display: grid;
+  grid-template-columns: 77px 1rem auto 16px;
+  grid-template-rows: 77px auto;
+
+  grid-template-areas: "avatar . details edit" ". . details .";
+
+  .ch-avatar {
+    grid-area: avatar;
+    img {
+      border: 2px lightslategray solid;
+      margin: auto !important;
+      height: 72px !important;
+      width: 72px !important;
+    }
+  }
+
+  .ch-details {
+    grid-area: details;
+
+    .card-title {
+      font-size: 20px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .ch-edit-btn {
+    grid-area: edit;
+  }
+}
+
+.cb-row {
+  font-family: monospace;
+  font-size: 14px;
+
+  .cb-field {
+    display: inline-block;
+    width: 90px !important;
+    font-weight: bold;
+  }
+
+  .cb-value {
+  }
+
+  .cb-value-edit input {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
