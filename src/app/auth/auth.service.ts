@@ -1,17 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+import { User } from './user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<firebase.User>;
+  user = new BehaviorSubject<User>(null);
 
   constructor(
-    private firebaseAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router
   ) {
-    this.user = firebaseAuth.authState;
+
+    this.afAuth.authState.subscribe(user => {
+
+      if (user) {
+        const usersRef = this.afs.collection('users').ref;
+
+        usersRef.where('id', '==', user.uid).get().then((snapshot) => {
+          if (snapshot.docs.length === 1) {
+            this.user.next(<User>snapshot.docs[0].data());
+            this.router.navigateByUrl('/p/account');
+          } else {
+            this.user.next(null);
+          }
+        });
+      }
+    })
   }
 
   // signup(email: string, password: string) {
@@ -26,12 +46,12 @@ export class AuthService {
   // }
 
   login(email: string, password: string) {
-    return this.firebaseAuth
+    return this.afAuth
       .signInWithEmailAndPassword(email, password);
   }
 
   logout() {
-    return this.firebaseAuth
+    return this.afAuth
       .signOut();
   }
 }

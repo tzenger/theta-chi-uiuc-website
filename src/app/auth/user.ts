@@ -1,21 +1,21 @@
-export interface Roles {
-    pledge?: boolean;
-    active?: boolean;
-    chairman?: boolean;
-    executive?: boolean;
-    alumnus?: boolean;
-    admin?: boolean;
-}
+// export interface Roles {
+//     pledge?: boolean;
+//     active?: boolean;
+//     chairman?: boolean;
+//     executive?: boolean;
+//     alumnus?: boolean;
+//     admin?: boolean;
+// }
 
-export interface ChapterPositions {
+import { DocumentReference } from '@angular/fire/firestore';
 
-}
+// export interface ChapterPositions {
+
+// }
 
 export interface User {
-    uid: string;
+    id: string;
     email: string;
-    roles: Roles;
-    firstName: string;
-    lastName: string;
-    pledgeClass: string;
+    role: string;
+    memberRef: DocumentReference;
 }

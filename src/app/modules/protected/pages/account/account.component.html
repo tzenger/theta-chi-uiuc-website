@@ -1,3 +1,53 @@
-<div class="container">
-    
+<div class="container-fluid">
+
+    <div *ngIf="member; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div class="bg-white p-4">
+            <img src="../../../../../assets/protected/no_avatar.png" class="border">
+            <h1>{{member.firstName}} {{member.lastName}}</h1>
+
+            <p>{{member.birthday}}</p>
+            <p>{{member.chapterPosition}}</p>
+            <p>{{member.chapterStatus}}</p>
+            <p>{{member.class}}</p>
+            <p>{{member.classStanding}}</p>
+            <p>{{member.college}}</p>
+            <p>{{member.ecEmail}}</p>
+            <p>{{member.ecFirstName}}</p>
+            <p>{{member.ecLastName}}</p>
+            <p>{{member.ecNotes}}</p>
+            <p>{{member.ecPhone}}</p>
+            <p>{{member.ecRelation}}</p>
+            <p>{{member.ecTitle}}</p>
+            <p>{{member.email}}</p>
+            <p>{{member.firstName}}</p>
+            <p>{{member.gpa}}</p>
+            <p>{{member.hometown}}</p>
+            <p>{{member.id}}</p>
+            <p>{{member.initiationDate}}</p>
+            <p>{{member.lastName}}</p>
+            <p>{{member.livingIn}}</p>
+            <p>{{member.major}}</p>
+            <p>{{member.middleName}}</p>
+            <p>{{member.netId}}</p>
+            <p>{{member.notes}}</p>
+            <p>{{member.phone}}</p>
+            <p>{{member.pledgeClass}}</p>
+            <p>{{member.pledgeTerm}}</p>
+            <p>{{member.preferredName}}</p>
+            <p>{{member.schoolEmail}}</p>
+            <p>{{member.schoolEndTerm}}</p>
+            <p>{{member.schoolStartTerm}}</p>
+            <p>{{member.thursdayHouseJob}}</p>
+            <p>{{member.tuesdayHouseJob}}</p>
+            <p>{{member.uin}}</p>
+
+
+        </div>
+    </ng-template>
 </div>

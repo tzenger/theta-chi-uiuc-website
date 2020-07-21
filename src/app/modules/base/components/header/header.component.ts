@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +11,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   isExpanded = false;
-  user: firebase.User;
+  user: User;
 
   constructor(
     public auth: AuthService,
     private router: Router
   ) {
-
-    auth.user.subscribe(user => {
+    this.auth.user.subscribe(user => {
       this.user = user;
     });
   }

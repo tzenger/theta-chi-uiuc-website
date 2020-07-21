@@ -1,0 +1,37 @@
+export interface Member {
+    birthday: string;
+    chapterPosition: string;
+    chapterStatus: string;
+    class: string;
+    classStanding: string;
+    college: string;
+    ecEmail: string;
+    ecFirstName: string;
+    ecLastName: string;
+    ecNotes: string;
+    ecPhone: number;
+    ecRelation: string;
+    ecTitle: string;
+    email: string;
+    firstName: string;
+    gpa: number;
+    hometown: string;
+    id: string;
+    initiationDate: string;
+    lastName: string;
+    livingIn: true
+    major: string;
+    middleName: string;
+    netId: string;
+    notes: string;
+    phone: number
+    pledgeClass: string;
+    pledgeTerm: string;
+    preferredName: string;
+    schoolEmail: string;
+    schoolEndTerm: string;
+    schoolStartTerm: string;
+    thursdayHouseJob: boolean;
+    tuesdayHouseJob: boolean;
+    uin: string;
+}
