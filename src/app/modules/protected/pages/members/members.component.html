@@ -1,4 +1,7 @@
-<div>
+<div class="jumbotron bg-white">
+    <h1 class="display-4">Members</h1>
+    <br>
+
     <div *ngIf="members | async; then loaded else loading"></div>
 
     <ng-template #loading>
@@ -6,11 +9,11 @@
     </ng-template>
 
     <ng-template #loaded>
-        <div class="container-fluid bg-white" style="font-size: 14px;">
+        <div class="" style="font-size: 14px;">
             <table class="table table-sm table-hover table-bordered">
                 <thead class="thead-light ">
                     <tr>
-                        <th>ID</th>
+                        <th>UIN</th>
                         <th>Last</th>
                         <th>First (preferred)</th>
                         <th>Middle</th>
@@ -19,7 +22,6 @@
                         <th>Birthday</th>
                         <th>Hometown</th>
                         <th>NetID</th>
-                        <th>UIN</th>
                         <th>First Semester</th>
                         <th>Last Semester</th>
                         <th>College</th>
@@ -32,7 +34,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let m of members | async">
-                        <td>{{m.id}}</td>
+                        <td>{{m.uin}}</td>
                         <td>{{m.lastName}}</td>
                         <td>{{m.firstName}} ({{m.preferredName}})</td>
                         <td>{{m.middleName}}</td>
@@ -41,7 +43,6 @@
                         <td>{{m.birthday}}</td>
                         <td>{{m.hometown}}</td>
                         <td>{{m.netId}}</td>
-                        <td>{{m.uin}}</td>
                         <td>{{m.schoolStartTerm}}</td>
                         <td>{{m.schoolEndTerm}}</td>
                         <td>{{m.college}}</td>

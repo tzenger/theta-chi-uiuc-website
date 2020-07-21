@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './pages/account/account.component';
 import { AuthExecGuard } from 'src/app/auth/auth-exec.guard';
-import { MembersComponent } from './pages/members/members.component';
-import { AuthBasicGuard } from 'src/app/auth/auth-basic.guard';
+import { AccountComponent } from './pages/account/account.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
+import { EventsComponent } from './pages/events/events.component';
+import { MembersComponent } from './pages/members/members.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'members', component: MembersComponent, canActivate: [AuthExecGuard] },
-  { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthBasicGuard] },
+  { path: 'events', component: EventsComponent, canActivate: [AuthExecGuard] },
+  { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthExecGuard] },
 ];
 
 @NgModule({

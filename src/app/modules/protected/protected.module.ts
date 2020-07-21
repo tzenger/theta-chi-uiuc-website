@@ -7,6 +7,7 @@ import { ViewAccountDetailsComponent } from './components/view-account-details/v
 import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
 import { MembersComponent } from './pages/members/members.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
+import { EventsComponent } from './pages/events/events.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AnnouncementsComponent } from './pages/announcements/announcements.comp
     EditAccountDetailsComponent,
     MembersComponent,
     AnnouncementsComponent,
+    EventsComponent,
   ],
   imports: [
     CommonModule,

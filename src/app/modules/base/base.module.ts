@@ -69,7 +69,8 @@ import { RegisterComponent } from './pages/register/register.component';
     ReactiveFormsModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 export class BaseModule { }
