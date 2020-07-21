@@ -21,11 +21,12 @@ export class AuthService {
 
       if (user) {
         const usersRef = this.afs.collection('users').ref;
+        console.log(user.uid)
 
-        usersRef.where('id', '==', user.uid).get().then((snapshot) => {
+        usersRef.where('uid', '==', user.uid).get().then((snapshot) => {
           if (snapshot.docs.length === 1) {
             this.user.next(<User>snapshot.docs[0].data());
-            this.router.navigateByUrl('/p/account');
+            this.router.navigateByUrl('/p/members');
           } else {
             this.user.next(null);
           }
@@ -34,16 +35,10 @@ export class AuthService {
     })
   }
 
-  // signup(email: string, password: string) {
-  //   this.firebaseAuth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then(value => {
-  //       console.log('Success!', value);
-  //     })
-  //     .catch(err => {
-  //       console.log('Something went wrong:', err.message);
-  //     });
-  // }
+  signup(email: string, password: string) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password);
+  }
 
   login(email: string, password: string) {
     return this.afAuth

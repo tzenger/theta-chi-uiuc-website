@@ -15,19 +15,21 @@ export class LoginComponent {
     password: new FormControl('')
   });
 
-  constructor(public authService: AuthService,
-    private router: Router) { }
+  constructor(
+    public auth: AuthService,
+    private router: Router
+  ) { }
 
   login() {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.authService.login(email, password).then(value => {
+    this.auth.login(email, password).then(value => {
       this.loginForm.reset();
       this.router.navigateByUrl('/home');
     });
   }
 
   logout() {
-    this.authService.logout();
+    this.auth.logout();
   }
 }

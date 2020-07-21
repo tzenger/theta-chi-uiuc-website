@@ -1,0 +1,54 @@
+<div>
+    <div *ngIf="members | async; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div class="container-fluid bg-white" style="font-size: 14px;">
+            <table class="table table-sm table-hover table-bordered">
+                <thead class="thead-light ">
+                    <tr>
+                        <th>ID</th>
+                        <th>Last</th>
+                        <th>First (preferred)</th>
+                        <th>Middle</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Birthday</th>
+                        <th>Hometown</th>
+                        <th>NetID</th>
+                        <th>UIN</th>
+                        <th>First Semester</th>
+                        <th>Last Semester</th>
+                        <th>College</th>
+                        <th>Major</th>
+                        
+                        <!-- <th>Class</th>
+                        <th>Position</th>
+                        <th>Live-In</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of members | async">
+                        <td>{{m.id}}</td>
+                        <td>{{m.lastName}}</td>
+                        <td>{{m.firstName}} ({{m.preferredName}})</td>
+                        <td>{{m.middleName}}</td>
+                        <td>{{m.phone}}</td>
+                        <td>{{m.email}}</td>
+                        <td>{{m.birthday}}</td>
+                        <td>{{m.hometown}}</td>
+                        <td>{{m.netId}}</td>
+                        <td>{{m.uin}}</td>
+                        <td>{{m.schoolStartTerm}}</td>
+                        <td>{{m.schoolEndTerm}}</td>
+                        <td>{{m.college}}</td>
+                        <td>{{m.major}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-template>
+</div>
