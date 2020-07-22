@@ -70,7 +70,7 @@
       </li>
     </ul>
 
-    <div *ngIf="user; then authenticated else guest">
+    <div *ngIf="(auth.user | async); then authenticated else guest">
     </div>
 
     <ng-template #guest>

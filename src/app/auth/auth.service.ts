@@ -1,38 +1,39 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { User } from './user';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  user: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
+    private afs: AngularFirestore
   ) {
+    this.user = this.afAuth.authState.pipe(
+      switchMap(afUser => {
 
-    this.afAuth.authState.subscribe(user => {
+        if (afUser) {
+          const usersRef = this.afs.collection('users').ref;
 
-      if (user) {
-        const usersRef = this.afs.collection('users').ref;
-        console.log(user.uid)
+          return usersRef.where('uid', '==', afUser.uid).get().then((snapshot) => {
+            if (snapshot.docs.length === 1) {
+              return <User>snapshot.docs[0].data();
+            } else {
+              return null;
+            }
+          });
 
-        usersRef.where('uid', '==', user.uid).get().then((snapshot) => {
-          if (snapshot.docs.length === 1) {
-            this.user.next(<User>snapshot.docs[0].data());
-            this.router.navigateByUrl('/p/members');
-          } else {
-            this.user.next(null);
-          }
-        });
-      }
-    })
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 
   signup(email: string, password: string) {

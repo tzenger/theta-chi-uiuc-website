@@ -1,7 +1,6 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/auth/user';
 
 @Component({
   selector: 'app-header',
@@ -11,16 +10,11 @@ import { User } from 'src/app/auth/user';
 export class HeaderComponent {
 
   isExpanded = false;
-  user: User;
 
   constructor(
     public auth: AuthService,
-    private router: Router,
-    private zone: NgZone
+    private router: Router
   ) {
-    this.auth.user.subscribe(user => {
-      this.user = user;
-    });
   }
 
   logout() {
