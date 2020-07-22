@@ -10,71 +10,78 @@
         <h4>Personal Info</h4>
         <div class="form-group ml-4">
             <div class="form-group">
-                <label for="preferredName">Preferred First Name</label>
-                <input id="preferredName" name="preferredName" type="text" formControlName="preferredName"
+                <label for="preferredName">Preferred First Name <span style="color: red;">*</span></label>
+                <input required id="preferredName" name="preferredName" type="text" formControlName="preferredName"
                     class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="firstName">Legal First Name</label>
-                <input id="firstName" name="firstName" type="text" formControlName="firstName" class="form-control">
+                <label for="firstName">Legal First Name <span style="color: red;">*</span></label>
+                <input required id="firstName" name="firstName" type="text" formControlName="firstName"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="lastName">Legal Last Name</label>
-                <input id="lastName" name="lastName" type="text" formControlName="lastName" class="form-control">
+                <label for="lastName">Legal Last Name <span style="color: red;">*</span></label>
+                <input required id="lastName" name="lastName" type="text" formControlName="lastName"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="middleName">Middle Name (optional)</label>
+                <label for="middleName">Middle Name</label>
                 <input id="middleName" name="middleName" type="text" formControlName="middleName" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" formControlName="phone" class="form-control">
+                <label for="phone">Phone Number <span style="color: red;">*</span></label>
+                <input required id="phone" name="phone" type="tel" formControlName="phone" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="birthday">Birthday</label>
-                <input id="birthday" name="birthday" type="date" formControlName="birthday" class="form-control">
+                <label for="birthday">Birthday <span style="color: red;">*</span></label>
+                <input required id="birthday" name="birthday" type="date" formControlName="birthday"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="hometown">Hometown (e.g. Bloomington, IL)</label>
-                <input id="hometown" name="hometown" type="text" formControlName="hometown" class="form-control">
+                <label for="hometown">Hometown (e.g. Bloomington, IL) <span style="color: red;">*</span></label>
+                <input required id="hometown" name="hometown" type="text" formControlName="hometown"
+                    class="form-control">
             </div>
         </div>
 
         <h4>School Info</h4>
         <div class="form-group ml-4">
             <div class="form-group">
-                <label for="netId">NetId</label>
-                <input id="netId" name="netId" type="text" formControlName="netId" class="form-control">
+                <label for="netId">NetId <span style="color: red;">*</span></label>
+                <input required id="netId" name="netId" type="text" formControlName="netId" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="uin">UIN</label>
-                <input id="uin" name="uin" type="text" formControlName="uin" class="form-control">
+                <label for="uin">UIN <span style="color: red;">*</span></label>
+                <input required id="uin" name="uin" type="text" formControlName="uin" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="firstSemester">First Semester (e.g. Fall 2018):</label>
-                <input id="firstSemester" name="firstSemester" type="text" formControlName="firstSemester" class="form-control">
+                <label for="firstSemester">First Semester (e.g. Fall 2018) <span style="color: red;">*</span></label>
+                <input required id="firstSemester" name="firstSemester" type="text" formControlName="firstSemester"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="lastSemester">Expected Last Semester (e.g. Spring 2022):</label>
-                <input id="lastSemester" name="lastSemester" type="text" formControlName="lastSemester" class="form-control">
+                <label for="lastSemester">Expected Last Semester (e.g. Spring 2022) <span
+                        style="color: red;">*</span></label>
+                <input required id="lastSemester" name="lastSemester" type="text" formControlName="lastSemester"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="college">College (e.g. Grainger Engineering):</label>
+                <label for="college">College (e.g. Grainger Engineering)</label>
                 <input id="college" name="college" type="text" formControlName="college" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="major">Major (e.g. Computer Science):</label>
+                <label for="major">Major (e.g. Computer Science)</label>
                 <input id="major" name="major" type="text" formControlName="major" class="form-control">
             </div>
         </div>
@@ -82,33 +89,35 @@
         <h4>Emergency Contact (EC) Info</h4>
         <div class="ml-4">
             <div class="form-group">
-                <label for="ecFirstName">EC First Name:</label>
-                <input id="ecFirstName" name="ecFirstName" type="text" formControlName="ecFirstName"
+                <label for="ecFirstName">EC First Name <span style="color: red;">*</span></label>
+                <input required id="ecFirstName" name="ecFirstName" type="text" formControlName="ecFirstName"
                     class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="ecLastName">EC Last Name:</label>
-                <input id="ecLastName" name="ecLastName" type="text" formControlName="ecLastName" class="form-control">
+                <label for="ecLastName">EC Last Name <span style="color: red;">*</span></label>
+                <input required id="ecLastName" name="ecLastName" type="text" formControlName="ecLastName"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="ecRelation">EC Relation:</label>
-                <input id="ecRelation" name="ecRelation" type="text" formControlName="ecRelation" class="form-control">
+                <label for="ecRelation">EC Relation <span style="color: red;">*</span></label>
+                <input required id="ecRelation" name="ecRelation" type="text" formControlName="ecRelation"
+                    class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="ecPhone">EC Phone Number:</label>
-                <input id="ecPhone" name="ecPhone" type="text" formControlName="ecPhone" class="form-control">
+                <label for="ecPhone">EC Phone Number <span style="color: red;">*</span></label>
+                <input required id="ecPhone" name="ecPhone" type="text" formControlName="ecPhone" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="ecEmail">EC Email:</label>
+                <label for="ecEmail">EC Email</label>
                 <input id="ecEmail" name="ecEmail" type="text" formControlName="ecEmail" class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="ecNotes">EC Notes (e.g. "Don't call after 9pm."):</label>
+                <label for="ecNotes">EC Notes (e.g. "Don't call after 9pm.")</label>
                 <input id="ecNotes" name="ecNotes" type="text" formControlName="ecNotes" class="form-control">
             </div>
         </div>
@@ -117,24 +126,44 @@
         <h4>Login Info</h4>
         <div class="ml-4">
             <div class="form-group">
-                <label for="email">Non-School Email</label>
-                <input id="email" name="email" type="email" formControlName="email" class="form-control">
+                <label for="email">Non-School Email <span style="color: red;">*</span></label>
+                <input required id="email" name="email" type="email" formControlName="email" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="password1">Password</label>
-                <input id="password1" name="password1" type="password" formControlName="password1" class="form-control">
+                <input required id="password1" name="password1" type="password" formControlName="password1"
+                    class="form-control">
+
+                <div class="mt-1 ml-4"
+                    *ngIf="registerForm.controls.password1.invalid && registerForm.controls.password1.dirty">
+                    <div *ngIf="registerForm.controls.password1.errors.minlength">
+                        <small>Password must be at least 8 characters long.</small>
+                    </div>
+                    <div *ngIf="registerForm.controls.password1.errors.pattern">
+                        <small>Password must contain 1 uppercase character, 1 lowercase character, and 1 special
+                            character.</small>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="password2">Re-type Password</label>
-                <input id="password2" name="password2" type="password" formControlName="password2" class="form-control">
+                <input required id="password2" name="password2" type="password" formControlName="password2"
+                    class="form-control">
+
+                <div class="mt-1 ml-4"
+                    *ngIf="registerForm.errors?.noPasswordMatch && registerForm.controls.password2.dirty">
+                    <small>Passwords must match.</small>
+                </div>
             </div>
         </div>
 
         <div class="pb-3">
             <hr class="my-4">
-            <button type="submit" class="btn btn-outline-primary btn-block float-right">Click to Register</button>
+            <button type="submit" class="btn btn-outline-primary btn-block float-right"
+                [disabled]="registerForm.invalid">Click to
+                Register</button>
         </div>
     </form>
 </div>

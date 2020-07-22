@@ -8,6 +8,7 @@ import { EditAccountDetailsComponent } from './components/edit-account-details/e
 import { MembersComponent } from './pages/members/members.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
 import { EventsComponent } from './pages/events/events.component';
+import { InlineEditComponent } from './components/inline-edit/inline-edit.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { EventsComponent } from './pages/events/events.component';
     MembersComponent,
     AnnouncementsComponent,
     EventsComponent,
+    InlineEditComponent,
   ],
   imports: [
     CommonModule,

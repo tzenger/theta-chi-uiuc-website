@@ -1,29 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
 import { Member } from '../../services/member/member';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
+
+  @Input()
+  account: { user: User, member: Member };
+
+  name: string = 'this is fake'
+
   user: User;
   member: Member;
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private afs: AngularFirestore
   ) {
+
     this.auth.user.subscribe(user => {
-      this.user = user;
-      this.user.memberRef.onSnapshot(next => {
-        this.member = <Member>next.data();
+      user.memberRef.onSnapshot(memberDoc => {
+
+        this.account = {
+          user: user,
+          member: <Member>memberDoc.data()
+        };
       });
     });
   }
 
-  ngOnInit(): void {
+  handleMemberUpdate(fieldName: string) {
+    const updateField = {
+      [fieldName]: this.account.member[fieldName]
+    };
+
+    this.afs.doc<Member>(`members/${this.account.member.id}`).update(updateField);
   }
 
 }
