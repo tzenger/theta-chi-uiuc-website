@@ -5,6 +5,12 @@
   },
   "hosting": {
     "public": "dist/theta-chi-uiuc-website",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
