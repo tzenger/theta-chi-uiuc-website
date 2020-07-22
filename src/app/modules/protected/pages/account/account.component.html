@@ -2,7 +2,7 @@
     <h1 class="display-4">Account</h1>
     <br>
 
-    <div *ngIf="account; then loaded else loading"></div>
+    <div *ngIf="account && loggedInUser; then loaded else loading"></div>
 
     <ng-template #loading>
         <span>Loading...</span>
@@ -11,13 +11,6 @@
     <ng-template #loaded>
         <div class="bg-white container-fluid">
             <!-- <img src="../../../../../assets/protected/no_avatar.png" class="border"> -->
-            <!-- <h1>{{account.member.firstName}} {{account.member.lastName}}</h1> -->
-
-
-            <!-- <div>
-                <h4>Account Details</h4>
-
-            </div> -->
             <div class="row justify-content-start">
                 <div class="col-md-6 col-xl-4 mb-4">
                     <div class="card">
@@ -25,140 +18,108 @@
                             <h5 class="card-title">Member Details</h5>
                             <hr>
                             <div class="ml-4">
-                                <app-inline-edit (change)="handleMemberUpdate('firstName')" [(ngModel)]="account.member.firstName" label="First Name"
-                                    [required]="true" type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('firstName')"
+                                    [(ngModel)]="account.member.firstName" label="First Name" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('preferredName')" [(ngModel)]="account.member.preferredName" label="Preferred Name"
-                                    [required]="false" type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('preferredName')"
+                                    [(ngModel)]="account.member.preferredName" label="Preferred Name" [required]="false"
+                                    type="text" [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('middleName')" [(ngModel)]="account.member.middleName" label="Middle Name"
-                                    [required]="false" type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('middleName')"
+                                    [(ngModel)]="account.member.middleName" label="Middle Name" [required]="false"
+                                    type="text" [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('lastName')" [(ngModel)]="account.member.lastName" label="Last Name"
-                                    [required]="true" type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('lastName')"
+                                    [(ngModel)]="account.member.lastName" label="Last Name" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('birthday')" [(ngModel)]="account.member.birthday" label="Birthday"
-                                    [required]="true" type="date">
+                                <app-inline-edit (change)="handleMemberUpdate('birthday')"
+                                    [(ngModel)]="account.member.birthday" label="Birthday" [required]="true" type="date"
+                                    [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('phone')" [(ngModel)]="account.member.phone" label="Phone" [required]="true"
-                                    type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('phone')"
+                                    [(ngModel)]="account.member.phone" label="Phone" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('email')" [(ngModel)]="account.member.email" label="Email" [required]="true"
-                                    type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('email')"
+                                    [(ngModel)]="account.member.email" label="Email" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
-                                <app-inline-edit (change)="handleMemberUpdate('hometown')" [(ngModel)]="account.member.hometown" label="Hometown"
-                                    [required]="true" type="text">
+                                <app-inline-edit (change)="handleMemberUpdate('hometown')"
+                                    [(ngModel)]="account.member.hometown" label="Hometown" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
                                 </app-inline-edit>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-md-6 col-xl-4 mb-4">
-
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Emergency Contact Details</h5>
                             <hr>
-                            <app-inline-edit (change)="handleMemberUpdate('ecFirstName')" [(ngModel)]="account.member.ecFirstName" label="First Name"
-                                [required]="true" type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecFirstName')"
+                                [(ngModel)]="account.member.ecFirstName" label="First Name" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('ecLastName')" [(ngModel)]="account.member.ecLastName" label="Last Name" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecLastName')"
+                                [(ngModel)]="account.member.ecLastName" label="Last Name" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('ecRelation')" [(ngModel)]="account.member.ecRelation" label="Relation" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecRelation')"
+                                [(ngModel)]="account.member.ecRelation" label="Relation" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('ecPhone')" [(ngModel)]="account.member.ecPhone" label="Phone" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecPhone')"
+                                [(ngModel)]="account.member.ecPhone" label="Phone" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('ecEmail')" [(ngModel)]="account.member.ecEmail" label="Email" [required]="false"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecEmail')"
+                                [(ngModel)]="account.member.ecEmail" label="Email" [required]="false" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('ecNotes')" [(ngModel)]="account.member.ecNotes" label="Notes" [required]="false"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('ecNotes')"
+                                [(ngModel)]="account.member.ecNotes" label="Notes" [required]="false" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-xl-4">
-
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">School Details</h5>
                             <hr>
-                            <app-inline-edit (change)="handleMemberUpdate('netId')" [(ngModel)]="account.member.netId" label="NetId" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('netId')" [(ngModel)]="account.member.netId"
+                                label="NetId" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('uin')" [(ngModel)]="account.member.uin" label="UIN" [required]="true" type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('uin')" [(ngModel)]="account.member.uin"
+                                label="UIN" [required]="true" type="text" [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('schoolStartTerm')" [(ngModel)]="account.member.schoolStartTerm" label="First Semester"
-                                [required]="true" type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('schoolStartTerm')"
+                                [(ngModel)]="account.member.schoolStartTerm" label="First Semester" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('schoolEndTerm')" [(ngModel)]="account.member.schoolEndTerm" label="Last Semester"
-                                [required]="true" type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('schoolEndTerm')"
+                                [(ngModel)]="account.member.schoolEndTerm" label="Last Semester" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('college')" [(ngModel)]="account.member.college" label="College" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('college')"
+                                [(ngModel)]="account.member.college" label="College" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
-                            <app-inline-edit (change)="handleMemberUpdate('major')" [(ngModel)]="account.member.major" label="Major" [required]="true"
-                                type="text">
+                            <app-inline-edit (change)="handleMemberUpdate('major')" [(ngModel)]="account.member.major"
+                                label="Major" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
                             </app-inline-edit>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <!-- <div>
-                <h4>Attendance</h4>
-
-            </div>
-            <div>
-                <h4>Inbox</h4>
-
-            </div> -->
-            <div hidden>
-                <p>{{account.member.birthday}}</p>
-                <p>{{account.member.chapterPosition}}</p>
-                <p>{{account.member.chapterStatus}}</p>
-                <p>{{account.member.class}}</p>
-                <p>{{account.member.classStanding}}</p>
-                <p>{{account.member.college}}</p>
-                <p>{{account.member.ecEmail}}</p>
-                <p>{{account.member.ecFirstName}}</p>
-                <p>{{account.member.ecLastName}}</p>
-                <p>{{account.member.ecNotes}}</p>
-                <p>{{account.member.ecPhone}}</p>
-                <p>{{account.member.ecRelation}}</p>
-                <p>{{account.member.ecTitle}}</p>
-                <p>{{account.member.email}}</p>
-                <p>{{account.member.firstName}}</p>
-                <p>{{account.member.gpa}}</p>
-                <p>{{account.member.hometown}}</p>
-                <p>{{account.member.id}}</p>
-                <p>{{account.member.initiationDate}}</p>
-                <p>{{account.member.lastName}}</p>
-                <p>{{account.member.livingIn}}</p>
-                <p>{{account.member.major}}</p>
-                <p>{{account.member.middleName}}</p>
-                <p>{{account.member.netId}}</p>
-                <p>{{account.member.notes}}</p>
-                <p>{{account.member.phone}}</p>
-                <p>{{account.member.pledgeClass}}</p>
-                <p>{{account.member.pledgeTerm}}</p>
-                <p>{{account.member.preferredName}}</p>
-                <p>{{account.member.schoolEmail}}</p>
-                <p>{{account.member.schoolEndTerm}}</p>
-                <p>{{account.member.schoolStartTerm}}</p>
-                <p>{{account.member.thursdayHouseJob}}</p>
-                <p>{{account.member.tuesdayHouseJob}}</p>
-                <p>{{account.member.uin}}</p>
-
-            </div>
-
-
         </div>
     </ng-template>
 </div>

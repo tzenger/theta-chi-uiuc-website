@@ -30,6 +30,7 @@ import { RecruitmentComponent } from './pages/recruitment/recruitment.component'
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { RegisterComponent } from './pages/register/register.component';
     MembersComponent,
     HomepageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

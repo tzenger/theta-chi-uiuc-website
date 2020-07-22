@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
             console.log('Created user.', user);
             this.auth.login(formValues.email, formValues.password1).then(() => {
               this.registerForm.reset();
-              this.router.navigateByUrl('/home');
+              location.reload();
             });
           });
         });

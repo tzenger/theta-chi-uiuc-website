@@ -32,4 +32,9 @@ export class LoginComponent {
   logout() {
     this.auth.logout();
   }
+
+  navToForgotPasswordPage(event: Event) {
+    event.preventDefault();
+    this.router.navigateByUrl('/forgot-password');
+  }
 }

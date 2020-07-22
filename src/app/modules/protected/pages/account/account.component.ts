@@ -3,6 +3,13 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
 import { Member } from '../../services/member/member';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+export interface Account {
+  user: User;
+  member: Member;
+}
 
 @Component({
   selector: 'app-account',
@@ -11,28 +18,41 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AccountComponent {
 
-  @Input()
-  account: { user: User, member: Member };
+  account: Account;
+  loggedInUser: User;
 
-  name: string = 'this is fake'
-
-  user: User;
-  member: Member;
 
   constructor(
     private auth: AuthService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private route: ActivatedRoute
   ) {
-
     this.auth.user.subscribe(user => {
-      user.memberRef.onSnapshot(memberDoc => {
-
-        this.account = {
-          user: user,
-          member: <Member>memberDoc.data()
-        };
-      });
+      this.loggedInUser = user;
     });
+
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.afs.doc<User>(`users/${this.route.snapshot.paramMap.get('id')}`).get().subscribe(userDoc => {
+        const user = <User>userDoc.data();
+
+        user.memberRef.onSnapshot(memberDoc => {
+          this.account = {
+            user: user,
+            member: <Member>memberDoc.data()
+          };
+        });
+      });
+    } else {
+      this.auth.user.subscribe(user => {
+        user.memberRef.onSnapshot(memberDoc => {
+
+          this.account = {
+            user: user,
+            member: <Member>memberDoc.data()
+          };
+        });
+      });
+    }
   }
 
   handleMemberUpdate(fieldName: string) {
@@ -41,6 +61,14 @@ export class AccountComponent {
     };
 
     this.afs.doc<Member>(`members/${this.account.member.id}`).update(updateField);
+  }
+
+  allowedToEdit(userId: string): boolean {
+    return this.loggedInUser.role === 'admin' || this.loggedInUser.role === 'exec' || this.loggedInUser.id === userId;
+  }
+
+  allowedToEditRestricted(): boolean {
+    return this.loggedInUser.role === 'admin' || this.loggedInUser.role === 'exec';
   }
 
 }

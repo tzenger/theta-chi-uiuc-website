@@ -8,7 +8,8 @@ import { MembersComponent } from './pages/members/members.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
-  { path: 'members', component: MembersComponent, canActivate: [AuthExecGuard] },
+  { path: 'account/:id', component: AccountComponent },
+  { path: 'members', component: MembersComponent },
   { path: 'events', component: EventsComponent, canActivate: [AuthExecGuard] },
   { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthExecGuard] },
 ];

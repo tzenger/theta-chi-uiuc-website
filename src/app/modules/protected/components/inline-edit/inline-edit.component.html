@@ -2,10 +2,11 @@
     <label class="m-0 font-weight-bold" style="font-size: smaller;">{{label}}</label>
     <div *ngIf="editing">
         <input #inlineEditControl [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value"
-            [type]="type" [placeholder]="label" class="form-control form-control-sm"/>
+            [type]="type" [placeholder]="label" class="form-control form-control-sm" />
     </div>
     <div *ngIf="!editing">
-        <div style="cursor: pointer;" title="Click to edit" (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit p-1 text-muted">
+        <div [ngStyle]="{'cursor': disabled ? 'unset' : 'pointer' }" title="Click to edit" (click)="edit(value)"
+            (focus)="edit(value);" tabindex="0" class="inline-edit p-1 text-muted">
             {{value}}&nbsp;</div>
     </div>
 </div>

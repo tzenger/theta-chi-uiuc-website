@@ -2,7 +2,7 @@
     <h1 class="display-4">Members</h1>
     <br>
 
-    <div *ngIf="members | async; then loaded else loading"></div>
+    <div *ngIf="accounts | async; then loaded else loading"></div>
 
     <ng-template #loading>
         <span>Loading...</span>
@@ -15,7 +15,7 @@
                     <tr>
                         <th>UIN</th>
                         <th>Last</th>
-                        <th>First (preferred)</th>
+                        <th>First</th>
                         <th>Middle</th>
                         <th>Phone</th>
                         <th>Email</th>
@@ -33,20 +33,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let m of members | async">
-                        <td>{{m.uin}}</td>
-                        <td>{{m.lastName}}</td>
-                        <td>{{m.firstName}} ({{m.preferredName}})</td>
-                        <td>{{m.middleName}}</td>
-                        <td>{{m.phone}}</td>
-                        <td>{{m.email}}</td>
-                        <td>{{m.birthday}}</td>
-                        <td>{{m.hometown}}</td>
-                        <td>{{m.netId}}</td>
-                        <td>{{m.schoolStartTerm}}</td>
-                        <td>{{m.schoolEndTerm}}</td>
-                        <td>{{m.college}}</td>
-                        <td>{{m.major}}</td>
+                    <tr *ngFor="let acct of accounts | async" (click)="handleAccountClicked(acct.user.id)" style="cursor: pointer;">
+                        <td>{{acct.member.uin}}</td>
+                        <td>{{acct.member.lastName}}</td>
+                        <td>{{acct.member.firstName}}<span *ngIf="acct.member.firstName !== acct.member.preferredName"> ({{acct.member.preferredName}})</span></td>
+                        <td>{{acct.member.middleName}}</td>
+                        <td>{{acct.member.phone}}</td>
+                        <td>{{acct.member.email}}</td>
+                        <td>{{acct.member.birthday}}</td>
+                        <td>{{acct.member.hometown}}</td>
+                        <td>{{acct.member.netId}}</td>
+                        <td>{{acct.member.schoolStartTerm}}</td>
+                        <td>{{acct.member.schoolEndTerm}}</td>
+                        <td>{{acct.member.college}}</td>
+                        <td>{{acct.member.major}}</td>
                     </tr>
                 </tbody>
             </table>

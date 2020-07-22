@@ -23,12 +23,14 @@ import { ParentsComponent } from './pages/parents/parents.component';
 import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 export const BaseRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
 
   { path: 'about', component: AboutComponent },
   { path: 'about/rho-chapter-history', component: RhoChapterHistoryComponent },
