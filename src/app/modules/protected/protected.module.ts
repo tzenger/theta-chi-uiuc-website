@@ -9,6 +9,8 @@ import { MembersComponent } from './pages/members/members.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
 import { EventsComponent } from './pages/events/events.component';
 import { InlineEditComponent } from './components/inline-edit/inline-edit.component';
+import { HouseComponent } from './pages/house/house.component';
+import { HouseJobComponent } from './pages/house/house-job/house-job.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { InlineEditComponent } from './components/inline-edit/inline-edit.compon
     AnnouncementsComponent,
     EventsComponent,
     InlineEditComponent,
+    HouseComponent,
+    HouseJobComponent,
   ],
   imports: [
     CommonModule,

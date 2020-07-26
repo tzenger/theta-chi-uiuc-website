@@ -1,0 +1,57 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">House</h1>
+    <br>
+
+    <div *ngIf="loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <h3>Live-Ins</h3>
+        <div class="" style="font-size: 14px;">
+            <table class="table table-sm table-hover table-bordered">
+                <thead class="thead-light ">
+                    <tr>
+                        <th>Name</th>
+                        <th>Room</th>
+                        <th>Job</th>
+                        <th>Tenure (semesters)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of liveIns" (click)="handleMemberClicked(m.id)" style="cursor: pointer;">
+                        <td>{{m.firstName}}<span *ngIf="m.firstName !== m.preferredName">
+                                ({{acct.member.preferredName}})</span> {{m.lastName}}</td>
+                        <td>{{m.liveInRoomNum}}</td>
+                        <td>{{m.liveInJob}}</td>
+                        <td>{{m.liveInTenure}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Jobs</h3>
+        <div class="" style="font-size: 14px;">
+            <table class="table table-sm table-hover table-bordered">
+                <thead class="thead-light ">
+                    <tr>
+                        <th>Start</th>
+                        <th>Due</th>
+                        <th>Fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let job of jobs" (click)="handleJobClicked(job.id)" style="cursor: pointer;">
+                        <td>{{job.start}}</td>
+                        <td>{{job.due}}</td>
+                        <td>${{job.fine}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button *ngIf="userIsExec()" class="btn btn-outline-primary btn-block" (click)="createNewJob()">Create New Job</button>
+        </div>
+
+    </ng-template>
+</div>

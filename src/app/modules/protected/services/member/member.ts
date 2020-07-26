@@ -10,11 +10,15 @@ export interface Member {
     birthday: string;
     hometown: string;
 
-    chapterPosition?: string;
-    chapterStatus?: string;
-    pledgeClass?: string;
-    pledgeTerm?: string;
-    initiationDate?: string;
+    chapterPosition: string;
+    chapterStatus: string;
+    pledgeClass: string;
+    pledgeTerm: string;
+    initiationDate: string;
+    livingIn: string;
+    liveInTenure: number;
+    liveInRoomNum: string;
+    liveInJob: string;
 
     netId: string;
     uin: string;
