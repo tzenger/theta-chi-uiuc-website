@@ -1,30 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
+import { Activity, ActivityRequiredMember } from '../activity';
 import { Member } from '../../members/member';
-import { HouseJob, HouseJobRequiredMember } from './house-job';
-
 
 interface RequiredMember {
   status: string;
-  job: string;
   notes: string;
   member: Member;
 }
-@Component({
-  selector: 'app-house-job',
-  templateUrl: './house-job.component.html',
-  styleUrls: ['./house-job.component.scss']
-})
-export class HouseJobComponent implements OnInit {
-  loggedInUser: User;
-  houseJob: HouseJob;
-  requiredMembers: RequiredMember[];
-  houseJobRef: DocumentReference;
-  deleteCheck = false;
 
+@Component({
+  selector: 'app-activity',
+  templateUrl: './activity.component.html',
+  styleUrls: ['./activity.component.scss']
+})
+export class ActivityComponent implements OnInit {
+  loggedInUser: User;
+  activityRef: DocumentReference;
+  requiredMembers: RequiredMember[];
+  otherMembers: Member[];
+  activity: Activity;
+  deleteCheck = false;
 
   constructor(
     private auth: AuthService,
@@ -37,17 +36,17 @@ export class HouseJobComponent implements OnInit {
     });
 
     if (this.route.snapshot.paramMap.has('id')) {
-      this.houseJobRef = this.afs.doc<User>(`house-jobs/${this.route.snapshot.paramMap.get('id')}`).ref;
-      this.houseJobRef.get().then(value => {
-        this.houseJob = <HouseJob>value.data();
+      this.activityRef = this.afs.doc<User>(`activities/${this.route.snapshot.paramMap.get('id')}`).ref;
+      this.activityRef.get().then(value => {
+        this.activity = <Activity>value.data();
 
         value.ref.collection('required-members').get().then(collection => {
           this.requiredMembers = [];
           collection.docs.forEach(doc => {
-            const rM = <HouseJobRequiredMember>doc.data();
+            const rM = <ActivityRequiredMember>doc.data();
             rM.memberRef.get().then(memDoc => {
               const m = <Member>memDoc.data();
-              const resolvedRM = { status: rM.status, job: rM.job, notes: rM.notes, member: m };
+              const resolvedRM = { status: rM.status, notes: rM.notes, member: m };
               this.requiredMembers.push(resolvedRM);
             });
           });
@@ -58,7 +57,7 @@ export class HouseJobComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   userIsExec() {
     return this.loggedInUser.role === 'admin' || this.loggedInUser.role === 'exec';
   }
@@ -67,10 +66,8 @@ export class HouseJobComponent implements OnInit {
     return this.userIsExec() || this.loggedInUser.memberRef.id === memberId;
   }
 
-  handleJobStatusChange(memberId: string, newStatus: string) {
-
-
-    this.houseJobRef.collection('required-members').doc(memberId).update({ status: newStatus }).then(() => {
+  handleMemberStatusChange(memberId: string, newStatus: string) {
+    this.activityRef.collection('required-members').doc(memberId).update({ status: newStatus }).then(() => {
       this.requiredMembers.forEach(rm => {
         if (rm.member.id === memberId) {
           rm.status = newStatus;
@@ -79,31 +76,31 @@ export class HouseJobComponent implements OnInit {
     });
   }
 
-  handleMemberJobUpdate(rm: RequiredMember, fieldName: string) {
+  handleMemberUpdate(rm: RequiredMember, fieldName: string) {
     const updateField = {
       [fieldName]: rm[fieldName]
     };
-    this.houseJobRef.collection('required-members').doc(rm.member.id).update(updateField);
+    this.activityRef.collection('required-members').doc(rm.member.id).update(updateField);
   }
 
-  handleJobUpdate(fieldName: string) {
+  handleActivityUpdate(fieldName: string) {
     const updateField = {
-      [fieldName]: this.houseJob[fieldName]
+      [fieldName]: this.activity[fieldName]
     };
-    this.houseJobRef.update(updateField);
+    this.activityRef.update(updateField);
   }
 
-  handleDeleteJobCheck() {
+  handleDeleteActivityCheck() {
     this.deleteCheck = true;
   }
 
-  handleDeleteJob() {
-    this.houseJobRef.delete().then(() => {
-      this.router.navigate(['/p/house']);
+  handleDeleteActivity() {
+    this.activityRef.delete().then(() => {
+      this.router.navigate(['/p/activities']);
     });
   }
 
-  handleDeleteJobCancel() {
+  handleDeleteActivityCancel() {
     this.deleteCheck = false;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
-import { Member } from '../../services/member/member';
+import { Member } from '../members/member';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -69,6 +69,14 @@ export class AccountComponent {
 
   allowedToEditRestricted(): boolean {
     return this.loggedInUser.role === 'admin' || this.loggedInUser.role === 'exec';
+  }
+
+  handleUserUpdate(fieldName: string) {
+    const updateField = {
+      [fieldName]: this.account.member[fieldName]
+    };
+
+    this.afs.doc<Member>(`users/${this.account.user.id}`).update(updateField);
   }
 
 }

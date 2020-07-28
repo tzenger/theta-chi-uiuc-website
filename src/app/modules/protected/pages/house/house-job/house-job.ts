@@ -1,4 +1,4 @@
-import { Member } from '../member/member';
+import { Member } from '../../members/member';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export interface HouseJob {
@@ -13,5 +13,5 @@ export interface HouseJobRequiredMember {
     status: string;
     notes: string;
     job: string;
-    member: DocumentReference;
+    memberRef: DocumentReference;
 }

@@ -11,6 +11,9 @@ import { EventsComponent } from './pages/events/events.component';
 import { InlineEditComponent } from './components/inline-edit/inline-edit.component';
 import { HouseComponent } from './pages/house/house.component';
 import { HouseJobComponent } from './pages/house/house-job/house-job.component';
+import { ActivitiesComponent } from './pages/activities/activities.component';
+import { ActivityComponent } from './pages/activities/activity/activity.component';
+import { ActivityCardComponent } from './pages/activities/activity-card/activity-card.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { HouseJobComponent } from './pages/house/house-job/house-job.component';
     InlineEditComponent,
     HouseComponent,
     HouseJobComponent,
+    ActivitiesComponent,
+    ActivityComponent,
+    ActivityCardComponent,
   ],
   imports: [
     CommonModule,

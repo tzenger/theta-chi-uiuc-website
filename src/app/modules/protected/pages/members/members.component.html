@@ -1,4 +1,4 @@
-<div class="jumbotron bg-white">
+<div class="jumbotron bg-white py-4">
     <h1 class="display-4">Members</h1>
     <br>
 
@@ -13,29 +13,21 @@
             <table class="table table-sm table-hover table-bordered">
                 <thead class="thead-light ">
                     <tr>
-                        <th>UIN</th>
-                        <th>Last</th>
-                        <th>First</th>
-                        <th>Middle</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Birthday</th>
-                        <th>Hometown</th>
-                        <th>NetID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Class</th>
+                        <th>Position</th>
+                        <th>Tenure</th>
                         <th>Living In</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let acct of accounts | async" (click)="handleAccountClicked(acct.user.id)" style="cursor: pointer;">
-                        <td>{{acct.member.uin}}</td>
-                        <td>{{acct.member.lastName}}</td>
-                        <td>{{acct.member.firstName}}<span *ngIf="acct.member.firstName !== acct.member.preferredName"> ({{acct.member.preferredName}})</span></td>
-                        <td>{{acct.member.middleName}}</td>
-                        <td>{{acct.member.phone}}</td>
-                        <td>{{acct.member.email}}</td>
-                        <td>{{acct.member.birthday}}</td>
-                        <td>{{acct.member.hometown}}</td>
-                        <td>{{acct.member.netId}}</td>
+                        <td>{{acct.member.firstName}}<span *ngIf="acct.member.firstName !== acct.member.preferredName"> ({{acct.member.preferredName}})</span> {{acct.member.lastName}}</td>
+                        <td>{{acct.member.chapterStatus}}</td>
+                        <td>{{acct.member.pledgeClass}}</td>
+                        <td>{{acct.member.chapterPosition}}</td>
+                        <td>{{acct.member.activeTenure}}</td>
                         <td>{{acct.member.livingIn}}</td>
                     </tr>
                 </tbody>

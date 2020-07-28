@@ -69,6 +69,10 @@
                                     [(ngModel)]="account.member.chapterStatus" label="Status" [required]="true"
                                     type="text" [disabled]="!allowedToEditRestricted()">
                                 </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('activeTenure')"
+                                    [(ngModel)]="account.member.activeTenure" label="Active Tenure (semesters)" [required]="true"
+                                    type="number" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
                                 <app-inline-edit (change)="handleMemberUpdate('pledgeClass')"
                                     [(ngModel)]="account.member.pledgeClass" label="Pledge Class" [required]="true"
                                     type="text" [disabled]="!allowedToEditRestricted()">
@@ -171,6 +175,19 @@
                             <app-inline-edit (change)="handleMemberUpdate('liveInTenure')"
                                 [(ngModel)]="account.member.liveInTenure" label="Tenure (semesters)" [required]="true"
                                 type="text" [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Other Details</h5>
+                            <hr>
+                            <app-inline-edit (change)="handleUserUpdate('role')"
+                                [(ngModel)]="account.user.role" label="Role" [required]="true" type="text"
+                                [disabled]="!allowedToEditRestricted()">
                             </app-inline-edit>
                         </div>
                     </div>

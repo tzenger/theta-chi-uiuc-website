@@ -1,0 +1,39 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Activities</h1>
+    <br>
+
+    <div *ngIf="loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+
+        <div class="mb-4">
+
+            <button (click)="createNewActivity()" class="btn btn-outline-primary">Create New</button>
+        </div>
+
+        <h3>Today's</h3>
+        <div class="mb-4">
+            <div *ngFor="let act of todaysActivities">
+                <app-activity-card [activity]="act"></app-activity-card>
+            </div>
+        </div>
+        
+        <h3>Upcoming</h3>
+        <div class="mb-4">
+            <div *ngFor="let act of upcomingActivities">
+                <app-activity-card [activity]="act"></app-activity-card>
+            </div>
+        </div>
+        
+        <h3>Past</h3>
+        <div class="mb-4">
+            <div *ngFor="let act of pastActivities">
+                <app-activity-card [activity]="act"></app-activity-card>
+            </div>
+        </div>
+    </ng-template>
+</div>

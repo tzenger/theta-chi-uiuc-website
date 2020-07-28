@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Member } from 'src/app/modules/protected/services/member/member';
+import { Member } from 'src/app/modules/protected/pages/members/member';
 import { User } from 'src/app/auth/user';
 import { DocumentReference } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -122,7 +122,7 @@ export class RegisterComponent implements OnInit {
             console.log('Created user.', user);
             this.auth.login(formValues.email, formValues.password1).then(() => {
               this.registerForm.reset();
-              location.reload();
+              this.router.navigate(['/p/account']);
             });
           });
         });

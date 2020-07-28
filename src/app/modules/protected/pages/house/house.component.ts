@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
-import { HouseJobService } from '../../services/house-job/house-job.service';
-import { HouseJob, HouseJobRequiredMember } from '../../services/house-job/house-job';
-import { Member } from '../../services/member/member';
-import { filter, map } from 'rxjs/operators';
+import { Member } from '../members/member';
+import { HouseJob, HouseJobRequiredMember } from './house-job/house-job';
 
 @Component({
   selector: 'app-house',
@@ -33,7 +31,7 @@ export class HouseComponent implements OnInit {
       this.jobs = jobDocs.docs.map(jobDoc => {
         return <HouseJob>jobDoc.data();
       });
-      
+
       this.jobs.sort((a, b) => {
         const d1 = new Date(a.start);
         const d2 = new Date(b.start);
@@ -45,7 +43,7 @@ export class HouseComponent implements OnInit {
       this.liveIns = memDocs.docs.map(doc => {
         return <Member>doc.data();
       }).filter((mem) => {
-        return mem.livingIn;
+        return mem.livingIn?.toUpperCase() === 'YES';
       });
     });
   }
@@ -90,10 +88,12 @@ export class HouseComponent implements OnInit {
           job: member.liveInJob,
           notes: '',
           status: 'incomplete',
-          member: this.afs.doc(`members/${member.id}`).ref
+          memberRef: this.afs.doc(`members/${member.id}`).ref
         };
 
-        houseJobRef.collection('required-members').doc(rm.member.id).set(rm);
+        houseJobRef.collection('required-members').doc(rm.memberRef.id).set(rm).then(() => {
+          this.handleJobClicked(job.id);
+        });
       });
     });
   }

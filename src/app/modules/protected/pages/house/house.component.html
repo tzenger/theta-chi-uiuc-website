@@ -9,7 +9,7 @@
     </ng-template>
 
     <ng-template #loaded>
-        <h3>Live-Ins</h3>
+        <h3>Live-Ins <span *ngIf="liveIns">({{liveIns.length}})</span></h3>
         <div class="" style="font-size: 14px;">
             <table class="table table-sm table-hover table-bordered">
                 <thead class="thead-light ">
@@ -23,7 +23,7 @@
                 <tbody>
                     <tr *ngFor="let m of liveIns" (click)="handleMemberClicked(m.id)" style="cursor: pointer;">
                         <td>{{m.firstName}}<span *ngIf="m.firstName !== m.preferredName">
-                                ({{acct.member.preferredName}})</span> {{m.lastName}}</td>
+                                ({{m.preferredName}})</span> {{m.lastName}}</td>
                         <td>{{m.liveInRoomNum}}</td>
                         <td>{{m.liveInJob}}</td>
                         <td>{{m.liveInTenure}}</td>
