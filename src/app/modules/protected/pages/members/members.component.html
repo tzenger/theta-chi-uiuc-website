@@ -1,5 +1,5 @@
 <div class="jumbotron bg-white py-4">
-    <h1 class="display-4">Members</h1>
+    <h1 class="display-4">Members <span *ngIf="accounts">({{accounts.length}})</span></h1>
     <br>
 
     <div *ngIf="accounts | async; then loaded else loading"></div>
