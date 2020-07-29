@@ -141,8 +141,8 @@
                         <small>Password must be at least 8 characters long.</small>
                     </div>
                     <div *ngIf="registerForm.controls.password1.errors.pattern">
-                        <small>Password must contain 1 uppercase character, 1 lowercase character, and 1 special
-                            character.</small>
+                        <small>Password must contain 1 uppercase character, 1 lowercase character, 1 number, and 1 special
+                            character [e.g. !@#$%^&*.()].</small>
                     </div>
                 </div>
             </div>

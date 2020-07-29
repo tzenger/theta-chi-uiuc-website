@@ -15,4 +15,9 @@ export class ActivityCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getDateString(dateStr: string) {
+    const d = new Date(dateStr);
+    return d.toLocaleString('en-US', { weekday: 'short', day: 'numeric', month: 'numeric', year: 'numeric', hour12: true, hour: 'numeric', minute: 'numeric' });
+  }
+
 }

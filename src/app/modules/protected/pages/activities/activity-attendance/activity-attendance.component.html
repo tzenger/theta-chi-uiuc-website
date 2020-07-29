@@ -1,0 +1,12 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Activity Attendance</h1>
+
+    <div *ngIf="activity && loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+    </ng-template>
+</div>

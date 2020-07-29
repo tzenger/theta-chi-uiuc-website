@@ -1,6 +1,5 @@
 <div class="jumbotron bg-white py-4">
     <h1 class="display-4">Activity</h1>
-    <br>
 
     <div *ngIf="activity && loggedInUser; then loaded else loading"></div>
 
@@ -10,20 +9,22 @@
 
     <ng-template #loaded>
         <div class="bg-white container-fluid">
+            <button *ngIf="userIsExec()" class="btn btn-link mb-1 mt-0" routerLink="./attendance">Go to Attendance Page</button>
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="">
-                        <app-inline-edit (change)="handleActivityUpdate('title')" [(ngModel)]="activity.title" label="Title"
-                            [required]="true" type="text" [disabled]="!userIsExec()">
+                        <app-inline-edit (change)="handleActivityUpdate('title')" [(ngModel)]="activity.title"
+                            label="Title" [required]="true" type="text" [disabled]="!userIsExec()">
                         </app-inline-edit>
-                        <app-inline-edit (change)="handleActivityUpdate('description')" [(ngModel)]="activity.description"
-                            label="Description" [required]="true" type="text" [disabled]="!userIsExec()">
+                        <app-inline-edit (change)="handleActivityUpdate('description')"
+                            [(ngModel)]="activity.description" label="Description" [required]="true" type="text"
+                            [disabled]="!userIsExec()">
                         </app-inline-edit>
                         <app-inline-edit (change)="handleActivityUpdate('type')" [(ngModel)]="activity.type"
                             label="Type" [required]="true" type="text" [disabled]="!userIsExec()">
                         </app-inline-edit>
-                        <app-inline-edit (change)="handleActivityUpdate('start')" [(ngModel)]="activity.start" label="Start"
-                            [required]="true" type="datetime-local" [disabled]="!userIsExec()">
+                        <app-inline-edit (change)="handleActivityUpdate('start')" [(ngModel)]="activity.start"
+                            label="Start" [required]="true" type="datetime-local" [disabled]="!userIsExec()">
                         </app-inline-edit>
                         <app-inline-edit (change)="handleActivityUpdate('end')" [(ngModel)]="activity.end" label="End"
                             [required]="true" type="datetime-local" [disabled]="!userIsExec()">
@@ -35,15 +36,21 @@
                 </div>
             </div>
 
-
-            <h3>Required Members</h3>
+            <h3 class="mb-0">Required Members</h3>
+            <div class="btn-group mb-2">
+                <button class="btn btn-link" (click)="handleRequireAllMembers()">Require All</button>
+                <button class="btn btn-link" (click)="handleRequireActiveMembers()">Require Actives</button>
+                <button class="btn btn-link" (click)="handleRequireLiveIns()">Require Live-Ins</button>
+                <button class="btn btn-link" (click)="handleRequirePledges()">Require Pledges</button>
+                <button class="btn btn-link" (click)="handleUnRequireAllMembers()">Remove All</button>
+            </div>
             <div class="" style="font-size: 14px;">
                 <table class="table table-sm table-hover table-bordered">
                     <thead class="thead-light ">
                         <tr>
                             <th>Name</th>
                             <th>Notes</th>
-                            <th>Status</th>
+                            <th>Attendance</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -82,9 +89,40 @@
                 </table>
             </div>
 
+
+            <h3>Other Members</h3>
+            <div class="" style="font-size: 14px;">
+
+                <table class="table table-sm table-hover table-bordered">
+                    <thead class="thead-light ">
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Living In</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let m of otherMembers">
+                            <td>{{m.firstName}}<span *ngIf="m.firstName !== m.preferredName">
+                                    ({{m.preferredName}})</span></td>
+
+                            <td>{{m.chapterStatus}}</td>
+                            <td>{{m.livingIn}}</td>
+
+                            <td *ngIf="userIsExec()" style="width: 160px;">
+                                <button *ngIf="userIsExec()" (click)="handleRequireMember(m)" type="button"
+                                    class="btn btn-sm btn-primary">Require</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div *ngIf="userIsExec()">
                 <div *ngIf="!deleteCheck">
-                    <button class="btn btn-outline-danger" (click)="handleDeleteActivityCheck()">Delete Activity</button>
+                    <button class="btn btn-outline-danger" (click)="handleDeleteActivityCheck()">Delete
+                        Activity</button>
                 </div>
                 <div *ngIf="deleteCheck" class="btn-group">
                     <button class="btn btn-primary" (click)="handleDeleteActivityCancel()">Cancel</button>

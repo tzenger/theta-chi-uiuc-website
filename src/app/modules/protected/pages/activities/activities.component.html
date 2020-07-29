@@ -17,6 +17,7 @@
 
         <h3>Today's</h3>
         <div class="mb-4">
+            <span *ngIf="todaysActivities?.length === 0">none</span>
             <div *ngFor="let act of todaysActivities">
                 <app-activity-card [activity]="act"></app-activity-card>
             </div>
@@ -24,6 +25,7 @@
         
         <h3>Upcoming</h3>
         <div class="mb-4">
+            <span *ngIf="upcomingActivities?.length === 0">none</span>
             <div *ngFor="let act of upcomingActivities">
                 <app-activity-card [activity]="act"></app-activity-card>
             </div>
@@ -31,6 +33,7 @@
         
         <h3>Past</h3>
         <div class="mb-4">
+            <span *ngIf="pastActivities?.length === 0">none</span>
             <div *ngFor="let act of pastActivities">
                 <app-activity-card [activity]="act"></app-activity-card>
             </div>

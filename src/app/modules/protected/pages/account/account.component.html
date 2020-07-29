@@ -83,7 +83,7 @@
                                 </app-inline-edit>
                                 <app-inline-edit (change)="handleMemberUpdate('initiationDate')"
                                     [(ngModel)]="account.member.initiationDate" label="Initiation Date"
-                                    [required]="true" type="text" [disabled]="!allowedToEditRestricted()">
+                                    [required]="true" type="date" [disabled]="!allowedToEditRestricted()">
                                 </app-inline-edit>
                             </div>
                         </div>
