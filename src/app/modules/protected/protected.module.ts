@@ -14,6 +14,7 @@ import { HouseJobComponent } from './pages/house/house-job/house-job.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { ActivityComponent } from './pages/activities/activity/activity.component';
 import { ActivityCardComponent } from './pages/activities/activity-card/activity-card.component';
+import { HouseJobCardComponent } from './pages/house/house-job-card/house-job-card.component';
 import { ActivityAttendanceComponent } from './pages/activities/activity-attendance/activity-attendance.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ActivityAttendanceComponent } from './pages/activities/activity-attenda
     ActivityComponent,
     ActivityCardComponent,
     ActivityAttendanceComponent,
+    HouseJobCardComponent
   ],
   imports: [
     CommonModule,

@@ -33,24 +33,34 @@
         </div>
 
         <h3>Jobs</h3>
-        <div class="" style="font-size: 14px;">
-            <table class="table table-sm table-hover table-bordered">
-                <thead class="thead-light ">
-                    <tr>
-                        <th>Start</th>
-                        <th>Due</th>
-                        <th>Fine</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let job of jobs" (click)="handleJobClicked(job.id)" style="cursor: pointer;">
-                        <td>{{job.start}}</td>
-                        <td>{{job.due}}</td>
-                        <td>${{job.fine}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button *ngIf="userIsExec()" class="btn btn-outline-primary btn-block" (click)="createNewJob()">Create New Job</button>
+        <div>
+            <div class="mb-4">
+                <button (click)="createNewHouseJob()" class="btn btn-outline-primary">Create New</button>
+            </div>
+
+            <h5>Today's</h5>
+            <div class="mb-4">
+                <span *ngIf="todaysJobs?.length === 0">none</span>
+                <div *ngFor="let job of todaysJobs">
+                    <app-house-job-card [houseJob]="job"></app-house-job-card>
+                </div>
+            </div>
+
+            <h5>Upcoming</h5>
+            <div class="mb-4">
+                <span *ngIf="upcomingJobs?.length === 0">none</span>
+                <div *ngFor="let job of upcomingJobs">
+                    <app-house-job-card [houseJob]="job"></app-house-job-card>
+                </div>
+            </div>
+
+            <h5>Past</h5>
+            <div class="mb-4">
+                <span *ngIf="pastJobs?.length === 0">none</span>
+                <div *ngFor="let job of pastJobs">
+                    <app-house-job-card [houseJob]="job"></app-house-job-card>
+                </div>
+            </div>
         </div>
 
     </ng-template>

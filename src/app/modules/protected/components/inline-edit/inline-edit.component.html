@@ -1,7 +1,7 @@
 <div>
     <label *ngIf="label && label.length > 0" class="m-0 font-weight-bold" style="font-size: smaller;">{{label}}</label>
     <div *ngIf="editing">
-        <input #inlineEditControl [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value"
+        <input #inlineEditControl [required]="required" (change)="onBlur($event)" [name]="value" [(ngModel)]="value"
             [type]="type" [placeholder]="label" class="form-control form-control-sm" />
     </div>
     <div *ngIf="!editing">

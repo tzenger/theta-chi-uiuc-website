@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
 import { Member } from '../../members/member';
-import { HouseJob, HouseJobRequiredMember } from './house-job';
+import { HouseJob, HouseJobRequiredMember } from '../house-job';
 
 
 interface RequiredMember {
@@ -68,8 +68,6 @@ export class HouseJobComponent implements OnInit {
   }
 
   handleJobStatusChange(memberId: string, newStatus: string) {
-
-
     this.houseJobRef.collection('required-members').doc(memberId).update({ status: newStatus }).then(() => {
       this.requiredMembers.forEach(rm => {
         if (rm.member.id === memberId) {
@@ -98,8 +96,12 @@ export class HouseJobComponent implements OnInit {
   }
 
   handleDeleteJob() {
-    this.houseJobRef.delete().then(() => {
-      this.router.navigate(['/p/house']);
+    this.houseJobRef.collection('required-members').get().then(col => {
+      col.docs.forEach(doc => doc.ref.delete());
+    
+      this.houseJobRef.delete().then(() => {
+        this.router.navigate(['/p/house']);
+      });
     });
   }
 

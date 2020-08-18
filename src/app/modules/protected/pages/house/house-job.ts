@@ -1,4 +1,4 @@
-import { Member } from '../../members/member';
+import { Member } from '../members/member';
 import { DocumentReference } from '@angular/fire/firestore';
 
 export interface HouseJob {

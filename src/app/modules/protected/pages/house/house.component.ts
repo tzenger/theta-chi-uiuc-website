@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
 import { Member } from '../members/member';
-import { HouseJob, HouseJobRequiredMember } from './house-job/house-job';
+import { HouseJob, HouseJobRequiredMember } from './house-job';
 
 @Component({
   selector: 'app-house',
@@ -14,7 +14,13 @@ import { HouseJob, HouseJobRequiredMember } from './house-job/house-job';
 export class HouseComponent implements OnInit {
 
   loggedInUser: User;
-  jobs: HouseJob[]
+
+  todaysJobs: HouseJob[];
+  upcomingJobs: HouseJob[];
+  pastJobs: HouseJob[];
+
+  jobsRef: CollectionReference;
+
   liveIns: Member[];
 
 
@@ -27,16 +33,30 @@ export class HouseComponent implements OnInit {
       this.loggedInUser = user;
     });
 
-    this.afs.collection('house-jobs').ref.get().then(jobDocs => {
-      this.jobs = jobDocs.docs.map(jobDoc => {
-        return <HouseJob>jobDoc.data();
-      });
+    this.jobsRef = this.afs.collection('house-jobs').ref;
+    this.jobsRef.get().then(jobDocs => {
 
-      this.jobs.sort((a, b) => {
-        const d1 = new Date(a.start);
-        const d2 = new Date(b.start);
-        return d1.valueOf() - d2.valueOf();
-      })
+      this.todaysJobs = [];
+      this.pastJobs = [];
+      this.upcomingJobs = [];
+
+      if (jobDocs.empty) {
+        return;
+      }
+
+      jobDocs.docs.forEach(doc => {
+        const job = <HouseJob>doc.data();
+        const today = new Date();
+        const startDate = new Date(job.start);
+
+        if (startDate && startDate.getFullYear() === today.getFullYear() && startDate.getMonth() === today.getMonth() && startDate.getDate() === today.getDate()) {
+          this.todaysJobs.push(job);
+        } else if (startDate && startDate.valueOf() < today.valueOf()) {
+          this.pastJobs.push(job);
+        } else {
+          this.upcomingJobs.push(job);
+        }
+      });
     });
 
     this.afs.collection('members').ref.get().then(memDocs => {
@@ -70,7 +90,7 @@ export class HouseComponent implements OnInit {
     return this.loggedInUser.role === 'exec' || this.loggedInUser.role === 'admin';
   }
 
-  createNewJob() {
+  createNewHouseJob() {
     const job: HouseJob = {
       id: this.afs.createId(),
       start: '',
@@ -81,7 +101,6 @@ export class HouseComponent implements OnInit {
 
     const houseJobRef = this.afs.doc(`house-jobs/${job.id}`).ref;
     houseJobRef.set(job).then(() => {
-      this.jobs.push(job);
 
       this.liveIns.forEach(member => {
         const rm: HouseJobRequiredMember = {
