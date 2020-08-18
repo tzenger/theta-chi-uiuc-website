@@ -8,6 +8,7 @@ import { HouseComponent } from './pages/house/house.component';
 import { MembersComponent } from './pages/members/members.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { ActivityComponent } from './pages/activities/activity/activity.component';
+import { ActivityAttendanceComponent } from './pages/activities/activity-attendance/activity-attendance.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthExecGuard] },
   { path: 'activities', component: ActivitiesComponent },
   { path: 'activity/:id', component: ActivityComponent },
+  { path: 'activity/:id/attendance', component: ActivityAttendanceComponent, canActivate: [AuthExecGuard] },
 ];
 
 @NgModule({

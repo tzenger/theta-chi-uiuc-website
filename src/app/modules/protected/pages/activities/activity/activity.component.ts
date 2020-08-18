@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference, CollectionReference } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
@@ -24,6 +24,7 @@ export class ActivityComponent implements OnInit {
   otherMembers: Member[];
   activity: Activity;
   deleteCheck = false;
+  requiredMembersRef: CollectionReference;
 
   constructor(
     private auth: AuthService,
@@ -40,24 +41,101 @@ export class ActivityComponent implements OnInit {
       this.activityRef.get().then(value => {
         this.activity = <Activity>value.data();
 
-        value.ref.collection('required-members').get().then(collection => {
-          this.requiredMembers = [];
-          collection.docs.forEach(doc => {
-            const rM = <ActivityRequiredMember>doc.data();
-            rM.memberRef.get().then(memDoc => {
-              const m = <Member>memDoc.data();
-              const resolvedRM = { status: rM.status, notes: rM.notes, member: m };
-              this.requiredMembers.push(resolvedRM);
+
+        this.afs.collection('members').ref.get().then(memDocs => {
+          if (!memDocs.empty) {
+            this.otherMembers = memDocs.docs.map(memDoc => {
+              const mem = <Member>memDoc.data();
+              return mem;
+            }).filter(mem => mem.chapterStatus.toUpperCase() === 'ACTIVE' || mem.chapterStatus.toUpperCase() === 'PLEDGE');
+          }
+        }).then(() => {
+
+          this.requiredMembersRef = value.ref.collection('required-members');
+          this.requiredMembersRef.get().then(collection => {
+            this.requiredMembers = [];
+            collection.docs.forEach(doc => {
+              const rM = <ActivityRequiredMember>doc.data();
+              rM.memberRef.get().then(memDoc => {
+                const m = <Member>memDoc.data();
+                const resolvedRM = { status: rM.status, notes: rM.notes, member: m };
+                this.requiredMembers.push(resolvedRM);
+
+                this.otherMembers.splice(this.otherMembers.findIndex(mem => mem.id === m.id), 1);
+              });
             });
           });
-        })
+        });
       });
     }
   }
 
+  handleUnRequireAllMembers() {
+    this.requiredMembers.forEach(rm => {
+      this.handleUnRequireMember(rm.member);
+    });
+  }
+
+  handleRequireAllMembers() {
+    let mems: Member[] = this.otherMembers.map(om => om);
+    mems.forEach(mem => this.handleRequireMember(mem));
+  }
+
+  handleRequireLiveIns() {
+    let mems: Member[] = [];
+    this.otherMembers.forEach(mem => {
+      if (mem.livingIn.toUpperCase() === 'YES') {
+        mems.push(mem);
+      }
+    });
+    mems.forEach(mem => this.handleRequireMember(mem));
+  }
+
+  handleRequireActiveMembers() {
+    let mems: Member[] = [];
+    this.otherMembers.forEach(mem => {
+      if (mem.chapterStatus.toUpperCase() === 'ACTIVE') {
+        mems.push(mem);
+      }
+    });
+    mems.forEach(mem => this.handleRequireMember(mem));
+  }
+
+  handleRequirePledges() {
+    let mems: Member[] = [];
+    this.otherMembers.forEach(mem => {
+      if (mem.chapterStatus.toUpperCase() === 'PLEDGE') {
+        mems.push(mem);
+      }
+    });
+    mems.forEach(mem => this.handleRequireMember(mem));
+  }
+
+  handleRequireMember(member: Member) {
+    const rm = { memberRef: this.afs.doc(`members/${member.id}`).ref, notes: '', status: '' };
+    this.requiredMembersRef.doc(member.id).set(rm).then(() => {
+      this.requiredMembers.push({ member: member, notes: '', status: '' });
+      const idx = this.otherMembers.findIndex(mem => mem.id === member.id);
+      if (idx >= 0) {
+        this.otherMembers.splice(idx, 1);
+      }
+    });
+  }
+
+  handleUnRequireMember(member: Member) {
+    this.requiredMembersRef.doc(member.id).delete().then(() => {
+      this.otherMembers.push(member);
+
+      const idx = this.requiredMembers.findIndex(rm => rm.member.id === member.id);
+      if (idx >= 0) {
+        this.requiredMembers.splice(idx, 1);
+      }
+    });
+  }
+
   ngOnInit(): void {
   }
-  
+
   userIsExec() {
     return this.loggedInUser.role === 'admin' || this.loggedInUser.role === 'exec';
   }

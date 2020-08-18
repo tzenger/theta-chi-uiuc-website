@@ -73,7 +73,7 @@ export class AccountComponent {
 
   handleUserUpdate(fieldName: string) {
     const updateField = {
-      [fieldName]: this.account.member[fieldName]
+      [fieldName]: this.account.user[fieldName]
     };
 
     this.afs.doc<Member>(`users/${this.account.user.id}`).update(updateField);

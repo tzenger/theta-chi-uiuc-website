@@ -14,6 +14,7 @@ import { HouseJobComponent } from './pages/house/house-job/house-job.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { ActivityComponent } from './pages/activities/activity/activity.component';
 import { ActivityCardComponent } from './pages/activities/activity-card/activity-card.component';
+import { ActivityAttendanceComponent } from './pages/activities/activity-attendance/activity-attendance.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ActivityCardComponent } from './pages/activities/activity-card/activity
     ActivitiesComponent,
     ActivityComponent,
     ActivityCardComponent,
+    ActivityAttendanceComponent,
   ],
   imports: [
     CommonModule,
