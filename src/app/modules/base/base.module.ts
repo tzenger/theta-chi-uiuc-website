@@ -31,6 +31,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { FoodComponent } from './pages/about/food/food.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     HomepageComponent,
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    FoodComponent
   ],
   imports: [
     CommonModule,

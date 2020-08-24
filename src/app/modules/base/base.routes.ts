@@ -24,6 +24,7 @@ import { RecruitmentComponent } from './pages/recruitment/recruitment.component'
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { FoodComponent } from './pages/about/food/food.component';
 
 export const BaseRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,6 +38,7 @@ export const BaseRoutes: Routes = [
   { path: 'about/national-history', component: NationalHistoryComponent },
   { path: 'about/members', component: MembersComponent },
   { path: 'about/pledge-classes', component: PledgeClassesComponent },
+  { path: 'about/food', component: FoodComponent },
 
   { path: 'rush', component: RecruitmentComponent },
 
