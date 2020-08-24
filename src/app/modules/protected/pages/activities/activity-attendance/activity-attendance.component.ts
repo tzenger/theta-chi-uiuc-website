@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AngularFirestore, DocumentReference, CollectionReference } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -44,6 +44,11 @@ export class ActivityAttendanceComponent {
     }
   }
 
+
+  @HostListener('input', ['$event'])
+  handleUserInput(event: Event) {
+    console.log('EVENT', event);
+  }
 }
 
 
