@@ -107,6 +107,7 @@ export class HouseComponent implements OnInit {
           job: member.liveInJob,
           notes: '',
           status: 'incomplete',
+          statusTime: '',
           memberRef: this.afs.doc(`members/${member.id}`).ref
         };
 

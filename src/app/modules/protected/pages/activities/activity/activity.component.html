@@ -9,7 +9,10 @@
 
     <ng-template #loaded>
         <div class="bg-white container-fluid">
-            <button *ngIf="userIsExec()" class="btn btn-link mb-1 mt-0" routerLink="./attendance">Go to Attendance Page</button>
+            <button class="btn btn-link mb-1 mt-0" routerLink="/p/activities">Go Back
+            </button>
+            <button *ngIf="userIsExec()" class="btn btn-link mb-1 mt-0" routerLink="./attendance">Go to Attendance
+                Page</button>
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="">
@@ -65,10 +68,11 @@
                                 </app-inline-edit>
                             </td>
 
-                            <td style="width: 100px;">{{rm.status | titlecase}}</td>
+                            <td style="width: 200px;">{{rm.status | titlecase}}<br><span
+                                    *ngIf="rm.statusTime">({{getDateFromString(rm.statusTime)}})</span></td>
 
-                            <td *ngIf="userCanEdit(rm.member.id)" style="width: 160px;">
-                                <div class="btn-group" role="group" aria-label="Status buttons"
+                            <td style="width: 200px;">
+                                <div *ngIf="userCanEdit(rm.member.id)" class="" aria-label="Status buttons"
                                     style="display: block; margin: auto;">
                                     <button
                                         *ngIf="!userIsExec() && rm.status !== 'accepted' && rm.status !== 'in-review'"
@@ -82,6 +86,10 @@
                                     <button *ngIf="userIsExec() && rm.status !== 'rejected'"
                                         (click)="handleMemberStatusChange(rm.member.id, 'rejected')" type="button"
                                         class="btn btn-sm btn-danger">Reject</button>
+
+                                    <button *ngIf="userIsExec() && rm.status !== 'excused'"
+                                        (click)="handleMemberStatusChange(rm.member.id, 'excused')" type="button"
+                                        class="btn btn-sm btn-secondary">Excuse</button>
                                 </div>
                             </td>
                         </tr>

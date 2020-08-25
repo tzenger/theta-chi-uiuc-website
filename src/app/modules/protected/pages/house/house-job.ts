@@ -11,6 +11,7 @@ export interface HouseJob {
 
 export interface HouseJobRequiredMember {
     status: string;
+    statusTime: string;
     notes: string;
     job: string;
     memberRef: DocumentReference;

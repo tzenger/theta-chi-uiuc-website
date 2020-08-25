@@ -10,6 +10,9 @@
 
     <ng-template #loaded>
         <div class="bg-white container-fluid">
+            <button class="btn btn-link mb-1 mt-0" routerLink="/p/house">Go Back
+            </button>
+
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="">
@@ -59,11 +62,12 @@
                                 </app-inline-edit>
                             </td>
 
-                            <td style="width: 100px;">{{rm.status | titlecase}}</td>
+                            <td style="width: 200px;">{{rm.status | titlecase}}<br><span
+                                *ngIf="rm.statusTime">({{getDateFromString(rm.statusTime)}})</span></td>
 
-                            <td *ngIf="userCanEdit(rm.member.id)" style="width: 160px;">
-                                <div class="btn-group" role="group" aria-label="Status buttons"
-                                    style="display: block; margin: auto;">
+                            <td style="width: 160px;">
+                                <div *ngIf="userCanEdit(rm.member.id)" class="btn-group" role="group"
+                                    aria-label="Status buttons" style="display: block; margin: auto;">
                                     <button
                                         *ngIf="!userIsExec() && rm.status !== 'accepted' && rm.status !== 'in-review'"
                                         (click)="handleJobStatusChange(rm.member.id, 'in-review')" type="button"

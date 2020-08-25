@@ -8,6 +8,7 @@ import { Member } from '../../members/member';
 
 interface RequiredMember {
   status: string;
+  statusTime: string;
   notes: string;
   member: Member;
 }
@@ -58,7 +59,7 @@ export class ActivityComponent implements OnInit {
               const rM = <ActivityRequiredMember>doc.data();
               rM.memberRef.get().then(memDoc => {
                 const m = <Member>memDoc.data();
-                const resolvedRM = { status: rM.status, notes: rM.notes, member: m };
+                const resolvedRM = { status: rM.status, statusTime: rM.statusTime, notes: rM.notes, member: m };
                 this.requiredMembers.push(resolvedRM);
 
                 this.otherMembers.splice(this.otherMembers.findIndex(mem => mem.id === m.id), 1);
@@ -112,9 +113,9 @@ export class ActivityComponent implements OnInit {
   }
 
   handleRequireMember(member: Member) {
-    const rm = { memberRef: this.afs.doc(`members/${member.id}`).ref, notes: '', status: '' };
+    const rm = { memberRef: this.afs.doc(`members/${member.id}`).ref, notes: '', status: '', statusTime: '' };
     this.requiredMembersRef.doc(member.id).set(rm).then(() => {
-      this.requiredMembers.push({ member: member, notes: '', status: '' });
+      this.requiredMembers.push({ member: member, notes: '', status: '', statusTime: '' });
       const idx = this.otherMembers.findIndex(mem => mem.id === member.id);
       if (idx >= 0) {
         this.otherMembers.splice(idx, 1);
@@ -145,10 +146,12 @@ export class ActivityComponent implements OnInit {
   }
 
   handleMemberStatusChange(memberId: string, newStatus: string) {
-    this.activityRef.collection('required-members').doc(memberId).update({ status: newStatus }).then(() => {
+    const statusTime = (new Date()).toISOString();
+    this.activityRef.collection('required-members').doc(memberId).update({ status: newStatus, statusTime: statusTime }).then(() => {
       this.requiredMembers.forEach(rm => {
         if (rm.member.id === memberId) {
           rm.status = newStatus;
+          rm.statusTime = statusTime;
         }
       });
     });
@@ -166,6 +169,11 @@ export class ActivityComponent implements OnInit {
       [fieldName]: this.activity[fieldName]
     };
     this.activityRef.update(updateField);
+  }
+
+  getDateFromString(str: string): string {
+    const d = new Date(str);
+    return d.toISOString();
   }
 
   handleDeleteActivityCheck() {

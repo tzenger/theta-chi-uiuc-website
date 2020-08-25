@@ -9,6 +9,7 @@ import { HouseJob, HouseJobRequiredMember } from '../house-job';
 
 interface RequiredMember {
   status: string;
+  statusTime: string;
   job: string;
   notes: string;
   member: Member;
@@ -47,7 +48,7 @@ export class HouseJobComponent implements OnInit {
             const rM = <HouseJobRequiredMember>doc.data();
             rM.memberRef.get().then(memDoc => {
               const m = <Member>memDoc.data();
-              const resolvedRM = { status: rM.status, job: rM.job, notes: rM.notes, member: m };
+              const resolvedRM = { status: rM.status, statusTime: rM.statusTime, job: rM.job, notes: rM.notes, member: m };
               this.requiredMembers.push(resolvedRM);
             });
           });
@@ -68,13 +69,20 @@ export class HouseJobComponent implements OnInit {
   }
 
   handleJobStatusChange(memberId: string, newStatus: string) {
-    this.houseJobRef.collection('required-members').doc(memberId).update({ status: newStatus }).then(() => {
+    const statusTime = (new Date()).toISOString();
+    this.houseJobRef.collection('required-members').doc(memberId).update({ status: newStatus, statusTime: statusTime }).then(() => {
       this.requiredMembers.forEach(rm => {
         if (rm.member.id === memberId) {
           rm.status = newStatus;
+          rm.statusTime = statusTime;
         }
       });
     });
+  }
+
+  getDateFromString(str: string): string {
+    const d = new Date(str);
+    return d.toISOString();
   }
 
   handleMemberJobUpdate(rm: RequiredMember, fieldName: string) {
@@ -98,7 +106,7 @@ export class HouseJobComponent implements OnInit {
   handleDeleteJob() {
     this.houseJobRef.collection('required-members').get().then(col => {
       col.docs.forEach(doc => doc.ref.delete());
-    
+
       this.houseJobRef.delete().then(() => {
         this.router.navigate(['/p/house']);
       });

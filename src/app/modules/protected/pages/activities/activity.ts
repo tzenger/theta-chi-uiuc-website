@@ -13,5 +13,6 @@ export interface Activity {
 export interface ActivityRequiredMember {
     memberRef: DocumentReference;
     status: string;
+    statusTime: string;
     notes: string;
 }
