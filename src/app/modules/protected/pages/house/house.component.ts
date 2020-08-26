@@ -90,7 +90,7 @@ export class HouseComponent implements OnInit {
     return this.loggedInUser.role === 'exec' || this.loggedInUser.role === 'admin';
   }
 
-  createNewHouseJob() {
+  createNewHouseJob(defaultJobs = true) {
     const job: HouseJob = {
       id: this.afs.createId(),
       start: '',
@@ -104,7 +104,7 @@ export class HouseComponent implements OnInit {
 
       this.liveIns.forEach(member => {
         const rm: HouseJobRequiredMember = {
-          job: member.liveInJob,
+          job: defaultJobs ? member.liveInJob : '',
           notes: '',
           status: 'incomplete',
           statusTime: '',

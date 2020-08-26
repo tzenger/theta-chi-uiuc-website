@@ -52,6 +52,12 @@ export class ActivitiesComponent implements OnInit {
           this.upcomingActivities.push(activity);
         }
       });
+
+      this.pastActivities.sort((a, b) => {
+        const da = new Date(a.end);
+        const db = new Date(b.end);
+        return db.valueOf() - da.valueOf();
+      });
     });
   }
 

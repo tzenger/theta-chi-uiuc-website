@@ -48,7 +48,7 @@
                     <tbody>
                         <tr *ngFor="let rm of requiredMembers">
                             <td>{{rm.member.firstName}}<span *ngIf="rm.member.firstName !== rm.member.preferredName">
-                                    ({{rm.member.preferredName}})</span></td>
+                                    ({{rm.member.preferredName}})</span> {{rm.member.lastName}}</td>
 
                             <td>
                                 <app-inline-edit (change)="handleMemberJobUpdate(rm, 'job')" [(ngModel)]="rm.job"

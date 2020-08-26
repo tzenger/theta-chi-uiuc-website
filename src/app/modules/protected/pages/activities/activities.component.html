@@ -33,7 +33,7 @@
         <h3>Past</h3>
         <div class="mb-4">
             <span *ngIf="pastActivities?.length === 0">none</span>
-            <div *ngFor="let act of pastActivities">
+            <div *ngFor="let act of pastActivities" class="mb-1">
                 <app-activity-card [activity]="act"></app-activity-card>
             </div>
         </div>

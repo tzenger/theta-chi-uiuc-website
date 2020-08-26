@@ -1,15 +1,16 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { AngularFirestore, DocumentReference, CollectionReference } from '@angular/fire/firestore';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { AngularFirestore, CollectionReference, DocumentReference } from '@angular/fire/firestore';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user';
-import { Activity, ActivityRequiredMember } from '../activity';
 import { Member } from '../../members/member';
+import { Activity, ActivityRequiredMember } from '../activity';
 
-interface RequiredMember {
-  status: string;
-  notes: string;
-  member: Member;
+interface Attendee {
+  uin: string;
+  checkInTime: string;
+  memberRef: DocumentReference;
 }
 
 @Component({
@@ -20,11 +21,14 @@ interface RequiredMember {
 export class ActivityAttendanceComponent {
   loggedInUser: User;
   activityRef: DocumentReference;
-  requiredMembers: RequiredMember[];
+  requiredMembers: ActivityRequiredMember[];
   otherMembers: Member[];
   activity: Activity;
   deleteCheck = false;
   requiredMembersRef: CollectionReference;
+
+  userInput = new FormControl('');
+  attendees: Array<Attendee> = [];
 
   constructor(
     private auth: AuthService,
@@ -44,10 +48,46 @@ export class ActivityAttendanceComponent {
     }
   }
 
+  parseInput(userInput: string): string | undefined {
+    const idx = userInput.indexOf('^CARDHOLDER/UNIVERSITY^');
 
-  @HostListener('input', ['$event'])
-  handleUserInput(event: Event) {
-    console.log('EVENT', event);
+    if (idx === 18) {
+      const uin = userInput.substring(6, 15);
+      return uin;
+    }
+    return undefined;
+  }
+
+  onSubmit() {
+    const input = this.userInput.value;
+    this.userInput.reset();
+    const uin = this.parseInput(input);
+    if (!uin) return;
+
+    const checkInTime = (new Date()).toISOString();
+
+    let attendee: Attendee = { uin: uin, checkInTime: checkInTime, memberRef: undefined }
+
+    this.attendees.push(attendee);
+    // this.activityRef.collection('required-members').get().then(resp => {
+    //   const memberRefs = resp.docs.filter(doc => {
+    //     const rm = <ActivityRequiredMember>doc.data()
+    //     return rm.memberRef.member.uin === uin;
+    //   }).map(doc => doc.ref);
+
+    //   if (memberRefs.length > 0) {
+    //     memberRefs.forEach(mRef => {
+    //       attendee.memberRef = mRef;
+
+    //       mRef.update({ status: 'accepted', statusTime: checkInTime }).then(() => {
+    //         this.attendees.push(attendee);
+    //       })
+    //     })
+    //   } else {
+    //     this.attendees.push(attendee);
+    //   }
+    // });
+
   }
 }
 
