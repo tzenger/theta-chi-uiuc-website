@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './components/account/account.component';
-import { AttendanceComponent } from './components/attendance/attendance.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { EventsComponent } from './components/events/events.component';
-import { FineReportsComponent } from './components/fine-reports/fine-reports.component';
-import { MembersComponent } from './components/members/members.component';
+import { AuthExecGuard } from 'src/app/auth/auth-exec.guard';
+import { AccountComponent } from './pages/account/account.component';
+import { AnnouncementsComponent } from './pages/announcements/announcements.component';
+import { HouseJobComponent } from './pages/house/house-job/house-job.component';
+import { HouseComponent } from './pages/house/house.component';
+import { MembersComponent } from './pages/members/members.component';
+import { ActivitiesComponent } from './pages/activities/activities.component';
+import { ActivityComponent } from './pages/activities/activity/activity.component';
+import { ActivityAttendanceComponent } from './pages/activities/activity-attendance/activity-attendance.component';
 
 const routes: Routes = [
   { path: 'account', component: AccountComponent },
-  { path: 'attendance', component: AttendanceComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'events', component: EventsComponent },
-  { path: 'fine-reports', component: FineReportsComponent },
+  { path: 'account/:id', component: AccountComponent },
   { path: 'members', component: MembersComponent },
+  { path: 'house', component: HouseComponent },
+  { path: 'house-job/:id', component: HouseJobComponent },
+  { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthExecGuard] },
+  { path: 'activities', component: ActivitiesComponent },
+  { path: 'activity/:id', component: ActivityComponent },
+  { path: 'activity/:id/attendance', component: ActivityAttendanceComponent, canActivate: [AuthExecGuard] },
 ];
 
 @NgModule({

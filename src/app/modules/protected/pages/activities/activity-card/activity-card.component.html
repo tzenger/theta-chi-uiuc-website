@@ -1,0 +1,7 @@
+<div class="card">
+    <div class="card-body py-2 px-3">
+        <h5 class="card-title"><a routerLink="/p/activity/{{activity.id}}">[ {{activity.type | titlecase}} ] <strong>{{activity.title}}</strong> (${{activity.fine}})</a></h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{getDateString(activity.start)}}</h6>
+        <p class="m-0"><small>{{activity.description}}</small></p>
+    </div>
+</div>

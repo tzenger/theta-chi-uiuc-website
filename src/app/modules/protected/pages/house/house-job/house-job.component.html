@@ -1,0 +1,102 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">House Job</h1>
+    <br>
+
+    <div *ngIf="houseJob && loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div class="bg-white container-fluid">
+            <button class="btn btn-link mb-1 mt-0" routerLink="/p/house">Go Back
+            </button>
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="">
+                        <app-inline-edit (change)="handleJobUpdate('title')" [(ngModel)]="houseJob.title" label="Title"
+                            [required]="true" type="text" [disabled]="!userIsExec()">
+                        </app-inline-edit>
+                        <app-inline-edit (change)="handleJobUpdate('start')" [(ngModel)]="houseJob.start"
+                            label="Start Date" [required]="true" type="datetime-local" [disabled]="!userIsExec()">
+                        </app-inline-edit>
+                        <app-inline-edit (change)="handleJobUpdate('due')" [(ngModel)]="houseJob.due" label="Due Date"
+                            [required]="true" type="datetime-local" [disabled]="!userIsExec()">
+                        </app-inline-edit>
+                        <app-inline-edit (change)="handleJobUpdate('fine')" [(ngModel)]="houseJob.fine"
+                            label="Fine Amount ($)" [required]="true" type="number" [disabled]="!userIsExec()">
+                        </app-inline-edit>
+                    </div>
+                </div>
+            </div>
+
+
+            <h3>Required Members</h3>
+            <div class="" style="font-size: 14px;">
+                <table class="table table-sm table-hover table-bordered">
+                    <thead class="thead-light ">
+                        <tr>
+                            <th>Name</th>
+                            <th>Job</th>
+                            <th>Notes</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let rm of requiredMembers">
+                            <td>{{rm.member.firstName}}<span *ngIf="rm.member.firstName !== rm.member.preferredName">
+                                    ({{rm.member.preferredName}})</span> {{rm.member.lastName}}</td>
+
+                            <td>
+                                <app-inline-edit (change)="handleMemberJobUpdate(rm, 'job')" [(ngModel)]="rm.job"
+                                    label="" [required]="true" type="text" [disabled]="!userIsExec()">
+                                </app-inline-edit>
+                            </td>
+
+                            <td>
+                                <app-inline-edit (change)="handleMemberJobUpdate(rm, 'notes')" [(ngModel)]="rm.notes"
+                                    label="" [required]="true" type="text" [disabled]="!userIsExec()">
+                                </app-inline-edit>
+                            </td>
+
+                            <td style="width: 200px;">{{rm.status | titlecase}}<br><span
+                                *ngIf="rm.statusTime">({{getDateFromString(rm.statusTime)}})</span></td>
+
+                            <td style="width: 160px;">
+                                <div *ngIf="userCanEdit(rm.member.id)" class="btn-group" role="group"
+                                    aria-label="Status buttons" style="display: block; margin: auto;">
+                                    <button
+                                        *ngIf="!userIsExec() && rm.status !== 'accepted' && rm.status !== 'in-review'"
+                                        (click)="handleJobStatusChange(rm.member.id, 'in-review')" type="button"
+                                        class="btn btn-sm btn-primary">Done</button>
+
+                                    <button *ngIf="userIsExec() && rm.status !== 'accepted'"
+                                        (click)="handleJobStatusChange(rm.member.id, 'accepted')" type="button"
+                                        class="btn btn-sm btn-primary">Accept</button>
+
+                                    <button *ngIf="userIsExec() && rm.status !== 'rejected'"
+                                        (click)="handleJobStatusChange(rm.member.id, 'rejected')" type="button"
+                                        class="btn btn-sm btn-danger">Reject</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div *ngIf="userIsExec()">
+                <div *ngIf="!deleteCheck">
+                    <button class="btn btn-outline-danger" (click)="handleDeleteJobCheck()">Delete Job</button>
+                </div>
+                <div *ngIf="deleteCheck" class="btn-group">
+                    <button class="btn btn-primary" (click)="handleDeleteJobCancel()">Cancel</button>
+                    <button class="btn btn-danger" (click)="handleDeleteJob()">Delete Job</button>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+</div>

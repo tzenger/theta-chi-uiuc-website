@@ -1,0 +1,198 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Account</h1>
+    <br>
+
+    <div *ngIf="account && loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div class="bg-white container-fluid">
+            <!-- <img src="../../../../../assets/protected/no_avatar.png" class="border"> -->
+            <div class="row justify-content-start">
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Personal Details</h5>
+                            <hr>
+                            <div class="ml-4">
+                                <app-inline-edit (change)="handleMemberUpdate('firstName')"
+                                    [(ngModel)]="account.member.firstName" label="First Name" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('preferredName')"
+                                    [(ngModel)]="account.member.preferredName" label="Preferred Name" [required]="false"
+                                    type="text" [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('middleName')"
+                                    [(ngModel)]="account.member.middleName" label="Middle Name" [required]="false"
+                                    type="text" [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('lastName')"
+                                    [(ngModel)]="account.member.lastName" label="Last Name" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('birthday')"
+                                    [(ngModel)]="account.member.birthday" label="Birthday" [required]="true" type="date"
+                                    [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('phone')"
+                                    [(ngModel)]="account.member.phone" label="Phone" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('email')"
+                                    [(ngModel)]="account.member.email" label="Email" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('hometown')"
+                                    [(ngModel)]="account.member.hometown" label="Hometown" [required]="true" type="text"
+                                    [disabled]="!allowedToEdit(account.user.id)">
+                                </app-inline-edit>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Member Details</h5>
+                            <hr>
+                            <div class="ml-4">
+                                <app-inline-edit (change)="handleMemberUpdate('chapterPosition')"
+                                    [(ngModel)]="account.member.chapterPosition" label="Position" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('chapterStatus')"
+                                    [(ngModel)]="account.member.chapterStatus" label="Status" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('activeTenure')"
+                                    [(ngModel)]="account.member.activeTenure" label="Active Tenure (semesters)" [required]="true"
+                                    type="number" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('pledgeClass')"
+                                    [(ngModel)]="account.member.pledgeClass" label="Pledge Class" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('pledgeTerm')"
+                                    [(ngModel)]="account.member.pledgeTerm" label="Pledge Term" [required]="true"
+                                    type="text" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                                <app-inline-edit (change)="handleMemberUpdate('initiationDate')"
+                                    [(ngModel)]="account.member.initiationDate" label="Initiation Date"
+                                    [required]="true" type="date" [disabled]="!allowedToEditRestricted()">
+                                </app-inline-edit>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Emergency Contact Details</h5>
+                            <hr>
+                            <app-inline-edit (change)="handleMemberUpdate('ecFirstName')"
+                                [(ngModel)]="account.member.ecFirstName" label="First Name" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('ecLastName')"
+                                [(ngModel)]="account.member.ecLastName" label="Last Name" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('ecRelation')"
+                                [(ngModel)]="account.member.ecRelation" label="Relation" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('ecPhone')"
+                                [(ngModel)]="account.member.ecPhone" label="Phone" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('ecEmail')"
+                                [(ngModel)]="account.member.ecEmail" label="Email" [required]="false" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('ecNotes')"
+                                [(ngModel)]="account.member.ecNotes" label="Notes" [required]="false" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">School Details</h5>
+                            <hr>
+                            <app-inline-edit (change)="handleMemberUpdate('netId')" [(ngModel)]="account.member.netId"
+                                label="NetId" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('uin')" [(ngModel)]="account.member.uin"
+                                label="UIN" [required]="true" type="text" [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('schoolStartTerm')"
+                                [(ngModel)]="account.member.schoolStartTerm" label="First Semester" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('schoolEndTerm')"
+                                [(ngModel)]="account.member.schoolEndTerm" label="Last Semester" [required]="true"
+                                type="text" [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('college')"
+                                [(ngModel)]="account.member.college" label="College" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('major')" [(ngModel)]="account.member.major"
+                                label="Major" [required]="true" type="text"
+                                [disabled]="!allowedToEdit(account.user.id)">
+                            </app-inline-edit>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">House Details</h5>
+                            <hr>
+                            <app-inline-edit (change)="handleMemberUpdate('livingIn')"
+                                [(ngModel)]="account.member.livingIn" label="Living-In?" [required]="true" type="text"
+                                [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('liveInRoomNum')"
+                                [(ngModel)]="account.member.liveInRoomNum" label="Room Number" [required]="true"
+                                type="text" [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('liveInJob')"
+                                [(ngModel)]="account.member.liveInJob" label="Job" [required]="true" type="text"
+                                [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                            <app-inline-edit (change)="handleMemberUpdate('liveInTenure')"
+                                [(ngModel)]="account.member.liveInTenure" label="Tenure (semesters)" [required]="true"
+                                type="text" [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Other Details</h5>
+                            <hr>
+                            <app-inline-edit (change)="handleUserUpdate('role')"
+                                [(ngModel)]="account.user.role" label="Role" [required]="true" type="text"
+                                [disabled]="!allowedToEditRestricted()">
+                            </app-inline-edit>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

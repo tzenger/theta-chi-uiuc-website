@@ -1,0 +1,41 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Members <span>({{(accounts | async)?.length}})</span></h1>
+    <br>
+
+    <div *ngIf="accounts | async; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div class="" style="font-size: 14px;">
+            <table class="table table-sm table-hover table-bordered">
+                <thead class="thead-light ">
+                    <tr>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Active Tenure</th>
+                        <th>Living In</th>
+                        <th>Live-In Tenure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let acct of accounts | async" (click)="handleAccountClicked(acct.user.id)"
+                        style="cursor: pointer;">
+                        <td>{{acct.member.firstName}}<span *ngIf="acct.member.firstName !== acct.member.preferredName">
+                                ({{acct.member.preferredName}})</span> {{acct.member.lastName}}</td>
+                        <td>{{acct.member.pledgeClass}}</td>
+                        <td>{{acct.member.chapterPosition}}</td>
+                        <td>{{acct.member.chapterStatus}}</td>
+                        <td>{{acct.member.activeTenure}}</td>
+                        <td>{{acct.member.livingIn}}</td>
+                        <td>{{acct.member.liveInTenure}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-template>
+</div>
