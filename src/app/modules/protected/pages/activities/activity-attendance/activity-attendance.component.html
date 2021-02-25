@@ -1,0 +1,28 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Activity Attendance</h1>
+
+    <div *ngIf="activity && loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <div>
+            <button class="btn btn-link mb-1 mt-0" routerLink="../">Go Back
+            </button>
+
+            <ul>
+                <li *ngFor="let a of attendees">[{{a.checkInTime}}] {{a.uin}} <span
+                        *ngIf="a.memberRef">({{ (a.memberRef | async).firstName }})</span>
+                </li>
+            </ul>
+
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <input type="text" [formControl]="userInput" autofocus>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+</div>

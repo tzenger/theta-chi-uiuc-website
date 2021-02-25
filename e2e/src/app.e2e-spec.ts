@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to theta-chi-uiuc-website!');
+    expect(page.getTitleText()).toEqual('theta-chi-uiuc-website app is running!');
   });
 
   afterEach(async () => {

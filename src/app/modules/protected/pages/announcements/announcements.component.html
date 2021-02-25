@@ -1,0 +1,22 @@
+<div class="jumbotron bg-white py-4">
+    <h1 class="display-4">Announcements</h1>
+    <br>
+
+    <div *ngIf="loggedInUser; then loaded else loading"></div>
+
+    <ng-template #loading>
+        <span>Loading...</span>
+    </ng-template>
+
+    <ng-template #loaded>
+        <h3>Pinned</h3>
+        <div class="mb-4">
+            none
+        </div>
+
+        <h3>Most Recent</h3>
+        <div class="mb-4">
+            none
+        </div>
+    </ng-template>
+</div>

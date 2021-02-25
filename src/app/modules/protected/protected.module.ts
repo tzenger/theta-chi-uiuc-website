@@ -1,45 +1,44 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
-import { AccountComponent } from './components/account/account.component';
-import { AttendanceComponent } from './components/attendance/attendance.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
-import { EditEventComponent } from './components/events/edit-event/edit-event.component';
-import { EventsComponent } from './components/events/events.component';
-import { ViewEventComponent } from './components/events/view-event/view-event.component';
-import { FineReportsComponent } from './components/fine-reports/fine-reports.component';
-import { AddMemberComponent } from './components/members/add-member/add-member.component';
-import { EditMemberComponent } from './components/members/edit-member/edit-member.component';
-import { MembersComponent } from './components/members/members.component';
-import { ViewMemberComponent } from './components/members/view-member/view-member.component';
 import { ProtectedRoutingModule } from './protected-routing.module';
-import { SelfCheckinComponent } from './components/attendance/self-checkin/self-checkin.component';
+import { AccountComponent } from './pages/account/account.component';
+import { ViewAccountDetailsComponent } from './components/view-account-details/view-account-details.component';
+import { EditAccountDetailsComponent } from './components/edit-account-details/edit-account-details.component';
+import { MembersComponent } from './pages/members/members.component';
+import { AnnouncementsComponent } from './pages/announcements/announcements.component';
+import { EventsComponent } from './pages/events/events.component';
+import { InlineEditComponent } from './components/inline-edit/inline-edit.component';
+import { HouseComponent } from './pages/house/house.component';
+import { HouseJobComponent } from './pages/house/house-job/house-job.component';
+import { ActivitiesComponent } from './pages/activities/activities.component';
+import { ActivityComponent } from './pages/activities/activity/activity.component';
+import { ActivityCardComponent } from './pages/activities/activity-card/activity-card.component';
+import { HouseJobCardComponent } from './pages/house/house-job-card/house-job-card.component';
+import { ActivityAttendanceComponent } from './pages/activities/activity-attendance/activity-attendance.component';
 
 @NgModule({
   declarations: [
     AccountComponent,
-    CalendarComponent,
-    AttendanceComponent,
+    ViewAccountDetailsComponent,
+    EditAccountDetailsComponent,
     MembersComponent,
-    AddMemberComponent,
-    EditMemberComponent,
-    ViewMemberComponent,
-    EditEventComponent,
-    ViewEventComponent,
+    AnnouncementsComponent,
     EventsComponent,
-    FineReportsComponent,
-    SelfCheckinComponent,
+    InlineEditComponent,
+    HouseComponent,
+    HouseJobComponent,
+    ActivitiesComponent,
+    ActivityComponent,
+    ActivityCardComponent,
+    ActivityAttendanceComponent,
+    HouseJobCardComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ProtectedRoutingModule,
     FormsModule,
-    DlDateTimeDateModule,
-    DlDateTimePickerModule,
-    FontAwesomeModule
   ]
 })
 export class ProtectedModule { }
