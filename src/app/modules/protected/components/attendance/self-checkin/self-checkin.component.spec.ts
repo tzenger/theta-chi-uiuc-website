@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SelfCheckinComponent } from './self-checkin.component';
 
@@ -6,7 +6,7 @@ describe('SelfCheckinComponent', () => {
   let component: SelfCheckinComponent;
   let fixture: ComponentFixture<SelfCheckinComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SelfCheckinComponent ]
     })
