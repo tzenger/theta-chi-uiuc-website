@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OutsideOfRhoComponent } from './outside-of-rho.component';
 
@@ -6,7 +6,7 @@ describe('OutsideOfRhoComponent', () => {
   let component: OutsideOfRhoComponent;
   let fixture: ComponentFixture<OutsideOfRhoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OutsideOfRhoComponent ]
     })

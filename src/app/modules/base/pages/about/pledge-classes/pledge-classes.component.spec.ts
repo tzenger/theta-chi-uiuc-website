@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PledgeClassesComponent } from './pledge-classes.component';
 
@@ -6,7 +6,7 @@ describe('PledgeClassesComponent', () => {
   let component: PledgeClassesComponent;
   let fixture: ComponentFixture<PledgeClassesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PledgeClassesComponent ]
     })
