@@ -27,6 +27,7 @@ import { HelpfulLinksComponent } from './pages/parents/helpful-links/helpful-lin
 import { OmegafiComponent } from './pages/parents/omegafi/omegafi.component';
 import { ParentsComponent } from './pages/parents/parents.component';
 import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
+import { DonateComponent } from './pages/donate/donate.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
@@ -65,16 +66,10 @@ import { FoodComponent } from './pages/about/food/food.component';
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    FoodComponent
+    FoodComponent,
+    DonateComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent
-  ]
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  exports: [HeaderComponent, FooterComponent],
 })
-export class BaseModule { }
+export class BaseModule {}

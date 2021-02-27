@@ -21,6 +21,7 @@ import { HelpfulLinksComponent } from './pages/parents/helpful-links/helpful-lin
 import { OmegafiComponent } from './pages/parents/omegafi/omegafi.component';
 import { ParentsComponent } from './pages/parents/parents.component';
 import { RecruitmentComponent } from './pages/recruitment/recruitment.component';
+import { DonateComponent } from './pages/donate/donate.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
@@ -42,6 +43,8 @@ export const BaseRoutes: Routes = [
 
   { path: 'rush', component: RecruitmentComponent },
 
+  { path: 'donate', component: DonateComponent },
+
   { path: 'involvement/mission', component: InvolvementMissionComponent },
   { path: 'involvement/outside-of-rho', component: OutsideOfRhoComponent },
   { path: 'involvement/campus', component: CampusComponent },
@@ -49,7 +52,10 @@ export const BaseRoutes: Routes = [
   { path: 'involvement/gi-theta-chi', component: GiThetaChiComponent },
   { path: 'involvement/philanthropy', component: PhilanthropyComponent },
   { path: 'involvement/service', component: ServiceComponent },
-  { path: 'involvement/national-relations', component: NationalRelationsComponent },
+  {
+    path: 'involvement/national-relations',
+    component: NationalRelationsComponent,
+  },
 
   { path: 'alumni/events', component: AlumniEventsComponent },
   { path: 'alumni/notable-alumni', component: NotableAlumniComponent },
@@ -60,4 +66,4 @@ export const BaseRoutes: Routes = [
   { path: 'parents/helpful-links', component: HelpfulLinksComponent },
 
   { path: 'contacts', component: ContactsComponent },
-]
+];
