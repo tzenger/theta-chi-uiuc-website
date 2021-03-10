@@ -1,3 +1,12 @@
 .jumbotron {
   background-color: white;
 }
+
+#outerDonate {
+  width: 100%;
+  text-align: center;
+}
+
+#innerDonate {
+  display: inline-block;
+}
